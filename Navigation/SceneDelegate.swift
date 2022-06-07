@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let feedVC = UINavigationController(rootViewController: FeedViewController())
         let tabBarVC = UITabBarController()
         tabBarVC.setViewControllers([feedVC,profileVC], animated: true)
+        profileVC.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.square"), tag: 1)
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
     }
