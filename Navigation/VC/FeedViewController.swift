@@ -9,40 +9,77 @@ import UIKit
 
 class FeedViewController: UIViewController {
     var post = Post(title: "Мой личный пост")
-    private lazy var button: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor.blue
-        button.layer.cornerRadius = 12
-        button.setTitle("Перейти на пост", for: .normal)
-        button.setTitleColor(.lightGray, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    
+    private lazy var verticalStack: UIStackView = {
+        let verticalStack = UIStackView()
+        verticalStack.axis = .vertical
+        verticalStack.spacing = 10
+        verticalStack.distribution = .fillEqually
+        verticalStack.layer.cornerRadius = 10
+        verticalStack.clipsToBounds = true
+        verticalStack.translatesAutoresizingMaskIntoConstraints = false
+        return verticalStack
     }()
+    
+    private lazy var buttonOne: UIButton = {
+        let buttonOne = UIButton(type: .system)
+        buttonOne.tag = 0
+        buttonOne.backgroundColor = UIColor.blue
+        buttonOne.setTitle("buttonOne", for: .normal)
+        buttonOne.setTitleColor(.lightGray, for: .normal)
+        buttonOne.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        buttonOne.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        return buttonOne
+    }()
+    
+    private lazy var buttonTwo: UIButton = {
+        let buttonTwo = UIButton(type: .system)
+        buttonOne.tag = 1
+        buttonTwo.backgroundColor = UIColor.blue
+        buttonTwo.setTitle("buttonTwo", for: .normal)
+        buttonTwo.setTitleColor(.lightGray, for: .normal)
+        buttonTwo.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        buttonTwo.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        return buttonTwo
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Лента"
         self.tabBarItem = UITabBarItem(title: title, image: UIImage(systemName: "book"), tag: 0)
         view.backgroundColor = UIColor.gray
-        createButton()
+        setupVerticalStack()
 
     }
-    private func createButton() {
-        view.addSubview(button)
+    private func setupVerticalStack() {
+        view.addSubview(verticalStack)
+        verticalStack.addArrangedSubview(buttonOne)
+        verticalStack.addArrangedSubview(buttonTwo)
         NSLayoutConstraint.activate([
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:  -100),
-            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            button.heightAnchor.constraint(equalToConstant: 50)
+            verticalStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            verticalStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            verticalStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
+            verticalStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            verticalStack.heightAnchor.constraint(equalToConstant: 90)
         ])
     }
+    
     @objc func buttonAction(sender: UIButton) {
         print("Переходим на пост \(post.title)")
-        let postVC = PostViewController()
-        postVC.title = post.title
-        self.navigationController?.pushViewController(postVC, animated: true)
-        
+        switch sender.tag {
+        case 0:
+            print("\(sender.tag)")
+            let postVC = PostViewController()
+            postVC.title = post.title
+            self.navigationController?.pushViewController(postVC, animated: true)
+        case 1:
+            print("\(sender.tag)")
+            let postVC = PostViewController()
+            postVC.title = post.title
+            self.navigationController?.pushViewController(postVC, animated: true)
+        default:
+            print("ops")
+        }
     }
 }
