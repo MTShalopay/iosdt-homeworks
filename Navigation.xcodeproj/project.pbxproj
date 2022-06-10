@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49405BC62853CB3D00895AC0 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49405BC52853CB3D00895AC0 /* LogInViewController.swift */; };
 		499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F52840DF5B000ACA06 /* AppDelegate.swift */; };
 		499896F82840DF5B000ACA06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F72840DF5B000ACA06 /* SceneDelegate.swift */; };
 		499896FF2840DF5F000ACA06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499896FE2840DF5F000ACA06 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49405BC52853CB3D00895AC0 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		499896F22840DF5B000ACA06 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499896F52840DF5B000ACA06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		499896F72840DF5B000ACA06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				4998972A2840F66A000ACA06 /* ProfileHeaderView.swift */,
+				49405BC52853CB3D00895AC0 /* LogInViewController.swift */,
 				4998970E2840E059000ACA06 /* ProfileViewController.swift */,
 			);
 			path = Profile;
@@ -166,6 +169,7 @@
 			files = (
 				4998970F2840E059000ACA06 /* ProfileViewController.swift in Sources */,
 				499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */,
+				49405BC62853CB3D00895AC0 /* LogInViewController.swift in Sources */,
 				4998971F2840EC73000ACA06 /* PostViewController.swift in Sources */,
 				499897122840E074000ACA06 /* FeedViewController.swift in Sources */,
 				499897192840E0FE000ACA06 /* Post.swift in Sources */,
