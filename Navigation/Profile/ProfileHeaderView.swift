@@ -43,13 +43,15 @@ class ProfileHeaderView: UIView {
     private lazy var statusTextField: UITextField = {
         let statusTextField = UITextField()
         statusTextField.placeholder = "Введите статус"
-        statusTextField.textAlignment = .center
+        statusTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: statusTextField.frame.height))
+        statusTextField.leftViewMode = .always
         statusTextField.font = UIFont(name: "regular", size: 15)
         statusTextField.textColor = .black
         statusTextField.backgroundColor = .white
         statusTextField.layer.borderWidth = 1
         statusTextField.layer.cornerRadius = 12
         statusTextField.delegate = self
+        statusTextField.becomeFirstResponder()
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
         statusTextField.addTarget(self, action: #selector(statusTextChanged(textField:)), for: .editingChanged)
         return statusTextField
