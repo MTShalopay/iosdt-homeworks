@@ -11,7 +11,6 @@ class LogInViewController: UIViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = .red
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -71,9 +70,9 @@ class LogInViewController: UIViewController {
     
     private lazy var myButton: UIButton = {
         let myButton = UIButton(type: .system)
-        myButton.backgroundColor = UIColor.blue
         myButton.layer.cornerRadius = 10
         myButton.setTitle("Log In", for: .normal)
+        myButton.setImage(UIImage(named: "blue_pixel"), for: .normal)
         myButton.setTitleColor(.white, for: .normal)
         myButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         myButton.backgroundColor = .blue
@@ -85,7 +84,7 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         setupGestures()
         setupViews()
         stateMyButton(sender: myButton)

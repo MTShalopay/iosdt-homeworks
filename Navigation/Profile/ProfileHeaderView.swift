@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
+    static var identifier: String = "profileHeaderView"
 
     private var statusText: String?
     
@@ -51,7 +52,7 @@ class ProfileHeaderView: UIView {
         statusTextField.layer.borderWidth = 1
         statusTextField.layer.cornerRadius = 12
         statusTextField.delegate = self
-        statusTextField.becomeFirstResponder()
+        //statusTextField.becomeFirstResponder()
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
         statusTextField.addTarget(self, action: #selector(statusTextChanged(textField:)), for: .editingChanged)
         return statusTextField
@@ -72,15 +73,19 @@ class ProfileHeaderView: UIView {
         return setStatusButton
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .lightText
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+            let tapDissmis = UITapGestureRecognizer(target: self, action: #selector(dissmiskeyboard))
+            addGestureRecognizer(tapDissmis)
         setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+        @objc func dissmiskeyboard() {
+            endEditing(true)
+        }
 
     private func setupView() {
         addSubview(avatarImageView)
