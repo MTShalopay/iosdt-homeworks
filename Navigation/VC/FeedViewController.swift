@@ -8,7 +8,7 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-    var post = Post(title: "Мой личный пост")
+    //var post = Post(title: "Мой личный пост")
     
     private lazy var verticalStack: UIStackView = {
         let verticalStack = UIStackView()
@@ -66,17 +66,17 @@ class FeedViewController: UIViewController {
     }
     
     @objc func buttonAction(sender: UIButton) {
-        print("Переходим на пост \(post.title)")
+        print("Переходим на пост")
         switch sender.tag {
         case 0:
             print("\(sender.tag)")
             let postVC = PostViewController()
-            postVC.title = post.title
+            //postVC.title = post.title
             self.navigationController?.pushViewController(postVC, animated: true)
         case 1:
             print("\(sender.tag)")
             let postVC = PostViewController()
-            postVC.title = post.title
+            //postVC.title = post.title
             self.navigationController?.pushViewController(postVC, animated: true)
         default:
             print("ops")
