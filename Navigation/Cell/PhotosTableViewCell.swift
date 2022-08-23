@@ -6,11 +6,11 @@
 //
 
 import UIKit
+import StorageService
 
 class PhotosTableViewCell: UITableViewCell {
     static var identifier: String = "photosTableViewCell"
     private let postImage = PostImage.setupImages()
-    
     private enum Constants {
         static let numberOfLine: CGFloat = 4
     }

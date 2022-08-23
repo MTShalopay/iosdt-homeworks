@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 class PhotosViewController: UIViewController {
     var textTitle: String?

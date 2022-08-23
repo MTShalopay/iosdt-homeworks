@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 class ProfileViewController: UIViewController {    
     private let post = Post.setupPost()
@@ -65,7 +66,19 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         title = "Профиль"
         self.tabBarItem = UITabBarItem(title: title, image: UIImage(systemName: "person.crop.square"), tag: 1)
+        /*
+         Задача 2
+
+         Создайте дубликат текущей схемы (Scheme) проекта и назовите его Release. Для этой новой схемы в пункте меню Product > Scheme > Edit scheme установите build configuration как Release. В зависимости от выбранной схемы ваш проект должен запускаться или в Debug или в Release конфигурации.
+         Для фона экрана в ProfileViewController настройте разный цвет фона для Debug и Release конфигурации с помощью специального флага компиляции DEBUG.
+         Запустите проект в обеих схемах и проверьте, что цвет фона автоматически меняется в зависимости от выбранной конфигурации.
+        */
+        //MARK: Решиение задачи 2
+        #if DEBUG
         view.backgroundColor = .white
+        #else
+        view.backgroundColor = .red
+        #endif
         setupView()
         setupGestures()
     }
