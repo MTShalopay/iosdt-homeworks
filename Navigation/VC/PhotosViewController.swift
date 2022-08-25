@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 class PhotosViewController: UIViewController {
     var textTitle: String?
@@ -85,7 +86,6 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         let insets = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
         let needed = collectionView.frame.width - (Constants.numberOfLine - 1) * spacing - insets.left - insets.right
         let itemwidth = floor(needed / Constants.numberOfLine)
-        print(itemwidth)
         return CGSize(width: itemwidth, height: itemwidth)
     }
 }

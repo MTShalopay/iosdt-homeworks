@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 class PhotosCollectionViewCell: UICollectionViewCell {
     static var identifier: String = "photosTableViewCell"
@@ -22,6 +23,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        
     }
     
     required init?(coder: NSCoder) {

@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-struct Post {
-    var author: String
-    var description: String
-    var image: String
-    var likes: Int
-    var views: Int
+public struct Post {
+    public var author: String
+    public var description: String
+    public var image: String
+    public var likes: Int
+    public var views: Int
     
-    static func setupPost() -> [Post] {
+    public static func setupPost() -> [Post] {
             var tempPost = [Post]()
             tempPost.append(Post(author: "Табак Dark Side Core - SUPERNOVA (Холодок, 100 грамм)", description: "Отнесись с осторожностью! Взрывает мозг, как взрывается суперновая звезда. Концентрированный аромат ментолового льда, который невозможно курить соло. Применяется только в миксах в очень скромных пропорциях. Если переборщить, можно почувствовать себя Саб-Зиро.", image: "SUPERNOVA", likes: 112312, views: 13435345))
             tempPost.append(Post(author: "Табак Dark Side Core - DARKSIDE COLA (Кола, 100 грамм)", description: "Столь насыщенной и яркой колы мы давненько уже не пробовали. По сути, сам вкус прост: сладость и кислинка. В том-то и дело, что эти два компонента должны объединяться в реально крутое сочетание, которое не оставляет никого равнодушным. И в данном случае у создателей это получилось. Убедись сам!", image: "COLA", likes: 112311, views: 13311))
@@ -25,10 +25,10 @@ struct Post {
         }
 }
 
-struct PostImage {
-    var image: String
+public struct PostImage {
+    public var image: String
     
-    static func setupImages() -> [PostImage]{
+    public static func setupImages() -> [PostImage]{
         let data = ["pucture1","pucture2","pucture3","pucture4","pucture5",
                     "pucture6","pucture7","pucture8","pucture9","pucture10",
                     "pucture11","pucture12","pucture13","pucture14","pucture15",

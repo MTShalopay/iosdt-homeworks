@@ -8,19 +8,18 @@
 import UIKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
+    
     static var identifier: String = "profileHeaderView"
-
     private var statusText: String?
     
-    private lazy var avatarImageView: UIImageView = {
+    public lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.image = UIImage(named: "cat")
-        avatarImageView.layer.cornerRadius = 40
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.borderWidth = 3
         avatarImageView.layer.borderColor = UIColor.white.cgColor
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         return avatarImageView
     }()
     private lazy var fullNameLabel: UILabel = {
@@ -75,27 +74,33 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-            let tapDissmis = UITapGestureRecognizer(target: self, action: #selector(dissmiskeyboard))
-            addGestureRecognizer(tapDissmis)
+        let tapDissmis = UITapGestureRecognizer(target: self, action: #selector(dissmiskeyboard))
+        addGestureRecognizer(tapDissmis)
         setupView()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        @objc func dissmiskeyboard() {
-            endEditing(true)
-        }
-
+    override func layoutSubviews() {
+        superview?.layoutSubviews()
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
+    }
+    
+    @objc func dissmiskeyboard() {
+        endEditing(true)
+    }
+    
     private func setupView() {
-        addSubview(avatarImageView)
         addSubview(fullNameLabel)
         addSubview(statusLabel)
         addSubview(statusTextField)
         addSubview(setStatusButton)
+        addSubview(avatarImageView)
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             avatarImageView.widthAnchor.constraint(equalToConstant: 80),
             avatarImageView.heightAnchor.constraint(equalToConstant: 80),
             fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor,constant: 27),

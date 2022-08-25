@@ -166,16 +166,12 @@ class LogInViewController: UIViewController {
     func stateMyButton(sender: UIButton) {
         switch sender.state {
         case .normal:
-            print("normal - alpha = 1.0")
             sender.alpha = 1.0
         case .selected:
-            print("selected - alpha = 1.0")
             sender.alpha = 0.8
         case .highlighted:
-            print("highlighted - alpha = 1.0")
             sender.alpha = 0.8
         default:
-            print("default - alpha = 1.0")
             sender.alpha = 1.0
         }
     }
@@ -186,4 +182,5 @@ extension LogInViewController: UITextFieldDelegate {
         return true
     }
 }
+
 
