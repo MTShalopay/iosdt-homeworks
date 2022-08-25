@@ -110,7 +110,7 @@ extension PhotosTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
         
         let needed = collectionView.frame.width - (Constants.numberOfLine - 1) * spacing - insets.left - insets.right
         let itemwidth = floor(needed / Constants.numberOfLine)
-        print("itemwidth \(itemwidth)")
+        //print("itemwidth \(itemwidth)")
         return CGSize(width: itemwidth, height: itemwidth)
     }
 }
