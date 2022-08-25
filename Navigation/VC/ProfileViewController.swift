@@ -7,6 +7,7 @@
 
 import UIKit
 import StorageService
+import SnapKit
 
 class ProfileViewController: UIViewController {    
     private let post = Post.setupPost()
@@ -99,24 +100,55 @@ class ProfileViewController: UIViewController {
         view.addSubview(fullscreenBackView)
         view.addSubview(avatarImageView)
         fullscreenBackView.addSubview(cancelButton)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 80),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 80),
-            fullscreenBackView.topAnchor.constraint(equalTo: view.topAnchor),
-            fullscreenBackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            fullscreenBackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            fullscreenBackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            cancelButton.topAnchor.constraint(equalTo: fullscreenBackView.topAnchor, constant: view.bounds.width * 0.05),
-            cancelButton.trailingAnchor.constraint(equalTo: fullscreenBackView.trailingAnchor, constant: -1 * view.bounds.width * 0.05),
-            cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1),
-            cancelButton.heightAnchor.constraint(equalTo: cancelButton.widthAnchor),
-        ])
+        /**
+         Задача 1:
+
+         Пользуясь материалом лекции, выполните следующие действия:
+
+         инициализируйте Podfile.
+         пропишите 1 pod - SnapKit, можете раскомментировать (убрать символ '#') строку с версией target iOS и прописать там актуальную версию.
+         pod install / открыть .xcworkspace.
+         перепишите autolayout для ProfileView и всех его subview при помощи библиотеки SnapKit.
+         Чтобы воспользоваться SnapKit в проекте, нужно подключить его с помощью инструкции import.
+         Если статический анализатор сначала выдаст ошибку после импорта, воспользуйтесь Cmd-B (build).
+         */
+        //MARK: Решение задачи 1
+        tableView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
+        avatarImageView.snp.makeConstraints { (make) in
+            make.top.leading.equalToSuperview().inset(16)
+            make.width.height.equalTo(80)
+        }
+        fullscreenBackView.snp.makeConstraints { (make) in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
+        cancelButton.snp.makeConstraints { (make) in
+            make.top.equalTo(fullscreenBackView).inset(35)
+            make.trailing.equalTo(fullscreenBackView).inset(10)
+            make.width.equalTo(30)
+            make.height.equalTo(30)
+        }
+        
+//        NSLayoutConstraint.activate([
+//            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+//            avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            avatarImageView.widthAnchor.constraint(equalToConstant: 80),
+//            avatarImageView.heightAnchor.constraint(equalToConstant: 80),
+//            fullscreenBackView.topAnchor.constraint(equalTo: view.topAnchor),
+//            fullscreenBackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            fullscreenBackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            fullscreenBackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            cancelButton.topAnchor.constraint(equalTo: fullscreenBackView.topAnchor, constant: view.bounds.width * 0.05),
+//            cancelButton.trailingAnchor.constraint(equalTo: fullscreenBackView.trailingAnchor, constant: -1 * view.bounds.width * 0.05),
+//            cancelButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1),
+//            cancelButton.heightAnchor.constraint(equalTo: cancelButton.widthAnchor),
+//        ])
+        
     }
     
     private func setupGestures() {        
