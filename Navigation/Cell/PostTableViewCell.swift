@@ -7,8 +7,10 @@
 
 import UIKit
 import StorageService
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
+    let imageProcessor = ImageProcessor()
     static var identifier: String = "postTableViewCell"
     
     private lazy var authorLb: UILabel = {
@@ -21,7 +23,7 @@ class PostTableViewCell: UITableViewCell {
     }()
     private lazy var myImageView: UIImageView = {
        let myImageView = UIImageView()
-        myImageView.contentMode = .scaleAspectFit
+        myImageView.contentMode = .scaleToFill
         myImageView.backgroundColor = .black
         myImageView.translatesAutoresizingMaskIntoConstraints = false
         return myImageView
@@ -97,7 +99,7 @@ class PostTableViewCell: UITableViewCell {
             myImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             myImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             myImageView.heightAnchor.constraint(equalToConstant: contentView.frame.width),
-            myImageView.widthAnchor.constraint(equalToConstant: contentView.frame.width),
+            //myImageView.widthAnchor.constraint(equalToConstant: contentView.frame.width),
             
             descriptionLb.topAnchor.constraint(equalTo: myImageView.bottomAnchor,constant: 5),
             descriptionLb.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 16),
@@ -124,7 +126,21 @@ class PostTableViewCell: UITableViewCell {
     
     func setup(with post: Post) {
         authorLb.text = post.author
-        myImageView.image = UIImage(named: post.image)
+        /*
+         Задача 3* (необязательная задача)
+
+         Пользуясь материалом лекции, выполните следующие действия:
+
+         установите Swift Package iOSIntPackage
+         при установке задайте диапазон версий от 2.0.0, к моменту выполнения домашнего задания тэг может измениться
+         используйте интерфейс ImageProcessor для обработки фотографий с помощью встроенных фильтров из фреймворка, код пакета открытый, публичный интерфейс реализован через 1 метод
+         */
+        //MARK: Решение задачи 3*
+        
+        guard let sourceImage = UIImage(named: post.image) else { return }
+        imageProcessor.processImage(sourceImage: sourceImage, filter: .crystallize(radius: 10)) { image in
+            myImageView.image = image
+        }
         descriptionLb.text = post.description
         likesCount.text = String(post.likes)
         viewsCount.text = String(post.views)
