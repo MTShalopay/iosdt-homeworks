@@ -10,6 +10,7 @@ import UIKit
 class LogInViewController: UIViewController {
     
     private let currentUserService = CurrentUserService()
+    private let testUserService = TestUserService()
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -89,6 +90,7 @@ class LogInViewController: UIViewController {
         setupGestures()
         setupViews()
         stateMyButton(sender: myButton)
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -142,7 +144,12 @@ class LogInViewController: UIViewController {
     }
     @objc func logIn(sender: UIButton) {
         print("entered")
+        #if DEBUG
         let user = currentUserService.userNew
+        #else
+        let user = testUserService.testUser
+        #endif
+        
         guard emailTextField.text == user.login, passTextField.text == user.password else {
             let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(emailTextField.text!) с паролем: \(passTextField.text!) нет в БД", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))

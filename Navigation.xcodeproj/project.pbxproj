@@ -18,6 +18,7 @@
 		494B779728B52F7500B52949 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494B779628B52F7400B52949 /* Post.swift */; };
 		494EAF2F28BE782600220F50 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF2E28BE782600220F50 /* User.swift */; };
 		494EAF3828BE900D00220F50 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF3728BE900D00220F50 /* CurrentUserService.swift */; };
+		494EAF3B28BEABA300220F50 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF3A28BEABA300220F50 /* TestUserService.swift */; };
 		499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F52840DF5B000ACA06 /* AppDelegate.swift */; };
 		499896F82840DF5B000ACA06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F72840DF5B000ACA06 /* SceneDelegate.swift */; };
 		499896FF2840DF5F000ACA06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499896FE2840DF5F000ACA06 /* Assets.xcassets */; };
@@ -69,6 +70,7 @@
 		494B779628B52F7400B52949 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		494EAF2E28BE782600220F50 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		494EAF3728BE900D00220F50 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
+		494EAF3A28BEABA300220F50 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		499896F22840DF5B000ACA06 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499896F52840DF5B000ACA06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		499896F72840DF5B000ACA06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				499896F52840DF5B000ACA06 /* AppDelegate.swift */,
 				499896F72840DF5B000ACA06 /* SceneDelegate.swift */,
 				494EAF3728BE900D00220F50 /* CurrentUserService.swift */,
+				494EAF3A28BEABA300220F50 /* TestUserService.swift */,
 				494EAF2E28BE782600220F50 /* User.swift */,
 				499897142840E0C4000ACA06 /* VC */,
 				499897292840F641000ACA06 /* Profile */,
@@ -416,6 +419,7 @@
 				494EAF2F28BE782600220F50 /* User.swift in Sources */,
 				4998971F2840EC73000ACA06 /* PostViewController.swift in Sources */,
 				493F603C285B4C0C00AF42DC /* PhotosCollectionViewCell.swift in Sources */,
+				494EAF3B28BEABA300220F50 /* TestUserService.swift in Sources */,
 				494EAF3828BE900D00220F50 /* CurrentUserService.swift in Sources */,
 				499897122840E074000ACA06 /* FeedViewController.swift in Sources */,
 				499896F82840DF5B000ACA06 /* SceneDelegate.swift in Sources */,

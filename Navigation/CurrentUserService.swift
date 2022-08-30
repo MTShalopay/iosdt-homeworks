@@ -29,8 +29,8 @@ import UIKit
 
 class CurrentUserService: UserService {
     
-    var userNew:User = User(login: "Shalopay",
-                          password: "123",
+    var userNew:User = User(login: "11",
+                          password: "11",
                           fullname: "Maxim Terentiev",
                           statusLabel: "Все ок",
                           avatar: (UIImage(named: "pucture1")!)

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "494B775E28B52CD300B52949"
+               BlueprintIdentifier = "494B778328B52D0300B52949"
                BuildableName = "StorageService.framework"
                BlueprintName = "StorageService"
                ReferencedContainer = "container:Navigation.xcodeproj">
@@ -31,7 +31,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "494B775E28B52CD300B52949"
+            BlueprintIdentifier = "494B778328B52D0300B52949"
             BuildableName = "StorageService.framework"
             BlueprintName = "StorageService"
             ReferencedContainer = "container:Navigation.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "494B775E28B52CD300B52949"
+            BlueprintIdentifier = "494B778328B52D0300B52949"
             BuildableName = "StorageService.framework"
             BlueprintName = "StorageService"
             ReferencedContainer = "container:Navigation.xcodeproj">
