@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol LoginViewControllerDelegate: AnyObject {
-    func check(login: String, password: String) -> Bool
-}
-
 class Checker {
     static let shared = Checker()
     private let login: String = "qaz"
