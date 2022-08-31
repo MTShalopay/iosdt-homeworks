@@ -16,6 +16,8 @@
 		494B778B28B52D0300B52949 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B778428B52D0300B52949 /* StorageService.framework */; };
 		494B778C28B52D0300B52949 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 494B778428B52D0300B52949 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		494B779728B52F7500B52949 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494B779628B52F7400B52949 /* Post.swift */; };
+		494CFD7B28BFE68000502F5D /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494CFD7A28BFE68000502F5D /* Checker.swift */; };
+		494CFD7E28BFE96E00502F5D /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494CFD7D28BFE96E00502F5D /* LoginInspector.swift */; };
 		494EAF2F28BE782600220F50 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF2E28BE782600220F50 /* User.swift */; };
 		494EAF3828BE900D00220F50 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF3728BE900D00220F50 /* CurrentUserService.swift */; };
 		494EAF3B28BEABA300220F50 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF3A28BEABA300220F50 /* TestUserService.swift */; };
@@ -68,6 +70,8 @@
 		494B778628B52D0300B52949 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		494B778728B52D0300B52949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494B779628B52F7400B52949 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		494CFD7A28BFE68000502F5D /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
+		494CFD7D28BFE96E00502F5D /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		494EAF2E28BE782600220F50 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		494EAF3728BE900D00220F50 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
 		494EAF3A28BEABA300220F50 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
@@ -165,6 +169,8 @@
 				499896F52840DF5B000ACA06 /* AppDelegate.swift */,
 				499896F72840DF5B000ACA06 /* SceneDelegate.swift */,
 				494EAF3728BE900D00220F50 /* CurrentUserService.swift */,
+				494CFD7A28BFE68000502F5D /* Checker.swift */,
+				494CFD7D28BFE96E00502F5D /* LoginInspector.swift */,
 				494EAF3A28BEABA300220F50 /* TestUserService.swift */,
 				494EAF2E28BE782600220F50 /* User.swift */,
 				499897142840E0C4000ACA06 /* VC */,
@@ -417,6 +423,7 @@
 				49405BC62853CB3D00895AC0 /* LogInViewController.swift in Sources */,
 				49F578E5285A284900B39A25 /* PhotosTableViewCell.swift in Sources */,
 				494EAF2F28BE782600220F50 /* User.swift in Sources */,
+				494CFD7E28BFE96E00502F5D /* LoginInspector.swift in Sources */,
 				4998971F2840EC73000ACA06 /* PostViewController.swift in Sources */,
 				493F603C285B4C0C00AF42DC /* PhotosCollectionViewCell.swift in Sources */,
 				494EAF3B28BEABA300220F50 /* TestUserService.swift in Sources */,
@@ -424,6 +431,7 @@
 				499897122840E074000ACA06 /* FeedViewController.swift in Sources */,
 				499896F82840DF5B000ACA06 /* SceneDelegate.swift in Sources */,
 				49416CCB28593DE6005D9493 /* PostTableViewCell.swift in Sources */,
+				494CFD7B28BFE68000502F5D /* Checker.swift in Sources */,
 				499897162840E0F0000ACA06 /* InfoViewController.swift in Sources */,
 				4998972B2840F66A000ACA06 /* ProfileHeaderView.swift in Sources */,
 			);
