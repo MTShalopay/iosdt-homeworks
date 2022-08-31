@@ -9,7 +9,8 @@ import UIKit
 import StorageService
 import SnapKit
 
-class ProfileViewController: UIViewController {    
+class ProfileViewController: UIViewController {
+    
     private let post = Post.setupPost()
     let headerView = ProfileHeaderView()
     var startPointAvatar: CGPoint?
@@ -18,7 +19,7 @@ class ProfileViewController: UIViewController {
     public lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.image = UIImage(named: "cat")
+        avatarImageView.image = headerView.user.avatar
         avatarImageView.layer.cornerRadius = 40
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.clipsToBounds = true

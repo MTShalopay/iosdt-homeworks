@@ -9,6 +9,9 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
+    private let currentUserService = CurrentUserService()
+    private let testUserService = TestUserService()
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +27,7 @@ class LogInViewController: UIViewController {
     
     private lazy var emailTextField: UITextField = {
        let emailTextField = UITextField()
-        emailTextField.placeholder = "Email pf phone"
+        emailTextField.placeholder = "Login"
         emailTextField.tag = 0
         emailTextField.delegate = self
         emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: emailTextField.frame.height))
@@ -87,6 +90,7 @@ class LogInViewController: UIViewController {
         setupGestures()
         setupViews()
         stateMyButton(sender: myButton)
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -140,6 +144,19 @@ class LogInViewController: UIViewController {
     }
     @objc func logIn(sender: UIButton) {
         print("entered")
+        #if DEBUG
+        let user = currentUserService.userNew
+        #else
+        let user = testUserService.testUser
+        #endif
+        
+        guard emailTextField.text == user.login, passTextField.text == user.password else {
+            let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(emailTextField.text!) с паролем: \(passTextField.text!) нет в БД", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        
         let profileVC =  ProfileViewController()
         self.navigationController?.pushViewController(profileVC, animated: true)
     }

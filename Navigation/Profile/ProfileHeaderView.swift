@@ -9,12 +9,14 @@ import UIKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
+    public let user = User(login: "Needle", password: "123", fullname: "Be happed", statusLabel: "This is status", avatar: UIImage(named: "pucture15")!)
+    
     static var identifier: String = "profileHeaderView"
     private var statusText: String?
     
     public lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
-        avatarImageView.image = UIImage(named: "cat")
+        //avatarImageView.image = UIImage(named: "cat")
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.borderWidth = 3
@@ -25,7 +27,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private lazy var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        fullNameLabel.text = "Hipster Cat"
+        //fullNameLabel.text = "Hipster Cat"
         fullNameLabel.textAlignment = .left
         fullNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         fullNameLabel.textColor = .black
@@ -33,7 +35,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }()
     private lazy var statusLabel: UILabel = {
        let statusLabel = UILabel()
-        statusLabel.text = "Waiting for something..."
+        //statusLabel.text = "Waiting for something..."
         statusLabel.font = UIFont(name: "regular", size: 14)
         statusLabel.textColor = .gray
         statusLabel.textAlignment = .left
@@ -77,6 +79,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         let tapDissmis = UITapGestureRecognizer(target: self, action: #selector(dissmiskeyboard))
         addGestureRecognizer(tapDissmis)
         setupView()
+        createUser()
     }
     
     
@@ -86,6 +89,12 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     override func layoutSubviews() {
         superview?.layoutSubviews()
         avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
+    }
+    
+    private func createUser() {
+        avatarImageView.image = user.avatar
+        fullNameLabel.text = user.fullname
+        statusLabel.text = user.statusLabel
     }
     
     @objc func dissmiskeyboard() {
