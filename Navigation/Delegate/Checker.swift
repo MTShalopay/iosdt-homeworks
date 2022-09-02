@@ -10,7 +10,7 @@ import Foundation
 class Checker {
     static let shared = Checker()
     private let login: String = "qaz"
-    private let password: String = "123"
+    private let password: String = "qaz"
     
     private init() { }
     

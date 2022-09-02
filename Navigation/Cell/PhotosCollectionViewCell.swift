@@ -42,5 +42,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     func setup(with post: PostImage) {
         avaImage.image = UIImage(named:post.image)
     }
+    func setup(image: UIImage) {
+        avaImage.image = image
+    }
     
 }
