@@ -8,6 +8,7 @@
 import UIKit
 
 class LogInViewController: UIViewController {
+     var loginDelegate: LoginViewControllerDelegate?
     
     private let currentUserService = CurrentUserService()
     private let testUserService = TestUserService()
@@ -90,7 +91,6 @@ class LogInViewController: UIViewController {
         setupGestures()
         setupViews()
         stateMyButton(sender: myButton)
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -143,22 +143,33 @@ class LogInViewController: UIViewController {
         
     }
     @objc func logIn(sender: UIButton) {
-        print("entered")
-        #if DEBUG
-        let user = currentUserService.userNew
-        #else
-        let user = testUserService.testUser
-        #endif
+        guard let loginDelegate = loginDelegate, let login = emailTextField.text, let password = passTextField.text else { return }
         
-        guard emailTextField.text == user.login, passTextField.text == user.password else {
+        if loginDelegate.check(login: login, password: password) {
+            let profileVC = ProfileViewController()
+            self.navigationController?.pushViewController(profileVC, animated: true)
+        } else {
             let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(emailTextField.text!) с паролем: \(passTextField.text!) нет в БД", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))
             self.present(alert, animated: true)
-            return
         }
-        
-        let profileVC =  ProfileViewController()
-        self.navigationController?.pushViewController(profileVC, animated: true)
+            
+//        print("entered")
+//        #if DEBUG
+//        let user = currentUserService.userNew
+//        #else
+//        let user = testUserService.testUser
+//        #endif
+//
+//        guard emailTextField.text == user.login, passTextField.text == user.password else {
+//            let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(emailTextField.text!) с паролем: \(passTextField.text!) нет в БД", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))
+//            self.present(alert, animated: true)
+//            return
+//        }
+//
+//        let profileVC =  ProfileViewController()
+//        self.navigationController?.pushViewController(profileVC, animated: true)
     }
     
     @objc private func didShowKeyboard(_ notification: Notification) {
