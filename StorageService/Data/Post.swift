@@ -39,4 +39,16 @@ public struct PostImage {
         }
         return tempImage
     }
+    public static func makeArrayImage() -> [UIImage] {
+        var tempImages = [UIImage]()
+        let data = ["pucture1","pucture2","pucture3","pucture4","pucture5",
+                    "pucture6","pucture7","pucture8","pucture9","pucture10",
+                    "pucture11","pucture12","pucture13","pucture14","pucture15",
+                    "pucture16","pucture17","pucture18","pucture19","pucture20",]
+        for (_,name) in data.enumerated() {
+            tempImages.append(UIImage(named: name)!)
+        }
+        return tempImages
+    }
 }
+

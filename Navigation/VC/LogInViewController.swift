@@ -9,7 +9,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
      var loginDelegate: LoginViewControllerDelegate?
-    
+
     private let currentUserService = CurrentUserService()
     private let testUserService = TestUserService()
     
@@ -91,6 +91,8 @@ class LogInViewController: UIViewController {
         setupGestures()
         setupViews()
         stateMyButton(sender: myButton)
+        
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
