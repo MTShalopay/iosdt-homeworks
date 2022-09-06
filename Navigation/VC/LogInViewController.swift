@@ -72,18 +72,25 @@ class LogInViewController: UIViewController {
         return verticalStack
     }()
     
-    private lazy var myButton: UIButton = {
-        let myButton = UIButton(type: .system)
-        myButton.layer.cornerRadius = 10
-        myButton.setTitle("Log In", for: .normal)
-        myButton.setImage(UIImage(named: "blue_pixel"), for: .normal)
-        myButton.setTitleColor(.white, for: .normal)
-        myButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        myButton.backgroundColor = .blue
-        myButton.addTarget(self, action: #selector(logIn(sender:)), for: .touchUpInside)
-        myButton.translatesAutoresizingMaskIntoConstraints = false
-        return myButton
-    }()
+    private lazy var myButton = CustomButton(buttonCustomState: .normal,
+                                             buttonCustomType: .system,
+                                             buttonCustomTag: 0,
+                                              buttonCustomBackground: .blue,
+                                              buttonCustomSetTitle: "LOG IN",
+                                              buttonCustomSetTitleColor: .white,
+                                              buttonCustomTitleFont: UIFont.boldSystemFont(ofSize: 16), buttonCustomCornerRadius: 10)
+//    private lazy var myButton: UIButton = {
+//        let myButton = UIButton(type: .system)
+//        myButton.layer.cornerRadius = 10
+//        myButton.setTitle("Log In", for: .normal)
+//        myButton.setImage(UIImage(named: "blue_pixel"), for: .normal)
+//        myButton.setTitleColor(.white, for: .normal)
+//        myButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+//        myButton.backgroundColor = .blue
+//        myButton.addTarget(self, action: #selector(logIn(sender:)), for: .touchUpInside)
+//        myButton.translatesAutoresizingMaskIntoConstraints = false
+//        return myButton
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +98,7 @@ class LogInViewController: UIViewController {
         setupGestures()
         setupViews()
         stateMyButton(sender: myButton)
+        actionButton()
         
         
     }
@@ -117,6 +125,7 @@ class LogInViewController: UIViewController {
         verticalStack.addArrangedSubview(passTextField)
         scrollView.addSubview(verticalStack)
         scrollView.addSubview(myButton)
+        myButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -144,35 +153,32 @@ class LogInViewController: UIViewController {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         
     }
-    @objc func logIn(sender: UIButton) {
-        guard let loginDelegate = loginDelegate, let login = emailTextField.text, let password = passTextField.text else { return }
-        
-        if loginDelegate.check(login: login, password: password) {
-            let profileVC = ProfileViewController()
-            self.navigationController?.pushViewController(profileVC, animated: true)
-        } else {
-            let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(emailTextField.text!) с паролем: \(passTextField.text!) нет в БД", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))
-            self.present(alert, animated: true)
-        }
+    private func actionButton() {
+        myButton.action = {
+            guard let loginDelegate = self.loginDelegate, let login = self.emailTextField.text, let password = self.passTextField.text else { return }
             
-//        print("entered")
-//        #if DEBUG
-//        let user = currentUserService.userNew
-//        #else
-//        let user = testUserService.testUser
-//        #endif
+            if loginDelegate.check(login: login, password: password) {
+                let profileVC = ProfileViewController()
+                self.navigationController?.pushViewController(profileVC, animated: true)
+            } else {
+                let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(self.emailTextField.text!) с паролем: \(self.passTextField.text!) нет в БД", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+        }
+    }
+//    @objc func logIn(sender: UIButton) {
+//        guard let loginDelegate = loginDelegate, let login = emailTextField.text, let password = passTextField.text else { return }
 //
-//        guard emailTextField.text == user.login, passTextField.text == user.password else {
+//        if loginDelegate.check(login: login, password: password) {
+//            let profileVC = ProfileViewController()
+//            self.navigationController?.pushViewController(profileVC, animated: true)
+//        } else {
 //            let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(emailTextField.text!) с паролем: \(passTextField.text!) нет в БД", preferredStyle: .alert)
 //            alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))
 //            self.present(alert, animated: true)
-//            return
 //        }
-//
-//        let profileVC =  ProfileViewController()
-//        self.navigationController?.pushViewController(profileVC, animated: true)
-    }
+//    }
     
     @objc private func didShowKeyboard(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {

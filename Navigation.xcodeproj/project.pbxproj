@@ -15,6 +15,7 @@
 		494B778B28B52D0300B52949 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B778428B52D0300B52949 /* StorageService.framework */; };
 		494B778C28B52D0300B52949 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 494B778428B52D0300B52949 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		494B779728B52F7500B52949 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494B779628B52F7400B52949 /* Post.swift */; };
+		494CD59128C21B2500D497F6 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494CD59028C21B2500D497F6 /* CustomButton.swift */; };
 		494CFD7B28BFE68000502F5D /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494CFD7A28BFE68000502F5D /* Checker.swift */; };
 		494CFD7E28BFE96E00502F5D /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494CFD7D28BFE96E00502F5D /* LoginInspector.swift */; };
 		494CFD8328BFFE6700502F5D /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494CFD8228BFFE6700502F5D /* Service.swift */; };
@@ -107,6 +108,7 @@
 		494B778628B52D0300B52949 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		494B778728B52D0300B52949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494B779628B52F7400B52949 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		494CD59028C21B2500D497F6 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		494CFD7A28BFE68000502F5D /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		494CFD7D28BFE96E00502F5D /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		494CFD8228BFFE6700502F5D /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				499896F72840DF5B000ACA06 /* SceneDelegate.swift */,
 				494EAF3728BE900D00220F50 /* CurrentUserService.swift */,
 				494CFD8228BFFE6700502F5D /* Service.swift */,
+				494CD59028C21B2500D497F6 /* CustomButton.swift */,
 				494CFD8028BFFD6600502F5D /* Delegate */,
 				494EAF3A28BEABA300220F50 /* TestUserService.swift */,
 				494EAF2E28BE782600220F50 /* User.swift */,
@@ -648,6 +651,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4998970F2840E059000ACA06 /* ProfileViewController.swift in Sources */,
+				494CD59128C21B2500D497F6 /* CustomButton.swift in Sources */,
 				49491863285D21A900EF004F /* PhotosViewController.swift in Sources */,
 				499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */,
 				494CFD8328BFFE6700502F5D /* Service.swift in Sources */,

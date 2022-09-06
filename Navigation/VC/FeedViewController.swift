@@ -21,27 +21,42 @@ class FeedViewController: UIViewController {
         return verticalStack
     }()
     
-    private lazy var buttonOne: UIButton = {
-        let buttonOne = UIButton(type: .system)
-        buttonOne.tag = 0
-        buttonOne.backgroundColor = UIColor.blue
-        buttonOne.setTitle("buttonOne", for: .normal)
-        buttonOne.setTitleColor(.lightGray, for: .normal)
-        buttonOne.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
-        buttonOne.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        return buttonOne
-    }()
+    private lazy var buttonOne = CustomButton(buttonCustomState: .normal,
+                                              buttonCustomType: .system,
+                                              buttonCustomTag: 0,
+                                              buttonCustomBackground: .blue,
+                                              buttonCustomSetTitle: "ButtonOne",
+                                              buttonCustomSetTitleColor: .lightGray,
+                                              buttonCustomTitleFont: UIFont.boldSystemFont(ofSize: 24), buttonCustomCornerRadius: 0)
+    private lazy var buttonTwo = CustomButton(buttonCustomState: .normal,
+                                              buttonCustomType: .system,
+                                              buttonCustomTag: 1,
+                                              buttonCustomBackground: .blue,
+                                              buttonCustomSetTitle: "ButtonTwo",
+                                              buttonCustomSetTitleColor: .lightGray,
+                                              buttonCustomTitleFont: UIFont.boldSystemFont(ofSize: 24), buttonCustomCornerRadius: 0)
     
-    private lazy var buttonTwo: UIButton = {
-        let buttonTwo = UIButton(type: .system)
-        buttonOne.tag = 1
-        buttonTwo.backgroundColor = UIColor.blue
-        buttonTwo.setTitle("buttonTwo", for: .normal)
-        buttonTwo.setTitleColor(.lightGray, for: .normal)
-        buttonTwo.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
-        buttonTwo.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        return buttonTwo
-    }()
+//    private lazy var buttonOne: UIButton = {
+//        let buttonOne = UIButton(type: .system)
+//        buttonOne.tag = 0
+//        buttonOne.backgroundColor = UIColor.blue
+//        buttonOne.setTitle("buttonOne", for: .normal)
+//        buttonOne.setTitleColor(.lightGray, for: .normal)
+//        buttonOne.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+//        buttonOne.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+//        return buttonOne
+//    }()
+    
+//    private lazy var buttonTwo: UIButton = {
+//        let buttonTwo = UIButton(type: .system)
+//        buttonTwo.tag = 1
+//        buttonTwo.backgroundColor = UIColor.blue
+//        buttonTwo.setTitle("buttonTwo", for: .normal)
+//        buttonTwo.setTitleColor(.lightGray, for: .normal)
+//        buttonTwo.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+//        buttonTwo.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+//        return buttonTwo
+//    }()
     
     
     override func viewDidLoad() {
@@ -50,6 +65,7 @@ class FeedViewController: UIViewController {
         self.tabBarItem = UITabBarItem(title: title, image: UIImage(systemName: "book"), tag: 0)
         view.backgroundColor = UIColor.gray
         setupVerticalStack()
+        actionButton()
 
     }
     private func setupVerticalStack() {
@@ -64,22 +80,16 @@ class FeedViewController: UIViewController {
             verticalStack.heightAnchor.constraint(equalToConstant: 90)
         ])
     }
-    
-    @objc func buttonAction(sender: UIButton) {
-        print("Переходим на пост")
-        switch sender.tag {
-        case 0:
-            print("\(sender.tag)")
+    private func actionButton() {
+        buttonOne.action = {
+            guard self.buttonOne.tag == 0 else { return }
             let postVC = PostViewController()
-            //postVC.title = post.title
             self.navigationController?.pushViewController(postVC, animated: true)
-        case 1:
-            print("\(sender.tag)")
+        }
+        buttonTwo.action = {
+            guard self.buttonTwo.tag == 1 else { return }
             let postVC = PostViewController()
-            //postVC.title = post.title
             self.navigationController?.pushViewController(postVC, animated: true)
-        default:
-            print("ops")
         }
     }
 }
