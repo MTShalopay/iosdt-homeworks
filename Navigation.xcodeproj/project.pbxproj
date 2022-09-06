@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4924E3C928C7E139004AB046 /* CustomTexfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924E3C828C7E139004AB046 /* CustomTexfield.swift */; };
+		4924E3CE28C7EBB4004AB046 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924E3CD28C7EBB4004AB046 /* FeedModel.swift */; };
 		493F603C285B4C0C00AF42DC /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493F603B285B4C0C00AF42DC /* PhotosCollectionViewCell.swift */; };
 		49405BC62853CB3D00895AC0 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49405BC52853CB3D00895AC0 /* LogInViewController.swift */; };
 		49416CCB28593DE6005D9493 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49416CCA28593DE6005D9493 /* PostTableViewCell.swift */; };
@@ -64,6 +66,8 @@
 /* Begin PBXFileReference section */
 		0590C2EA63BB965848DFD8F2 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B883B897062559EC8878492 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
+		4924E3C828C7E139004AB046 /* CustomTexfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTexfield.swift; sourceTree = "<group>"; };
+		4924E3CD28C7EBB4004AB046 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		493F603B285B4C0C00AF42DC /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		49405BC52853CB3D00895AC0 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		49416CCA28593DE6005D9493 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
@@ -155,6 +159,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4924E3CB28C7E146004AB046 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				494CD59028C21B2500D497F6 /* CustomButton.swift */,
+				4924E3C828C7E139004AB046 /* CustomTexfield.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		493FB19E285E7452007A033F /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,7 +412,8 @@
 				499896F72840DF5B000ACA06 /* SceneDelegate.swift */,
 				494EAF3728BE900D00220F50 /* CurrentUserService.swift */,
 				494CFD8228BFFE6700502F5D /* Service.swift */,
-				494CD59028C21B2500D497F6 /* CustomButton.swift */,
+				4924E3CD28C7EBB4004AB046 /* FeedModel.swift */,
+				4924E3CB28C7E146004AB046 /* Custom */,
 				494CFD8028BFFD6600502F5D /* Delegate */,
 				494EAF3A28BEABA300220F50 /* TestUserService.swift */,
 				494EAF2E28BE782600220F50 /* User.swift */,
@@ -654,6 +668,7 @@
 				494CD59128C21B2500D497F6 /* CustomButton.swift in Sources */,
 				49491863285D21A900EF004F /* PhotosViewController.swift in Sources */,
 				499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */,
+				4924E3CE28C7EBB4004AB046 /* FeedModel.swift in Sources */,
 				494CFD8328BFFE6700502F5D /* Service.swift in Sources */,
 				49405BC62853CB3D00895AC0 /* LogInViewController.swift in Sources */,
 				49F578E5285A284900B39A25 /* PhotosTableViewCell.swift in Sources */,
@@ -665,6 +680,7 @@
 				494EAF3828BE900D00220F50 /* CurrentUserService.swift in Sources */,
 				499897122840E074000ACA06 /* FeedViewController.swift in Sources */,
 				499896F82840DF5B000ACA06 /* SceneDelegate.swift in Sources */,
+				4924E3C928C7E139004AB046 /* CustomTexfield.swift in Sources */,
 				49416CCB28593DE6005D9493 /* PostTableViewCell.swift in Sources */,
 				494CFD7B28BFE68000502F5D /* Checker.swift in Sources */,
 				499897162840E0F0000ACA06 /* InfoViewController.swift in Sources */,
