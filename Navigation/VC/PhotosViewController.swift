@@ -6,10 +6,16 @@
 //
 
 import UIKit
+import StorageService
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
+    private var imagePublisherFacade = ImagePublisherFacade()
     var textTitle: String?
-    private let postImage = PostImage.setupImages()
+    private lazy var postImage = PostImage.setupImages()
+    private lazy var imagesArray = PostImage.makeArrayImage()
+    private lazy var photos = [UIImage]()
+    
     private enum Constants {
         static let numberOfLine: CGFloat = 3
     }
@@ -36,7 +42,11 @@ class PhotosViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewDidLoad")
         setupCollectionView()
+        
+        imagePublisherFacade.subscribe(self)
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: imagesArray)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +61,8 @@ class PhotosViewController: UIViewController {
         super.viewWillDisappear(true)
         print("viewWillDisappear")
         navigationController?.navigationBar.isHidden = true
+        imagePublisherFacade.removeSubscription(for: self)
+        imagePublisherFacade.rechargeImageLibrary()
     }
     
     func setupCollectionView() {
@@ -65,13 +77,14 @@ class PhotosViewController: UIViewController {
 }
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return postImage.count
+        return photos.count //postImage.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as? PhotosCollectionViewCell else { return collectionView.dequeueReusableCell(withReuseIdentifier: "defaultcell", for: indexPath)}
-        let avaImage = postImage[indexPath.item]
-        cell.setup(with: avaImage)
+//            let avaImage = postImage[indexPath.item]
+//            cell.setup(with: avaImage)
+        cell.setup(image: photos[indexPath.item])
         return cell
     }
     
@@ -85,7 +98,12 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         let insets = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
         let needed = collectionView.frame.width - (Constants.numberOfLine - 1) * spacing - insets.left - insets.right
         let itemwidth = floor(needed / Constants.numberOfLine)
-        print(itemwidth)
         return CGSize(width: itemwidth, height: itemwidth)
+    }
+}
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        photos = images
+    collectionView.reloadData()
     }
 }

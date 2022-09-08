@@ -8,25 +8,26 @@
 import UIKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
+    
+    public let user = User(login: "Needle", password: "123", fullname: "Be happed", statusLabel: "This is status", avatar: UIImage(named: "pucture15")!)
+    
     static var identifier: String = "profileHeaderView"
-
     private var statusText: String?
     
-    private lazy var avatarImageView: UIImageView = {
+    public lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.image = UIImage(named: "cat")
-        avatarImageView.layer.cornerRadius = 40
+        //avatarImageView.image = UIImage(named: "cat")
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.borderWidth = 3
         avatarImageView.layer.borderColor = UIColor.white.cgColor
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         return avatarImageView
     }()
     private lazy var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        fullNameLabel.text = "Hipster Cat"
+        //fullNameLabel.text = "Hipster Cat"
         fullNameLabel.textAlignment = .left
         fullNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         fullNameLabel.textColor = .black
@@ -34,7 +35,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }()
     private lazy var statusLabel: UILabel = {
        let statusLabel = UILabel()
-        statusLabel.text = "Waiting for something..."
+        //statusLabel.text = "Waiting for something..."
         statusLabel.font = UIFont(name: "regular", size: 14)
         statusLabel.textColor = .gray
         statusLabel.textAlignment = .left
@@ -75,27 +76,40 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-            let tapDissmis = UITapGestureRecognizer(target: self, action: #selector(dissmiskeyboard))
-            addGestureRecognizer(tapDissmis)
+        let tapDissmis = UITapGestureRecognizer(target: self, action: #selector(dissmiskeyboard))
+        addGestureRecognizer(tapDissmis)
         setupView()
+        createUser()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        @objc func dissmiskeyboard() {
-            endEditing(true)
-        }
-
+    override func layoutSubviews() {
+        superview?.layoutSubviews()
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
+    }
+    
+    private func createUser() {
+        avatarImageView.image = user.avatar
+        fullNameLabel.text = user.fullname
+        statusLabel.text = user.statusLabel
+    }
+    
+    @objc func dissmiskeyboard() {
+        endEditing(true)
+    }
+    
     private func setupView() {
-        addSubview(avatarImageView)
         addSubview(fullNameLabel)
         addSubview(statusLabel)
         addSubview(statusTextField)
         addSubview(setStatusButton)
+        addSubview(avatarImageView)
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             avatarImageView.widthAnchor.constraint(equalToConstant: 80),
             avatarImageView.heightAnchor.constraint(equalToConstant: 80),
             fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor,constant: 27),
