@@ -9,24 +9,16 @@ import UIKit
 
 class CustomTextField: UITextField {
     
-    init(placeholder: String?, tag: Int?, borderWidth: CGFloat, borderColor: CGColor, font: UIFont, textColor: UIColor, tintColor: UIColor, autocapitalizationType: UITextAutocapitalizationType, isSecureTextEntry: Bool, backgroundColor: UIColor, translatesAutoresizingMaskIntoConstraints: Bool, cornerRadius: CGFloat) {
+    init(font: UIFont, placeholder: String, borderColor: CGColor, borderWidth: CGFloat) {
         super.init(frame: .zero)
+        self.font = font
         self.placeholder = placeholder
-        self.tag = tag ?? 0
         self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
         self.leftViewMode = .always
         self.layer.borderWidth = borderWidth
         self.layer.borderColor = borderColor
-        self.font = font
-        self.textColor = textColor
-        self.tintColor = tintColor
-        self.autocapitalizationType = autocapitalizationType
-        self.isSecureTextEntry = isSecureTextEntry
-        self.backgroundColor = backgroundColor
-        self.translatesAutoresizingMaskIntoConstraints = translatesAutoresizingMaskIntoConstraints
-        self.clipsToBounds = true
-        self.layer.cornerRadius = cornerRadius
-    }
+        self.translatesAutoresizingMaskIntoConstraints = false
+        }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

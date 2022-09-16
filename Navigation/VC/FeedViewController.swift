@@ -21,43 +21,36 @@ class FeedViewController: UIViewController {
         return verticalStack
     }()
     
-    private lazy var buttonOne = CustomButton(buttonCustomState: .normal,
-                                              buttonCustomType: .system,
-                                              buttonCustomTag: 0,
-                                              buttonCustomBackground: .blue,
-                                              buttonCustomSetTitle: "ButtonOne",
-                                              buttonCustomSetTitleColor: .lightGray,
-                                              buttonCustomTitleFont: UIFont.boldSystemFont(ofSize: 24), buttonCustomCornerRadius: 0)
+    private lazy var buttonOne: CustomButton = {
+        let buttonOne = CustomButton(title: "ButtonOne", titleColor: .lightGray)
+        buttonOne.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
+        buttonOne.tag = 0
+        buttonOne.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        return buttonOne
+    }()
     
-    private lazy var buttonTwo = CustomButton(buttonCustomState: .normal,
-                                              buttonCustomType: .system,
-                                              buttonCustomTag: 1,
-                                              buttonCustomBackground: .blue,
-                                              buttonCustomSetTitle: "ButtonTwo",
-                                              buttonCustomSetTitleColor: .lightGray,
-                                              buttonCustomTitleFont: UIFont.boldSystemFont(ofSize: 24), buttonCustomCornerRadius: 0)
-    
-    private lazy var checkGuessButton = CustomButton(buttonCustomState: .normal,
-                                                     buttonCustomType: .system,
-                                                     buttonCustomTag: 0,
-                                                     buttonCustomBackground: .white,
-                                                     buttonCustomSetTitle: "checkGuessButton",
-                                                     buttonCustomSetTitleColor: .black,
-                                                     buttonCustomTitleFont: UIFont.boldSystemFont(ofSize: 20),
-                                                     buttonCustomCornerRadius: 10)
-    
-    private lazy var wordTextField = CustomTextField(placeholder: "Введите секретное слово",
-                                                     tag: 0,
-                                                     borderWidth: 0.5,
-                                                     borderColor: UIColor.lightGray.cgColor,
-                                                     font: UIFont.systemFont(ofSize: 16),
-                                                     textColor: .black,
-                                                     tintColor: UIColor.lightText,
-                                                     autocapitalizationType: .none,
-                                                     isSecureTextEntry: false,
-                                                     backgroundColor: .systemGray6,
-                                                     translatesAutoresizingMaskIntoConstraints: false,
-                                                     cornerRadius: 5)
+    private lazy var buttonTwo: CustomButton = {
+        let buttonOne = CustomButton(title: "ButtonTwo", titleColor: .lightGray)
+        buttonOne.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
+        buttonOne.tag = 0
+        buttonOne.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        return buttonOne
+    }()
+    private lazy var checkGuessButton: CustomButton = {
+        let checkGuessButton = CustomButton(title: "checkGuessButton", titleColor: .black)
+        checkGuessButton.backgroundColor = .white
+        checkGuessButton.layer.cornerRadius = 10
+        checkGuessButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        return checkGuessButton
+    }()
+     
+    private lazy var wordTextField: CustomTextField = {
+        let wordTextField = CustomTextField(font: UIFont.systemFont(ofSize: 16), placeholder: "Введите секретное слово", borderColor: UIColor.lightGray.cgColor, borderWidth: 0.5)
+        wordTextField.backgroundColor = .systemGray6
+        wordTextField.layer.cornerRadius = 5
+        return wordTextField
+    }()
+        
     private lazy var labelCheck: UILabel = {
        let labelCheck = UILabel()
         labelCheck.textColor = .black
@@ -70,7 +63,6 @@ class FeedViewController: UIViewController {
         labelCheck.translatesAutoresizingMaskIntoConstraints = false
         return labelCheck
     }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,20 +120,25 @@ class FeedViewController: UIViewController {
         buttonOne.action = {
             guard self.buttonOne.tag == 0 else { return }
             let postVC = PostViewController()
+            postVC.myTitle = "OPSSSSS"
+            postVC.myMessage = "кыс ыкс ыкс ыкс "
             self.navigationController?.pushViewController(postVC, animated: true)
         }
         buttonTwo.action = {
             guard self.buttonTwo.tag == 1 else { return }
             let postVC = PostViewController()
+            postVC.myTitle = "qwqeqweqweqweqwe"
+            postVC.myMessage = "ИууУУууу "
             self.navigationController?.pushViewController(postVC, animated: true)
         }
         checkGuessButton.action = {
-            if let word = self.wordTextField.text {
+            guard let word = self.wordTextField.text else { return }
                 let feedModel = FeedModel()
                 let check = feedModel.check(word: word)
                 print(check)
                 check ? self.labelShow(text: "Верно", color: .green) : self.labelShow(text: "Не верно", color: .systemRed)
-            }
         }
     }
+        
 }
+

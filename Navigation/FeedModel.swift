@@ -8,10 +8,11 @@
 import Foundation
 
 struct FeedModel {
-    var secretWord: String = "ops"
+    private var secretWord: String = "ops"
     
     func check(word: String) -> Bool {
-        guard self.secretWord == word else { return false }
-        return true
+        if secretWord == word { return true }
+        return false
     }
+    
 }

@@ -8,6 +8,8 @@
 import UIKit
 
 class InfoViewController: UIViewController {
+    public var myTitle: String?
+    public var myMessage: String?
     private lazy var button: UIButton = {
        let button = UIButton()
         button.backgroundColor = UIColor.blue
@@ -39,7 +41,7 @@ class InfoViewController: UIViewController {
     
     @objc func buttonAction(sender:UIButton) {
         print("Вызываем экшен команду")
-        let alert = UIAlertController(title: "Внимание ЗАГАДКА", message: "Вини Пух это кабан или свинья?", preferredStyle: .alert)
+        let alert = UIAlertController(title: myTitle, message: myMessage, preferredStyle: .alert)
         let buttonDefault = UIAlertAction(title: "Кабан", style: .default) { _ in
             print("Нажали на кабана")
         }

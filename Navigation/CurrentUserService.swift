@@ -5,26 +5,6 @@
 //  Created by Shalopay on 30.08.2022.
 //
 
-/*
- // 3. Constructor injection
-
- final class ViewModel {
-     private let userService: UserServiceProtocol
-     private let modelID: String
-     
-     init(userService: UserServiceProtocol, modelID: String) {
-         self.userService = userService
-         self.modelID = modelID
-     }
- }
-
- let userService = UserService()
- let viewModel = ViewModel(
-     userService: userService,
-     modelID: UUID().uuidString
- )
- */
-
 import UIKit
 
 class CurrentUserService: UserService {
