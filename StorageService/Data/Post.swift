@@ -50,5 +50,12 @@ public struct PostImage {
         }
         return tempImages
     }
+    
+    public static func makeArrayImage(countPhoto: Int, startIndex: Int) -> [UIImage] {
+    if (startIndex < PostImage.makeArrayImage().count && startIndex >= 0)  &&  startIndex + countPhoto < PostImage.makeArrayImage().count {
+                return Array(PostImage.makeArrayImage()[startIndex...countPhoto + startIndex])
+            }
+            return PostImage.makeArrayImage()
+    }
 }
 
