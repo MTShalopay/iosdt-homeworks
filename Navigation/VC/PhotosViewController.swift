@@ -12,12 +12,11 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
     private var imagePublisherFacade = ImagePublisherFacade()
     var textTitle: String?
-    private lazy var postImage = PostImage.setupImages()
     private lazy var imagesArray = PostImage.makeArrayImage()
     private lazy var photos = [UIImage]()
-    private var timer: Timer?
-    private var milliseconds = 0
+    private var startTime = Date()
     private var imageProcessor: ImageProcessor?
+    
     private enum Constants {
         static let numberOfLine: CGFloat = 3
     }
@@ -46,7 +45,7 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         print("viewDidLoad")
         setupCollectionView()
-        startTimer()
+        
         setupImageProcessor()
     }
     
@@ -68,41 +67,71 @@ class PhotosViewController: UIViewController {
     
     private func setupImageProcessor() {
         let imageProcessor = ImageProcessor()
-//        //MARK: background - 4 секунды
-//        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .bloom(intensity: 10), qos: .background) { [weak self] _ in
-//            self?.stopTimer()
-//        }
-//        //MARK: default - 3 секунды
-//        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .chrome, qos: .default) { [weak self] _ in
-//            self?.stopTimer()
-//        }
-//        //MARK: userInitiated - 4 секунды
-//        imageProcessor.processImagesOnThread(sourceImages: PostImage.makeArrayImage(countPhoto: 20, startIndex: 4), filter: .crystallize(radius: 90), qos: .userInitiated) { [weak self] _ in
-//            self?.stopTimer()
-//        }
-//        //MARK: userInteractive - 4 секунды
-//        imageProcessor.processImagesOnThread(sourceImages: PostImage.makeArrayImage(countPhoto: 20, startIndex: 2), filter: .crystallize(radius: 90), qos: .userInteractive) { [weak self] _ in
-//            self?.stopTimer()
-//        }
-        //MARK: utility - 5 секунды
-        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .crystallize(radius: 90), qos: .utility) { [weak self] _ in
-            self?.stopTimer()
+        //MARK: userInitiated - 2.19 секунды
+        imageProcessor.processImagesOnThread(sourceImages: PostImage.makeArrayImage(countPhoto: 10, startIndex: 5), filter: .bloom(intensity: 30), qos: .userInteractive) { cgImages in
+            for image in cgImages {
+                self.photos.append(UIImage(cgImage: image!))
+            }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            print("Загрузка \(Date().timeIntervalSince(self.startTime)) секунд(ы)")
         }
-    }
-    
-    private func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1,
-                                     target: self,
-                                     selector: #selector(counter),
-                                     userInfo: nil,
-                                     repeats: true)
-    }
-    @objc func counter() {
-        milliseconds += 1
-    }
-    private func stopTimer() {
-        timer?.invalidate()
-        print("\(milliseconds) секунд(ы)")
+        
+//        //MARK: userInitiated - 3.85 секунды
+//        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .bloom(intensity: 30), qos: .userInteractive) { cgImages in
+//            for image in cgImages {
+//                self.photos.append(UIImage(cgImage: image!))
+//            }
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadData()
+//            }
+//            print("Загрузка \(Date().timeIntervalSince(self.startTime)) секунд(ы)")
+//        }
+        
+//        //MARK: userInitiated - 4.27 секунды
+//        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .bloom(intensity: 30), qos: .userInitiated) { cgImages in
+//            for image in cgImages {
+//                self.photos.append(UIImage(cgImage: image!))
+//            }
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadData()
+//            }
+//            print("Загрузка \(Date().timeIntervalSince(self.startTime)) секунд(ы)")
+//        }
+        
+//        //MARK: default - 3.79 секунды
+//        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .motionBlur(radius: 60), qos: .default) { cgImages in
+//            for image in cgImages {
+//                self.photos.append(UIImage(cgImage: image!))
+//            }
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadData()
+//            }
+//            print("Загрузка \(Date().timeIntervalSince(self.startTime)) секунд(ы)")
+//        }
+        
+//        //MARK: background - 3.29 секунды
+//        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .vignette(intensity: 70, radius: 30), qos: .background) { cgImages in
+//            for image in cgImages {
+//                self.photos.append(UIImage(cgImage: image!))
+//            }
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadData()
+//            }
+//            print("Загрузка \(Date().timeIntervalSince(self.startTime)) секунд(ы)")
+//        }
+
+//        //MARK: utility - 3.12 секунды
+//        imageProcessor.processImagesOnThread(sourceImages: imagesArray, filter: .noir, qos: .utility) { cgImages in
+//            for image in cgImages {
+//                self.photos.append(UIImage(cgImage: image!))
+//            }
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadData()
+//            }
+//            print("Загрузка \(Date().timeIntervalSince(self.startTime)) секунд(ы)")
+//        }
     }
     
     private func setupImagePublisherFacade() {
@@ -122,12 +151,16 @@ class PhotosViewController: UIViewController {
 }
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imagesArray.count
+        return photos.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as? PhotosCollectionViewCell else { return collectionView.dequeueReusableCell(withReuseIdentifier: "defaultcell", for: indexPath)}
-        cell.setup(image: imagesArray[indexPath.item])
+        
+        
+        
+        
+        cell.setup(image: photos[indexPath.item])
         return cell
     }
     
