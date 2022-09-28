@@ -12,6 +12,7 @@ class LogInViewController: UIViewController {
 
     private let currentUserService = CurrentUserService()
     private let testUserService = TestUserService()
+    private let brutForceService = BrutForceService()
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -79,13 +80,22 @@ class LogInViewController: UIViewController {
         return myButton
     }()
     
-//    private lazy var myButton = CustomButton(buttonCustomState: .normal,
-//                                             buttonCustomType: .system,
-//                                             buttonCustomTag: 0,
-//                                              buttonCustomBackground: .blue,
-//                                              buttonCustomSetTitle: "LOG IN",
-//                                              buttonCustomSetTitleColor: .white,
-//                                              buttonCustomTitleFont: UIFont.boldSystemFont(ofSize: 16), buttonCustomCornerRadius: 10)
+    private lazy var getPassButton: CustomButton = {
+        let getPassButton = CustomButton(title: "Подобрать пароль", titleColor: .white)
+        getPassButton.clipsToBounds = true
+        getPassButton.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
+        getPassButton.layer.cornerRadius = 10
+        return getPassButton
+    }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.color = .black
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -93,7 +103,6 @@ class LogInViewController: UIViewController {
         setupViews()
         stateMyButton(sender: myButton)
         actionButton()
-        
         
     }
 
@@ -119,7 +128,8 @@ class LogInViewController: UIViewController {
         verticalStack.addArrangedSubview(passTextField)
         scrollView.addSubview(verticalStack)
         scrollView.addSubview(myButton)
-        myButton.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(getPassButton)
+        passTextField.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -138,7 +148,14 @@ class LogInViewController: UIViewController {
             myButton.topAnchor.constraint(equalTo: verticalStack.bottomAnchor,constant: 16),
             myButton.heightAnchor.constraint(equalToConstant: 50),
             myButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            myButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+            myButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            getPassButton.topAnchor.constraint(equalTo: myButton.bottomAnchor, constant: 20),
+            getPassButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            getPassButton.heightAnchor.constraint(equalToConstant: 50),
+            getPassButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            getPassButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            activityIndicator.centerYAnchor.constraint(equalTo: passTextField.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: passTextField.centerXAnchor)
                                      
         ])
     }
@@ -158,6 +175,20 @@ class LogInViewController: UIViewController {
                 let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(self.emailTextField.text!) с паролем: \(self.passTextField.text!) нет в БД", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))
                 self.present(alert, animated: true)
+            }
+        }
+        getPassButton.action = {
+            self.passTextField.isSecureTextEntry = true
+            self.passTextField.text = "qaz"
+            let queue = DispatchQueue(label: "ru.IOSInt-homeworks.9", attributes: .concurrent)
+            let workItem = DispatchWorkItem {
+                self.brutForceService.bruteForce(passwordToUnlock: "qaz")
+            }
+            self.activityIndicator.startAnimating()
+            queue.async(execute: workItem)
+            workItem.notify(queue: .main) {
+                self.passTextField.isSecureTextEntry = false
+                self.activityIndicator.stopAnimating()
             }
         }
     }

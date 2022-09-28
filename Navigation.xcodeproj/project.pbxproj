@@ -24,6 +24,7 @@
 		494EAF2F28BE782600220F50 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF2E28BE782600220F50 /* User.swift */; };
 		494EAF3828BE900D00220F50 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF3728BE900D00220F50 /* CurrentUserService.swift */; };
 		494EAF3B28BEABA300220F50 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF3A28BEABA300220F50 /* TestUserService.swift */; };
+		494F1A1E28E4A44F00B95488 /* BrutForceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1A1D28E4A44F00B95488 /* BrutForceService.swift */; };
 		499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F52840DF5B000ACA06 /* AppDelegate.swift */; };
 		499896F82840DF5B000ACA06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F72840DF5B000ACA06 /* SceneDelegate.swift */; };
 		499896FF2840DF5F000ACA06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499896FE2840DF5F000ACA06 /* Assets.xcassets */; };
@@ -119,6 +120,7 @@
 		494EAF2E28BE782600220F50 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		494EAF3728BE900D00220F50 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
 		494EAF3A28BEABA300220F50 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
+		494F1A1D28E4A44F00B95488 /* BrutForceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrutForceService.swift; sourceTree = "<group>"; };
 		499896F22840DF5B000ACA06 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499896F52840DF5B000ACA06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		499896F72840DF5B000ACA06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				499896F72840DF5B000ACA06 /* SceneDelegate.swift */,
 				494EAF3728BE900D00220F50 /* CurrentUserService.swift */,
 				494CFD8228BFFE6700502F5D /* Service.swift */,
+				494F1A1D28E4A44F00B95488 /* BrutForceService.swift */,
 				4924E3CD28C7EBB4004AB046 /* FeedModel.swift */,
 				4924E3CB28C7E146004AB046 /* Custom */,
 				494CFD8028BFFD6600502F5D /* Delegate */,
@@ -670,6 +673,7 @@
 				499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */,
 				4924E3CE28C7EBB4004AB046 /* FeedModel.swift in Sources */,
 				494CFD8328BFFE6700502F5D /* Service.swift in Sources */,
+				494F1A1E28E4A44F00B95488 /* BrutForceService.swift in Sources */,
 				49405BC62853CB3D00895AC0 /* LogInViewController.swift in Sources */,
 				49F578E5285A284900B39A25 /* PhotosTableViewCell.swift in Sources */,
 				494EAF2F28BE782600220F50 /* User.swift in Sources */,
