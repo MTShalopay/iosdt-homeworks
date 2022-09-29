@@ -9,7 +9,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
      var loginDelegate: LoginViewControllerDelegate?
-
+    private var timer: Timer?
     private let currentUserService = CurrentUserService()
     private let testUserService = TestUserService()
     private let brutForceService = BrutForceService()
@@ -104,6 +104,7 @@ class LogInViewController: UIViewController {
         stateMyButton(sender: myButton)
         actionButton()
         
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -117,12 +118,51 @@ class LogInViewController: UIViewController {
                                                selector: #selector(self.didHideKeyboard(_:)),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
+        setupTimer(10, repeats: true)
     }
     
-    func setupViews() {
+    
+    private func setupTimer(_ interval: Double, repeats: Bool) {
+        timer = Timer.scheduledTimer(timeInterval: interval,
+                             target: self,
+                             selector: #selector(wakeUpAlertController),
+                             userInfo: nil,
+                             repeats: repeats)
+    }
+    
+    @objc func wakeUpAlertController() {
+        let title = "Забыли пароль?"
+        let titleRange = (title as NSString).range(of: title)
+        let titleAttribute = NSMutableAttributedString.init(string: title)
+        titleAttribute.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: titleRange)
+        titleAttribute.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue-Bold", size: 25)!, range: titleRange)
         
+        let message = "Пароль можно подобрать, с вашего разрешения. Помочь?"
+        let messageRange = (message as NSString).range(of: message)
+        let messageAttribute = NSMutableAttributedString.init(string: message)
+        messageAttribute.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: messageRange)
+        messageAttribute.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Helvetica", size: 17)!, range: messageRange)
+        let alert = UIAlertController(title: "", message: "",  preferredStyle: .actionSheet)
+        alert.setValue(titleAttribute, forKey: "attributedTitle")
+        alert.setValue(messageAttribute, forKey: "attributedMessage")
+
+        let okAction = UIAlertAction(title: "Да", style: .destructive) {_ in
+            self.timer?.invalidate()
+            self.getPassword()
+
+        }
+        let noAction = UIAlertAction(title: "Не надо", style: .cancel) { alertAction in
+            self.timer?.invalidate()
+        }
+        alert.addAction(okAction)
+        alert.addAction(noAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    
+    private func setupViews() {
         view.addSubview(scrollView)
-        
         scrollView.addSubview(logoImageView)
         verticalStack.addArrangedSubview(emailTextField)
         verticalStack.addArrangedSubview(passTextField)
@@ -164,6 +204,20 @@ class LogInViewController: UIViewController {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         
     }
+    private func getPassword() {
+        self.passTextField.isSecureTextEntry = true
+        self.passTextField.text = "qaz"
+        let queue = DispatchQueue(label: "ru.IOSInt-homeworks.9", attributes: .concurrent)
+        let workItem = DispatchWorkItem {
+            self.brutForceService.bruteForce(passwordToUnlock: "qaz")
+        }
+        self.activityIndicator.startAnimating()
+        queue.async(execute: workItem)
+        workItem.notify(queue: .main) {
+            self.passTextField.isSecureTextEntry = false
+            self.activityIndicator.stopAnimating()
+        }
+    }
     private func actionButton() {
         myButton.action = {
             guard let loginDelegate = self.loginDelegate, let login = self.emailTextField.text, let password = self.passTextField.text else { return }
@@ -178,18 +232,7 @@ class LogInViewController: UIViewController {
             }
         }
         getPassButton.action = {
-            self.passTextField.isSecureTextEntry = true
-            self.passTextField.text = "qaz"
-            let queue = DispatchQueue(label: "ru.IOSInt-homeworks.9", attributes: .concurrent)
-            let workItem = DispatchWorkItem {
-                self.brutForceService.bruteForce(passwordToUnlock: "qaz")
-            }
-            self.activityIndicator.startAnimating()
-            queue.async(execute: workItem)
-            workItem.notify(queue: .main) {
-                self.passTextField.isSecureTextEntry = false
-                self.activityIndicator.stopAnimating()
-            }
+            self.getPassword()
         }
     }
     
