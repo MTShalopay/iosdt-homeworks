@@ -12,6 +12,7 @@
 		493F603C285B4C0C00AF42DC /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493F603B285B4C0C00AF42DC /* PhotosCollectionViewCell.swift */; };
 		49405BC62853CB3D00895AC0 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49405BC52853CB3D00895AC0 /* LogInViewController.swift */; };
 		49416CCB28593DE6005D9493 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49416CCA28593DE6005D9493 /* PostTableViewCell.swift */; };
+		4942D2E328F5B653008A7188 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942D2E228F5B653008A7188 /* NetworkManager.swift */; };
 		49491863285D21A900EF004F /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49491862285D21A900EF004F /* PhotosViewController.swift */; };
 		494B778828B52D0300B52949 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 494B778628B52D0300B52949 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		494B778B28B52D0300B52949 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B778428B52D0300B52949 /* StorageService.framework */; };
@@ -72,6 +73,7 @@
 		493F603B285B4C0C00AF42DC /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		49405BC52853CB3D00895AC0 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		49416CCA28593DE6005D9493 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		4942D2E228F5B653008A7188 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		4945129828C1498B00798006 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4945129928C1498B00798006 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		4945129A28C1498B00798006 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -178,6 +180,32 @@
 				493F603B285B4C0C00AF42DC /* PhotosCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		4942D2DE28F5B606008A7188 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				499896F52840DF5B000ACA06 /* AppDelegate.swift */,
+				499896F72840DF5B000ACA06 /* SceneDelegate.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4942D2DF28F5B63A008A7188 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				494EAF2E28BE782600220F50 /* User.swift */,
+				4924E3CD28C7EBB4004AB046 /* FeedModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4942D2E128F5B644008A7188 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				4942D2E228F5B653008A7188 /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 		4945129728C1498B00798006 /* iOSIntPackage-imagepublisher */ = {
@@ -410,16 +438,15 @@
 		499896F42840DF5B000ACA06 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				499896F52840DF5B000ACA06 /* AppDelegate.swift */,
-				499896F72840DF5B000ACA06 /* SceneDelegate.swift */,
+				4942D2DE28F5B606008A7188 /* Services */,
 				494EAF3728BE900D00220F50 /* CurrentUserService.swift */,
 				494CFD8228BFFE6700502F5D /* Service.swift */,
 				494F1A1D28E4A44F00B95488 /* BrutForceService.swift */,
-				4924E3CD28C7EBB4004AB046 /* FeedModel.swift */,
+				4942D2E128F5B644008A7188 /* NetworkManager */,
 				4924E3CB28C7E146004AB046 /* Custom */,
 				494CFD8028BFFD6600502F5D /* Delegate */,
 				494EAF3A28BEABA300220F50 /* TestUserService.swift */,
-				494EAF2E28BE782600220F50 /* User.swift */,
+				4942D2DF28F5B63A008A7188 /* Models */,
 				499897142840E0C4000ACA06 /* VC */,
 				499897292840F641000ACA06 /* Profile */,
 				493FB19E285E7452007A033F /* Cell */,
@@ -667,6 +694,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4942D2E328F5B653008A7188 /* NetworkManager.swift in Sources */,
 				4998970F2840E059000ACA06 /* ProfileViewController.swift in Sources */,
 				494CD59128C21B2500D497F6 /* CustomButton.swift in Sources */,
 				49491863285D21A900EF004F /* PhotosViewController.swift in Sources */,

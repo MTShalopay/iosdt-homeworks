@@ -118,7 +118,7 @@ class LogInViewController: UIViewController {
                                                selector: #selector(self.didHideKeyboard(_:)),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
-        setupTimer(10, repeats: true)
+        setupTimer(10, repeats: false)
     }
     
     
@@ -158,7 +158,6 @@ class LogInViewController: UIViewController {
         alert.addAction(noAction)
         present(alert, animated: true, completion: nil)
     }
-    
     
     
     private func setupViews() {
