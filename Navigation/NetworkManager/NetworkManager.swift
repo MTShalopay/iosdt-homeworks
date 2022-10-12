@@ -7,18 +7,10 @@
 
 import Foundation
 
-enum AppConfiguration: CaseIterable {
-    case people, starships, planets
-    var decription: String {
-        switch self {
-        case .people:
-            return "https://swapi.dev/api/people/8"
-        case .starships:
-            return "https://swapi.dev/api/starships/3"
-        case .planets:
-            return "https://swapi.dev/api/planets/5"
-        }
-    }
+enum AppConfiguration: String, CaseIterable {
+    case people = "https://swapi.dev/api/people/8"
+    case starships = "https://swapi.dev/api/starships/3"
+    case planets = "https://swapi.dev/api/planets/5"
 }
 
 struct NetworkManager {
@@ -26,7 +18,7 @@ struct NetworkManager {
         let session = URLSession(configuration: .default)
         switch configuration {
         case .people:
-            guard let urlString = URL(string: "\(configuration.decription)") else { return }
+            guard let urlString = URL(string: "\(configuration.rawValue)") else { return }
             let task = session.dataTask(with: urlString) { (data, response, error) in
                 if let error = error {
                     print("ERROR localizedDescription: \(error.localizedDescription)")
@@ -78,7 +70,7 @@ struct NetworkManager {
             task.resume()
             
         case .starships:
-            guard let urlString = URL(string: "\(configuration.decription)") else { return }
+            guard let urlString = URL(string: "\(configuration.rawValue)") else { return }
             let task = session.dataTask(with: urlString) { (data, response, error) in
                 if let error = error {
                     print("ERROR localizedDescription: \(error.localizedDescription)")
@@ -128,7 +120,7 @@ struct NetworkManager {
             }
             task.resume()
         case .planets:
-            guard let urlString = URL(string: "\(configuration.decription)") else { return }
+            guard let urlString = URL(string: "\(configuration.rawValue)") else { return }
             let task = session.dataTask(with: urlString) { (data, response, error) in
                 if let error = error {
                     print("ERROR localizedDescription: \(error.localizedDescription)")
