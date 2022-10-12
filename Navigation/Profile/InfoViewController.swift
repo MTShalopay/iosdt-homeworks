@@ -37,9 +37,16 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         createButton()
         self.view.backgroundColor = UIColor.white
-        NetworkManager.requestBookingConfigure(for: 9, completion: { title in
+        //MARK: Решение задачи 1
+//        NetworkManager.requestBookingConfigure(for: 9, completion: { title in
+//            DispatchQueue.main.async {
+//                self.titleLabel.text = title ?? "Данные не полученны"
+//            }
+//        })
+        //MARK: Решение задачи 2
+        NetworkManager.getFetchPlanets(complited: { orbitalPeriod in
             DispatchQueue.main.async {
-                self.titleLabel.text = title ?? "Данные не полученны"
+                self.titleLabel.text = "Период обращения планеты Татуин вокруг своей звезды составляет \(orbitalPeriod ?? "0") км" 
             }
         })
         
