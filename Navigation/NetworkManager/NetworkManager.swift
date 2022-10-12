@@ -13,6 +13,14 @@ enum AppConfiguration: String, CaseIterable {
     case planets = "https://swapi.dev/api/planets/5"
 }
 
+struct BookingConfigure: Decodable {
+    let userId: Int
+    let id: Int
+    let title: String
+    let completed: Bool
+    
+}
+
 struct NetworkManager {
      static func request(for configuration: AppConfiguration) {
         let session = URLSession(configuration: .default)
@@ -166,5 +174,32 @@ struct NetworkManager {
             }
             task.resume()
         }
+    }
+
+    static func requestBookingConfigure(for index: Int, completion: ((_ title: String?)-> Void)?) {
+        let url = "https://jsonplaceholder.typicode.com/todos/\(index)"
+        guard let urlString = URL(string: url) else {
+            print("Невозможно получить URL =(")
+            
+        return }
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: urlString) { (data, response, error) in
+            if let error = error { print("ERROR: \(error.localizedDescription)") }
+            if (response as! HTTPURLResponse).statusCode != 200 {
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                print("УПС ошибочка вышла. Данный запрос имеет StatusCode \(statusCode)")
+                completion?(nil)
+            }
+            guard let data = data else {return print("К сожелению невозможно получить данные...") }
+            do {
+                let result = try JSONDecoder().decode(BookingConfigure.self, from: data)
+                let title = result.title
+                completion?(title)
+                
+            } catch {
+                print("ERROR: \(error)")
+            }
+        }
+        dataTask.resume()
     }
 }
