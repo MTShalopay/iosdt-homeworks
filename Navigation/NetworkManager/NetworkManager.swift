@@ -53,43 +53,9 @@ struct PlanetsParsing: Decodable {
     }
     
 }
-
-/*
- {
-     "name": "Tatooine",
-     "rotation_period": "23",
-     "orbital_period": "304",
-     "diameter": "10465",
-     "climate": "arid",
-     "gravity": "1 standard",
-     "terrain": "desert",
-     "surface_water": "1",
-     "population": "200000",
-     "residents": [
-         "https://swapi.dev/api/people/1/",
-         "https://swapi.dev/api/people/2/",
-         "https://swapi.dev/api/people/4/",
-         "https://swapi.dev/api/people/6/",
-         "https://swapi.dev/api/people/7/",
-         "https://swapi.dev/api/people/8/",
-         "https://swapi.dev/api/people/9/",
-         "https://swapi.dev/api/people/11/",
-         "https://swapi.dev/api/people/43/",
-         "https://swapi.dev/api/people/62/"
-     ],
-     "films": [
-         "https://swapi.dev/api/films/1/",
-         "https://swapi.dev/api/films/3/",
-         "https://swapi.dev/api/films/4/",
-         "https://swapi.dev/api/films/5/",
-         "https://swapi.dev/api/films/6/"
-     ],
-     "created": "2014-12-09T13:50:49.641000Z",
-     "edited": "2014-12-20T20:58:18.411000Z",
-     "url": "https://swapi.dev/api/planets/1/"
- }
- */
-
+struct Residents: Decodable {
+    let name: String
+}
 
 struct NetworkManager {
      static func request(for configuration: AppConfiguration) {
@@ -287,6 +253,44 @@ struct NetworkManager {
                 let result = try JSONDecoder().decode(PlanetsParsing.self, from: data)
                 let orbitalPeriod = result.orbitalPeriod
                 complited?(orbitalPeriod)
+            } catch {
+                print("ERROR: \(error)")
+            }
+        }
+        dataTask.resume()
+    }
+    //MARK: Решение задачи 3*
+    static func getPlanets(complited: ((_ residents: [String]?)-> Void)?) {
+        
+        guard let urlString = URL(string: "https://swapi.dev/api/planets/1") else {return print("Невозможно определить ЮРЛ")}
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: urlString) { (data, response, error) in
+            if let error = error { print("ERROR: \(error.localizedDescription)")}
+            if (response as! HTTPURLResponse).statusCode != 200 {
+                print("OPS StatusCode = \((response as! HTTPURLResponse).statusCode)")
+            }
+            guard let data = data else {return print("Data its nil")}
+            do {
+                let result = try JSONDecoder().decode(PlanetsParsing.self, from: data)
+                guard let residentsArray = result.residents as? [String] else {return}
+                
+                for resident in residentsArray {
+                    guard let urlString = URL(string: resident) else {return print("ops")}
+                    let session = URLSession(configuration: .default)
+                    let task = session.dataTask(with: urlString) { (data, response, err) in
+                        guard let data = data else {return print("Noooo Data is nil")}
+                        do {
+                            let nameResident = try JSONDecoder().decode(Residents.self, from: data)
+                            var tempArray = [String]()
+                            tempArray.append(nameResident.name)
+                            complited?(tempArray)
+                            
+                        } catch {
+                            print("Error residetn: \(String(describing: err))")
+                        }
+                    }
+                    task.resume()
+                }
             } catch {
                 print("ERROR: \(error)")
             }
