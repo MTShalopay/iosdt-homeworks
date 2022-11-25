@@ -13,6 +13,50 @@ enum AppConfiguration: String, CaseIterable {
     case planets = "https://swapi.dev/api/planets/5"
 }
 
+struct BookingConfigure: Decodable {
+    let userId: Int
+    let id: Int
+    let title: String
+    let completed: Bool
+}
+
+struct PlanetsParsing: Decodable {
+    let name: String
+    let rotationPeriod: String
+    let orbitalPeriod: String
+    let diameter: String
+    let climate: String
+    let gravity: String
+    let terrain: String
+    let surfaceWater: String
+    let population: String
+    let residents: [String]
+    let films: [String]
+    let created: String
+    let edited: String
+    let url: String
+    enum CodingKeys: String, CodingKey {
+        case name
+        case rotationPeriod = "rotation_period"
+        case orbitalPeriod = "orbital_period"
+        case diameter
+        case climate
+        case gravity
+        case terrain
+        case surfaceWater = "surface_water"
+        case population
+        case residents
+        case films
+        case created
+        case edited
+        case url
+    }
+    
+}
+struct Residents: Decodable {
+    let name: String
+}
+
 struct NetworkManager {
      static func request(for configuration: AppConfiguration) {
         let session = URLSession(configuration: .default)
@@ -166,5 +210,91 @@ struct NetworkManager {
             }
             task.resume()
         }
+    }
+
+    static func requestBookingConfigure(for index: Int, completion: ((_ title: String?)-> Void)?) {
+        let url = "https://jsonplaceholder.typicode.com/todos/\(index)"
+        guard let urlString = URL(string: url) else {
+            print("Невозможно получить URL =(")
+            
+        return }
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: urlString) { (data, response, error) in
+            if let error = error { print("ERROR: \(error.localizedDescription)") }
+            if (response as! HTTPURLResponse).statusCode != 200 {
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                print("УПС ошибочка вышла. Данный запрос имеет StatusCode \(statusCode)")
+                completion?(nil)
+            }
+            guard let data = data else {return print("К сожелению невозможно получить данные...") }
+            do {
+                let result = try JSONDecoder().decode(BookingConfigure.self, from: data)
+                let title = result.title
+                completion?(title)
+                
+            } catch {
+                print("ERROR: \(error)")
+            }
+        }
+        dataTask.resume()
+    }
+    
+    static func getFetchPlanets(complited:((_ orbitalPeriod:String?)->Void)?) {
+        guard let urlString = URL(string: "https://swapi.dev/api/planets/1") else {return print("Невозможно определить ЮРЛ")}
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: urlString) { (data, response, error) in
+            if let error = error { print("ERROR: \(error.localizedDescription)")}
+            if (response as! HTTPURLResponse).statusCode != 200 {
+                print("OPS StatusCode = \((response as! HTTPURLResponse).statusCode)")
+                complited?(nil)
+            }
+            guard let data = data else {return print("Data its nil")}
+            do {
+                let result = try JSONDecoder().decode(PlanetsParsing.self, from: data)
+                let orbitalPeriod = result.orbitalPeriod
+                complited?(orbitalPeriod)
+            } catch {
+                print("ERROR: \(error)")
+            }
+        }
+        dataTask.resume()
+    }
+    //MARK: Решение задачи 3*
+    static func getPlanets(complited: ((_ residents: [String]?)-> Void)?) {
+        
+        guard let urlString = URL(string: "https://swapi.dev/api/planets/1") else {return print("Невозможно определить ЮРЛ")}
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: urlString) { (data, response, error) in
+            if let error = error { print("ERROR: \(error.localizedDescription)")}
+            if (response as! HTTPURLResponse).statusCode != 200 {
+                print("OPS StatusCode = \((response as! HTTPURLResponse).statusCode)")
+            }
+            guard let data = data else {return print("Data its nil")}
+            do {
+                let result = try JSONDecoder().decode(PlanetsParsing.self, from: data)
+                guard let residentsArray = result.residents as? [String] else {return}
+                
+                for resident in residentsArray {
+                    guard let urlString = URL(string: resident) else {return print("ops")}
+                    let session = URLSession(configuration: .default)
+                    let task = session.dataTask(with: urlString) { (data, response, err) in
+                        guard let data = data else {return print("Noooo Data is nil")}
+                        do {
+                            let nameResident = try JSONDecoder().decode(Residents.self, from: data)
+                            var tempArray = [String]()
+                            tempArray.append(nameResident.name)
+                            complited?(tempArray)
+                            
+                        } catch {
+                            print("Error residetn: \(String(describing: err))")
+                        }
+                    }
+                    task.resume()
+                }
+            } catch {
+                print("ERROR: \(error)")
+            }
+        }
+        dataTask.resume()
     }
 }

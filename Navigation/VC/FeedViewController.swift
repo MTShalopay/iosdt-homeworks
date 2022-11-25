@@ -32,7 +32,7 @@ class FeedViewController: UIViewController {
     private lazy var buttonTwo: CustomButton = {
         let buttonOne = CustomButton(title: "ButtonTwo", titleColor: .lightGray)
         buttonOne.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
-        buttonOne.tag = 0
+        buttonOne.tag = 1
         buttonOne.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         return buttonOne
     }()

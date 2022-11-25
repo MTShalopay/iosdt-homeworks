@@ -16,10 +16,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
         
-        
-        let randomConfigureItem = AppConfiguration.allCases.randomElement()!
-        NetworkManager.request(for: randomConfigureItem)
-        
         let loginVC = LogInViewController()
         //Delegat
         //loginVC.loginDelegate = LoginInspector()
