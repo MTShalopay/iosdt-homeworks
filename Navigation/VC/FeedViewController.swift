@@ -66,8 +66,6 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Лента"
-        self.tabBarItem = UITabBarItem(title: title, image: UIImage(systemName: "book"), tag: 0)
         view.backgroundColor = UIColor.gray
         setupVerticalStack()
         actionButton()

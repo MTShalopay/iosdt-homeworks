@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,6 +37,10 @@
 		4998972B2840F66A000ACA06 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998972A2840F66A000ACA06 /* ProfileHeaderView.swift */; };
 		499A18EB28C14ED200150CE2 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 499A18EA28C14ED200150CE2 /* iOSIntPackage */; };
 		49F578E5285A284900B39A25 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F578E4285A284900B39A25 /* PhotosTableViewCell.swift */; };
+		49FD4E8529316CE900862859 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 49FD4E8429316CE900862859 /* Realm */; };
+		49FD4E8729316CE900862859 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 49FD4E8629316CE900862859 /* RealmSwift */; };
+		49FD4E902931721D00862859 /* UsersRealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FD4E8F2931721D00862859 /* UsersRealmData.swift */; };
+		49FD4E9429317D9C00862859 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FD4E9329317D9C00862859 /* RealmService.swift */; };
 		84B3DBAF6058FD453C832CA4 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0590C2EA63BB965848DFD8F2 /* Pods_Navigation.framework */; };
 		F885C366FB66CB4CF298AA14 /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF8184ABE9131C583B455E0 /* Pods_StorageService.framework */; };
 /* End PBXBuildFile section */
@@ -135,6 +139,8 @@
 		4998971E2840EC73000ACA06 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostViewController.swift; path = Navigation/Profile/PostViewController.swift; sourceTree = SOURCE_ROOT; };
 		4998972A2840F66A000ACA06 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		49F578E4285A284900B39A25 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
+		49FD4E8F2931721D00862859 /* UsersRealmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRealmData.swift; sourceTree = "<group>"; };
+		49FD4E9329317D9C00862859 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		8DF8184ABE9131C583B455E0 /* Pods_StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B87346E0815CAB37A04417FA /* Pods-StorageService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorageService.release.xcconfig"; path = "Target Support Files/Pods-StorageService/Pods-StorageService.release.xcconfig"; sourceTree = "<group>"; };
 		C956230CEE2F9489156E2460 /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
@@ -156,6 +162,8 @@
 			files = (
 				499A18EB28C14ED200150CE2 /* iOSIntPackage in Frameworks */,
 				494B778B28B52D0300B52949 /* StorageService.framework in Frameworks */,
+				49FD4E8529316CE900862859 /* Realm in Frameworks */,
+				49FD4E8729316CE900862859 /* RealmSwift in Frameworks */,
 				84B3DBAF6058FD453C832CA4 /* Pods_Navigation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,6 +446,7 @@
 		499896F42840DF5B000ACA06 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				49FD4E8E29316FCF00862859 /* RealmService */,
 				4942D2DE28F5B606008A7188 /* Services */,
 				494EAF3728BE900D00220F50 /* CurrentUserService.swift */,
 				494CFD8228BFFE6700502F5D /* Service.swift */,
@@ -476,6 +485,15 @@
 				499897152840E0F0000ACA06 /* InfoViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		49FD4E8E29316FCF00862859 /* RealmService */ = {
+			isa = PBXGroup;
+			children = (
+				49FD4E8F2931721D00862859 /* UsersRealmData.swift */,
+				49FD4E9329317D9C00862859 /* RealmService.swift */,
+			);
+			path = RealmService;
 			sourceTree = "<group>";
 		};
 		8853F73B7DE107F008F04C25 /* Pods */ = {
@@ -553,6 +571,8 @@
 			name = Navigation;
 			packageProductDependencies = (
 				499A18EA28C14ED200150CE2 /* iOSIntPackage */,
+				49FD4E8429316CE900862859 /* Realm */,
+				49FD4E8629316CE900862859 /* RealmSwift */,
 			);
 			productName = Navigation;
 			productReference = 499896F22840DF5B000ACA06 /* Navigation.app */;
@@ -577,7 +597,7 @@
 				};
 			};
 			buildConfigurationList = 499896ED2840DF5B000ACA06 /* Build configuration list for PBXProject "Navigation" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -587,6 +607,7 @@
 			mainGroup = 499896E92840DF5B000ACA06;
 			packageReferences = (
 				499A18E928C14ED200150CE2 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+				49FD4E8329316CE900862859 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 499896F32840DF5B000ACA06 /* Products */;
 			projectDirPath = "";
@@ -706,6 +727,7 @@
 				49F578E5285A284900B39A25 /* PhotosTableViewCell.swift in Sources */,
 				494EAF2F28BE782600220F50 /* User.swift in Sources */,
 				494CFD7E28BFE96E00502F5D /* LoginInspector.swift in Sources */,
+				49FD4E902931721D00862859 /* UsersRealmData.swift in Sources */,
 				4998971F2840EC73000ACA06 /* PostViewController.swift in Sources */,
 				493F603C285B4C0C00AF42DC /* PhotosCollectionViewCell.swift in Sources */,
 				494EAF3B28BEABA300220F50 /* TestUserService.swift in Sources */,
@@ -717,6 +739,7 @@
 				494CFD7B28BFE68000502F5D /* Checker.swift in Sources */,
 				499897162840E0F0000ACA06 /* InfoViewController.swift in Sources */,
 				4998972B2840F66A000ACA06 /* ProfileHeaderView.swift in Sources */,
+				49FD4E9429317D9C00862859 /* RealmService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1000,6 +1023,14 @@
 				kind = branch;
 			};
 		};
+		49FD4E8329316CE900862859 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				kind = exactVersion;
+				version = 10.7.7;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1007,6 +1038,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 499A18E928C14ED200150CE2 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
 			productName = iOSIntPackage;
+		};
+		49FD4E8429316CE900862859 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 49FD4E8329316CE900862859 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		49FD4E8629316CE900862859 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 49FD4E8329316CE900862859 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
