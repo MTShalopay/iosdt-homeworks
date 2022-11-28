@@ -38,6 +38,7 @@ class LogInViewController: UIViewController {
         emailTextField.delegate = self
         emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: emailTextField.frame.height))
         emailTextField.leftViewMode = .always
+        emailTextField.keyboardType = .emailAddress
         emailTextField.layer.borderWidth = 0.5
         emailTextField.layer.borderColor = UIColor.lightGray.cgColor
         emailTextField.font = .systemFont(ofSize: 16)

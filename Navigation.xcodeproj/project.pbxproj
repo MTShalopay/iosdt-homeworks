@@ -13,6 +13,10 @@
 		49405BC62853CB3D00895AC0 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49405BC52853CB3D00895AC0 /* LogInViewController.swift */; };
 		49416CCB28593DE6005D9493 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49416CCA28593DE6005D9493 /* PostTableViewCell.swift */; };
 		4942D2E328F5B653008A7188 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4942D2E228F5B653008A7188 /* NetworkManager.swift */; };
+		49446F9B2933A597006A4C3F /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49446F9A2933A597006A4C3F /* FavoriteViewController.swift */; };
+		49446F9E2933A977006A4C3F /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49446F9D2933A977006A4C3F /* FavoriteTableViewCell.swift */; };
+		49446FA22933B594006A4C3F /* Navigation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 49446FA02933B594006A4C3F /* Navigation.xcdatamodeld */; };
+		49446FA62933B5C7006A4C3F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49446FA52933B5C7006A4C3F /* CoreDataManager.swift */; };
 		49491863285D21A900EF004F /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49491862285D21A900EF004F /* PhotosViewController.swift */; };
 		494B778828B52D0300B52949 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 494B778628B52D0300B52949 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		494B778B28B52D0300B52949 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B778428B52D0300B52949 /* StorageService.framework */; };
@@ -78,6 +82,10 @@
 		49405BC52853CB3D00895AC0 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		49416CCA28593DE6005D9493 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		4942D2E228F5B653008A7188 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		49446F9A2933A597006A4C3F /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		49446F9D2933A977006A4C3F /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
+		49446FA12933B594006A4C3F /* Navigation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Navigation.xcdatamodel; sourceTree = "<group>"; };
+		49446FA52933B5C7006A4C3F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		4945129828C1498B00798006 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4945129928C1498B00798006 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		4945129A28C1498B00798006 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -184,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				49416CCA28593DE6005D9493 /* PostTableViewCell.swift */,
+				49446F9D2933A977006A4C3F /* FavoriteTableViewCell.swift */,
 				49F578E4285A284900B39A25 /* PhotosTableViewCell.swift */,
 				493F603B285B4C0C00AF42DC /* PhotosCollectionViewCell.swift */,
 			);
@@ -214,6 +223,14 @@
 				4942D2E228F5B653008A7188 /* NetworkManager.swift */,
 			);
 			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		49446FA42933B5A4006A4C3F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				49446FA52933B5C7006A4C3F /* CoreDataManager.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		4945129728C1498B00798006 /* iOSIntPackage-imagepublisher */ = {
@@ -446,6 +463,7 @@
 		499896F42840DF5B000ACA06 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				49446FA42933B5A4006A4C3F /* CoreData */,
 				49FD4E8E29316FCF00862859 /* RealmService */,
 				4942D2DE28F5B606008A7188 /* Services */,
 				494EAF3728BE900D00220F50 /* CurrentUserService.swift */,
@@ -462,6 +480,7 @@
 				499896FE2840DF5F000ACA06 /* Assets.xcassets */,
 				499897002840DF5F000ACA06 /* LaunchScreen.storyboard */,
 				499897032840DF5F000ACA06 /* Info.plist */,
+				49446FA02933B594006A4C3F /* Navigation.xcdatamodeld */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -470,6 +489,7 @@
 			isa = PBXGroup;
 			children = (
 				499897112840E074000ACA06 /* FeedViewController.swift */,
+				49446F9A2933A597006A4C3F /* FavoriteViewController.swift */,
 				49405BC52853CB3D00895AC0 /* LogInViewController.swift */,
 				4998970E2840E059000ACA06 /* ProfileViewController.swift */,
 				49491862285D21A900EF004F /* PhotosViewController.swift */,
@@ -718,6 +738,7 @@
 				4942D2E328F5B653008A7188 /* NetworkManager.swift in Sources */,
 				4998970F2840E059000ACA06 /* ProfileViewController.swift in Sources */,
 				494CD59128C21B2500D497F6 /* CustomButton.swift in Sources */,
+				49446FA22933B594006A4C3F /* Navigation.xcdatamodeld in Sources */,
 				49491863285D21A900EF004F /* PhotosViewController.swift in Sources */,
 				499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */,
 				4924E3CE28C7EBB4004AB046 /* FeedModel.swift in Sources */,
@@ -728,6 +749,7 @@
 				494EAF2F28BE782600220F50 /* User.swift in Sources */,
 				494CFD7E28BFE96E00502F5D /* LoginInspector.swift in Sources */,
 				49FD4E902931721D00862859 /* UsersRealmData.swift in Sources */,
+				49446F9E2933A977006A4C3F /* FavoriteTableViewCell.swift in Sources */,
 				4998971F2840EC73000ACA06 /* PostViewController.swift in Sources */,
 				493F603C285B4C0C00AF42DC /* PhotosCollectionViewCell.swift in Sources */,
 				494EAF3B28BEABA300220F50 /* TestUserService.swift in Sources */,
@@ -737,6 +759,8 @@
 				4924E3C928C7E139004AB046 /* CustomTexfield.swift in Sources */,
 				49416CCB28593DE6005D9493 /* PostTableViewCell.swift in Sources */,
 				494CFD7B28BFE68000502F5D /* Checker.swift in Sources */,
+				49446F9B2933A597006A4C3F /* FavoriteViewController.swift in Sources */,
+				49446FA62933B5C7006A4C3F /* CoreDataManager.swift in Sources */,
 				499897162840E0F0000ACA06 /* InfoViewController.swift in Sources */,
 				4998972B2840F66A000ACA06 /* ProfileHeaderView.swift in Sources */,
 				49FD4E9429317D9C00862859 /* RealmService.swift in Sources */,
@@ -1050,6 +1074,19 @@
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		49446FA02933B594006A4C3F /* Navigation.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				49446FA12933B594006A4C3F /* Navigation.xcdatamodel */,
+			);
+			currentVersion = 49446FA12933B594006A4C3F /* Navigation.xcdatamodel */;
+			path = Navigation.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 499896EA2840DF5B000ACA06 /* Project object */;
 }
