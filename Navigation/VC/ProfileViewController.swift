@@ -188,21 +188,24 @@ class ProfileViewController: UIViewController {
         let touchPoint = sender.location(in: sender.view)
         guard let indexPath = tableView.indexPathForRow(at: touchPoint) else { return }
             self.indexSelectedRow = indexPath.row
-        
-        UIView.animate(withDuration: 0.5,
-                       delay: 0.0,
-                       options: .allowUserInteraction) {
-            self.tappingImage.alpha = 0.8
-        } completion: { _ in
-            UIView.animate(withDuration: 0.3) {
-                self.tappingImage.alpha = 0
+        let favoritePostAuth = self.post[self.indexSelectedRow!].author
+        let favoritePostImage = self.post[self.indexSelectedRow!].image
+        if self.coreDataManager.checkDuplicate(imagePath: favoritePostImage) {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0.0,
+                           options: .allowUserInteraction) {
+                self.tappingImage.alpha = 0.8
+            } completion: { _ in
+                UIView.animate(withDuration: 0.3) {
+                    self.coreDataManager.addNewItem(author: favoritePostAuth, imagePath: favoritePostImage)
+                    self.tappingImage.alpha = 0
+                }
             }
-            let favoritePostAuth = self.post[self.indexSelectedRow!].author
-            let favoritePostImage = self.post[self.indexSelectedRow!].image
-            self.coreDataManager.addNewItem(author: favoritePostAuth, imagePath: favoritePostImage)
-            //self.coreDataManager.checkDuplicate(image: favoritePostImage)
-
-
+        } else {
+            let alertController = UIAlertController(title: "ВНИМАНИЕ", message: "Данный пост вы уже добавили к себе в избранные", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "ОК", style: .cancel)
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true)
         }
     }
     

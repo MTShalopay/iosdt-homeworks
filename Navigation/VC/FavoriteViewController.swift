@@ -27,13 +27,11 @@ class FavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        print("CORE count: \(coreDataManager.items.count)")
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("CORE count: \(coreDataManager.items.count)")
         favoriteTableView.reloadData()
-        
     }
     
     func setupView() {
@@ -80,9 +78,4 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
             print("DEFAULT")
         }
     }
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 320
-//    }
-    
-    
 }
