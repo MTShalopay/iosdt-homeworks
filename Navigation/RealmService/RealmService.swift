@@ -15,16 +15,25 @@ class RealmService {
     func createCategory(name: String) {
         let category = Category()
         category.categoryName = name
-        try! realm.write({
-            realm.add(category)
-        })
+        do {
+            try realm.write({
+                realm.add(category)
+            })
+        } catch {
+            print("ERROR: \(error)")
+        }
+        
     }
     //create User
     func addUser(categoryId: String, user: NewUsers) {
         guard let category = realm.object(ofType: Category.self, forPrimaryKey: categoryId) else { return }
-        try! realm.write({
-            category.users.append(user)
-        })
+        do {
+            try realm.write({
+                category.users.append(user)
+            })
+        } catch {
+            print("ERROR: \(error)")
+        }
     }
     
     //delete Category
@@ -33,10 +42,14 @@ class RealmService {
     
     //deleteAll
     func deleteAllCategory() {
-        try! realm.write({
+        do {
+        try realm.write({
             _ = realm.objects(Category.self)
             realm.deleteAll()
         })
+        } catch {
+            print("ERROR: \(error)")
+        }
     }
     
 }

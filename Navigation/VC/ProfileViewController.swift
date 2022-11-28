@@ -10,6 +10,18 @@ import StorageService
 import SnapKit
 
 class ProfileViewController: UIViewController {
+    let coreDataManager = CoreDataManager.shared
+    var indexSelectedRow: Int?
+    
+    private lazy var tappingImage: UIImageView = {
+        let imageView = UIImageView(frame: .zero)
+        imageView.image = UIImage(named: "addFavorite")
+        imageView.alpha = 0
+        imageView.backgroundColor = .clear
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     private let post = Post.setupPost()
     let headerView = ProfileHeaderView()
@@ -60,6 +72,9 @@ class ProfileViewController: UIViewController {
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultcell")
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.showsVerticalScrollIndicator = false
+        tableView.alwaysBounceVertical = false
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -100,6 +115,7 @@ class ProfileViewController: UIViewController {
     
     private func setupView() {
         view.addSubview(tableView)
+        tableView.addSubview(tappingImage)
         view.addSubview(fullscreenBackView)
         view.addSubview(avatarImageView)
         fullscreenBackView.addSubview(cancelButton)
@@ -132,6 +148,12 @@ class ProfileViewController: UIViewController {
             make.width.equalTo(30)
             make.height.equalTo(30)
         }
+        NSLayoutConstraint.activate([
+            tappingImage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            tappingImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tappingImage.widthAnchor.constraint(equalToConstant: 300),
+            tappingImage.heightAnchor.constraint(equalToConstant: 300)
+        ])
         
 //        NSLayoutConstraint.activate([
 //            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -157,9 +179,34 @@ class ProfileViewController: UIViewController {
     private func setupGestures() {        
         let tapOnfullscreenBackView = UITapGestureRecognizer(target: self, action: #selector(tapOnFullScreen))
         fullscreenBackView.addGestureRecognizer(tapOnfullscreenBackView)
-        
         let tapCancel = UITapGestureRecognizer(target: self, action: #selector(tapCancelButton))
         cancelButton.addGestureRecognizer(tapCancel)
+    }
+    
+    @objc func doubleTap(sender: UITapGestureRecognizer) {
+        print(#function)
+        let touchPoint = sender.location(in: sender.view)
+        guard let indexPath = tableView.indexPathForRow(at: touchPoint) else { return }
+            self.indexSelectedRow = indexPath.row
+        let favoritePostAuth = self.post[self.indexSelectedRow!].author
+        let favoritePostImage = self.post[self.indexSelectedRow!].image
+        if self.coreDataManager.checkDuplicate(imagePath: favoritePostImage) {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0.0,
+                           options: .allowUserInteraction) {
+                self.tappingImage.alpha = 0.8
+            } completion: { _ in
+                UIView.animate(withDuration: 0.3) {
+                    self.coreDataManager.addNewItem(author: favoritePostAuth, imagePath: favoritePostImage)
+                    self.tappingImage.alpha = 0
+                }
+            }
+        } else {
+            let alertController = UIAlertController(title: "ВНИМАНИЕ", message: "Данный пост вы уже добавили к себе в избранные", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "ОК", style: .cancel)
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true)
+        }
     }
     
     @objc func tapOnAvatarImage() {
@@ -213,16 +260,24 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cellTwo = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as? PostTableViewCell else { return tableView.dequeueReusableCell(withIdentifier: "defaultcell", for: indexPath) }
             let myPost = post[indexPath.row]
             cellTwo.setup(with: myPost)
+            cellTwo.selectionStyle = .none
+            let doubleTapping = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
+            doubleTapping.numberOfTouchesRequired = 2
+            tableView.addGestureRecognizer(doubleTapping)
+            doubleTapping.delaysTouchesBegan = true
+        
+            cellTwo.isUserInteractionEnabled = false
         return indexPath.section == 0 ? cellOne : cellTwo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Section \(indexPath.section) - Row \(indexPath.row)")
         tableView.deselectRow(at: indexPath, animated:true)
-        let vc = PhotosViewController()
-        vc.textTitle = "Photo Gallery"
-        indexPath.section == 0 ? navigationController?.pushViewController(vc, animated: true) : nil
-        
+            let vc = PhotosViewController()
+        if indexPath.section == 0 {
+            vc.textTitle = "Photo Gallery"
+            indexPath.section == 0 ? navigationController?.pushViewController(vc, animated: true) : nil
+        }
     }
     
    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
