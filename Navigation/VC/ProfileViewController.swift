@@ -183,8 +183,12 @@ class ProfileViewController: UIViewController {
         cancelButton.addGestureRecognizer(tapCancel)
     }
     
-    @objc func doubleTap() {
+    @objc func doubleTap(sender: UITapGestureRecognizer) {
         print(#function)
+        let touchPoint = sender.location(in: sender.view)
+        guard let indexPath = tableView.indexPathForRow(at: touchPoint) else { return }
+            self.indexSelectedRow = indexPath.row
+        
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
                        options: .allowUserInteraction) {
@@ -196,6 +200,9 @@ class ProfileViewController: UIViewController {
             let favoritePostAuth = self.post[self.indexSelectedRow!].author
             let favoritePostImage = self.post[self.indexSelectedRow!].image
             self.coreDataManager.addNewItem(author: favoritePostAuth, imagePath: favoritePostImage)
+            //self.coreDataManager.checkDuplicate(image: favoritePostImage)
+
+
         }
     }
     
@@ -251,13 +258,12 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             let myPost = post[indexPath.row]
             cellTwo.setup(with: myPost)
             cellTwo.selectionStyle = .none
-            self.indexSelectedRow = indexPath.row
             let doubleTapping = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
             doubleTapping.numberOfTouchesRequired = 2
             tableView.addGestureRecognizer(doubleTapping)
             doubleTapping.delaysTouchesBegan = true
         
-        cellTwo.isUserInteractionEnabled = false
+            cellTwo.isUserInteractionEnabled = false
         return indexPath.section == 0 ? cellOne : cellTwo
     }
     

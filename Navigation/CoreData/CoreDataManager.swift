@@ -58,4 +58,11 @@ class CoreDataManager {
         saveContext()
         reloadFolders()
     }
+    
+    func checkDuplicate(image: String) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteItem")
+        fetchRequest.predicate = NSPredicate(format: "image == %@", argumentArray: [image])
+        let count = try! persistentContainer.viewContext.count(for: fetchRequest)
+        print("Количество совпадений картинки \(image) - \(count) штук")
+    }
 }

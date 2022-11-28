@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
         
-        realmService.createCategory(name: "Users")
+        //realmService.createCategory(name: "Users")
         
         let loginVC = LogInViewController()
         loginVC.tabBarItem.title = "Вход"
