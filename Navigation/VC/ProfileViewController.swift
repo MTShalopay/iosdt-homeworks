@@ -66,8 +66,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Профиль"
-        self.tabBarItem = UITabBarItem(title: title, image: UIImage(systemName: "person.crop.square"), tag: 1)
+        
         /*
          Задача 2
 
@@ -86,6 +85,9 @@ class ProfileViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationController?.tabBarItem.title = "Профиль"
+        navigationController?.tabBarItem.image = UIImage(systemName: "person.crop.square")
+        navigationController?.tabBarItem.tag = 1
     }
     
     override func viewWillLayoutSubviews() {

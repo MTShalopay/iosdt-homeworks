@@ -6,31 +6,56 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    let tabBarVC = UITabBarController()
+    let realmService = RealmService()
+    let realm = try! Realm()
+    let userDefault = UserDefaults.standard
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
+        realmService.createCategory(name: "Users")
         
         let loginVC = LogInViewController()
+        loginVC.tabBarItem.title = "Вход"
+        loginVC.tabBarItem.image = UIImage(systemName: "person.crop.square")
+        loginVC.tabBarItem.tag = 1
+        let feedVC = FeedViewController()
+        feedVC.tabBarItem.title = "Лента"
+        feedVC.tabBarItem.image = UIImage(systemName: "book")
+        feedVC.tabBarItem.tag = 0
+        let profilVC = ProfileViewController()
+        profilVC.tabBarItem.title = "Профиль"
+        profilVC.tabBarItem.image = UIImage(systemName: "person.crop.square")
+        profilVC.tabBarItem.tag = 1
         //Delegat
         //loginVC.loginDelegate = LoginInspector()
-        
         //Factory
         let factory = MyLoginFactory()
         loginVC.loginDelegate = factory.makeLoginInspector()
-        
         let loginNC = UINavigationController(rootViewController: loginVC)
-        let feedNC = UINavigationController(rootViewController: FeedViewController())
-        let tabBarVC = UITabBarController()
-        
-        
+        let feedNC = UINavigationController(rootViewController: feedVC)
+        let profilNC = UINavigationController(rootViewController: profilVC)
         tabBarVC.setViewControllers([feedNC,loginNC], animated: true)
-        loginVC.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.square"), tag: 1)
+        
+        let allCategory = realm.objects(Category.self)
+        guard let usersCategory = realm.object(ofType: Category.self, forPrimaryKey: allCategory.first?.id) else { return }
+        let loginIn = userDefault.string(forKey: "login")
+        let passwordIn = userDefault.string(forKey: "password")
+        print(loginIn, passwordIn)
+        for user in usersCategory.users {
+            if loginIn == user.login && passwordIn == user.password {
+                print("Welcome to PROFILEVC")
+                tabBarVC.setViewControllers([feedNC, profilNC], animated: true)
+            }
+        }
+        print(allCategory.first?.users)
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
     }

@@ -6,14 +6,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class LogInViewController: UIViewController {
-     var loginDelegate: LoginViewControllerDelegate?
+    var users: Results<Category>?
+    let realmService = RealmService()
+    let realm = try! Realm()
+    var loginDelegate: LoginViewControllerDelegate?
+    let userDefault = UserDefaults.standard
     private var timer: Timer?
     private let currentUserService = CurrentUserService()
     private let testUserService = TestUserService()
     private let brutForceService = BrutForceService()
-    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +99,7 @@ class LogInViewController: UIViewController {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -103,8 +107,9 @@ class LogInViewController: UIViewController {
         setupViews()
         stateMyButton(sender: myButton)
         actionButton()
-        
-        
+        /*
+         /Users/shalopay/Library/Developer/CoreSimulator/Devices/F9D2C937-826A-4E28-9610-4FC9A215EE7F/data/Containers/Data/Application/7452F94E-8FDF-4225-8840-F8D8287D35C3/Documents/
+         */
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -118,7 +123,7 @@ class LogInViewController: UIViewController {
                                                selector: #selector(self.didHideKeyboard(_:)),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
-        setupTimer(10, repeats: false)
+        //setupTimer(10, repeats: false)
     }
     
     
@@ -219,16 +224,31 @@ class LogInViewController: UIViewController {
     }
     private func actionButton() {
         myButton.action = {
-            guard let loginDelegate = self.loginDelegate, let login = self.emailTextField.text, let password = self.passTextField.text else { return }
-            
-            if loginDelegate.check(login: login, password: password) {
+            guard let login = self.emailTextField.text, let password = self.passTextField.text else { return }
+            if !login.isEmpty, !password.isEmpty {
+                let allCategory = self.realm.objects(Category.self)
+                self.userDefault.setValue(login, forKey: "login")
+                self.userDefault.setValue(password, forKey: "password")
+                let newUser = NewUsers()
+                newUser.login = login
+                newUser.password = password
+                self.realmService.addUser(categoryId: allCategory[0].id, user: newUser)
+                print(allCategory)
                 let profileVC = ProfileViewController()
                 self.navigationController?.pushViewController(profileVC, animated: true)
             } else {
-                let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(self.emailTextField.text!) с паролем: \(self.passTextField.text!) нет в БД", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))
-                self.present(alert, animated: true)
+                print("Что то пошло не так")
             }
+//            guard let loginDelegate = self.loginDelegate, let login = self.emailTextField.text, let password = self.passTextField.text else { return }
+//
+//            if loginDelegate.check(login: login, password: password) {
+//                let profileVC = ProfileViewController()
+//                self.navigationController?.pushViewController(profileVC, animated: true)
+//            } else {
+//                let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(self.emailTextField.text!) с паролем: \(self.passTextField.text!) нет в БД", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))
+//                self.present(alert, animated: true)
+//            }
         }
         getPassButton.action = {
             self.getPassword()
@@ -254,7 +274,7 @@ class LogInViewController: UIViewController {
     let tapDissmis = UITapGestureRecognizer(target: self, action: #selector(dissmiskeyboard))
     view.addGestureRecognizer(tapDissmis)
     }
-    func stateMyButton(sender: UIButton) {
+    private func stateMyButton(sender: UIButton) {
         switch sender.state {
         case .normal:
             sender.alpha = 1.0
