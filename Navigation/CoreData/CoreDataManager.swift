@@ -9,10 +9,13 @@ import CoreData
 
 class CoreDataManager {
     var items: [FavoriteItem] = []
+    var searchPost: [FavoriteItem] = []
     static let shared = CoreDataManager()
+    
     private init() {
         reloadFolders()
     }
+    
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Navigation")
@@ -23,7 +26,7 @@ class CoreDataManager {
         })
         return container
     }()
-
+    
     // MARK: - Core Data Saving support
     func saveContext () {
         let context = persistentContainer.viewContext
@@ -46,6 +49,7 @@ class CoreDataManager {
         }
     }
     func addNewItem(author: String, imagePath: String) {
+        
         let item = FavoriteItem(context: persistentContainer.viewContext)
         item.date = Date()
         item.image = imagePath
@@ -69,4 +73,32 @@ class CoreDataManager {
         }
         return true
     }
+    
+   
+    func searchPost(name: String) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteItem")
+        fetchRequest.predicate = NSPredicate(format: "image == %@", argumentArray: [name])
+        do {
+            let posts = try persistentContainer.viewContext.fetch(fetchRequest) as! [FavoriteItem]
+            self.searchPost = posts
+            saveContext()
+        } catch {
+            print("ERROR SEARCHPOST \(error)")
+        }
+    }
+    
+    private func printStats() {
+        let context = persistentContainer.viewContext
+        context.perform {
+            
+            if Thread.isMainThread {
+                print("MAIN поток")
+            } else {
+                print("Background поток")
+                }
+            }
+        }
 }
+
+
+

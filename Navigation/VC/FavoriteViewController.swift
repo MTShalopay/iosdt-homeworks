@@ -6,9 +6,15 @@
 //
 
 import UIKit
+import CoreData
 
 class FavoriteViewController: UIViewController {
+    enum TableViewState {
+        case normal, searchPost
+    }
+    
     let coreDataManager = CoreDataManager.shared
+    var tableViewState: TableViewState = .normal
     
     private lazy var favoriteTableView: UITableView = {
         let tableview = UITableView(frame: .zero, style: .plain)
@@ -27,15 +33,16 @@ class FavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupNavigatonBar()
         print("CORE count: \(coreDataManager.items.count)")
         favoriteTableView.reloadData()
     }
     
-    func setupView() {
+    private func setupView() {
         title = "Сохраненные"
         view.backgroundColor = UIColor.gray
         view.addSubview(favoriteTableView)
@@ -46,11 +53,47 @@ class FavoriteViewController: UIViewController {
             favoriteTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
+    private func setupNavigatonBar() {
+        let searchPostBarButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchPost))
+        let clearFilterBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(clearFilter))
+        navigationItem.rightBarButtonItems = [clearFilterBarButton, searchPostBarButton]
+    }
+    
+    @objc func searchPost() {
+        print(#function)
+        setupAlertController()
+    }
+    @objc func clearFilter() {
+        print(#function)
+        tableViewState = .normal
+        self.favoriteTableView.reloadData()
+    }
+    
+    private func setupAlertController() {
+        let alertController = UIAlertController(title: "Введите имя", message: "", preferredStyle: .alert)
+            alertController.addTextField { textfield in
+                textfield.placeholder = "имя сортировки"
+            }
+        let okButton = UIAlertAction(title: "Применить", style: .default) { action in
+            let firstTexfield = alertController.textFields![0]
+            self.tableViewState = .searchPost
+            self.coreDataManager.searchPost(name: firstTexfield.text!)
+            self.favoriteTableView.reloadData()
+        }
+        alertController.addAction(okButton)
+        present(alertController, animated: true)
+    }
 
 }
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return coreDataManager.items.count
+        switch tableViewState {
+        case .normal:
+            return coreDataManager.items.count
+        case .searchPost:
+            return coreDataManager.searchPost.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,12 +101,28 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
             let cellDefault = UITableViewCell(style: .default, reuseIdentifier: "default")
             return cellDefault
         }
-        let item = coreDataManager.items[indexPath.row]
-        cell.favoriteImageView.image = UIImage(named: item.image ?? "COLA")
-        cell.selectionStyle = .none
-        cell.isUserInteractionEnabled = false
-        cell.backgroundColor = .clear
-        return cell
+        switch tableViewState {
+        case .normal:
+            let item = coreDataManager.items[indexPath.row]
+            cell.favoriteImageView.image = UIImage(named: item.image ?? "COLA")
+            cell.selectionStyle = .none
+            cell.isUserInteractionEnabled = false
+            cell.backgroundColor = .clear
+            return cell
+        case .searchPost:
+            let item = coreDataManager.searchPost[indexPath.row]
+            cell.favoriteImageView.image = UIImage(named: item.image ?? "COLA")
+            cell.selectionStyle = .none
+            cell.isUserInteractionEnabled = false
+            cell.backgroundColor = .clear
+            return cell
+        }
+//        let item = coreDataManager.items[indexPath.row]
+//        cell.favoriteImageView.image = UIImage(named: item.image ?? "COLA")
+//        cell.selectionStyle = .none
+//        cell.isUserInteractionEnabled = false
+//        cell.backgroundColor = .clear
+//        return cell
     }
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
