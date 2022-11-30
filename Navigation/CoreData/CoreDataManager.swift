@@ -9,7 +9,7 @@ import CoreData
 
 class CoreDataManager {
     var items: [FavoriteItem] = []
-    var searchPost: [FavoriteItem] = []
+    var searchPosts: [FavoriteItem] = []
     static let shared = CoreDataManager()
     
     private init() {
@@ -24,6 +24,8 @@ class CoreDataManager {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        
+        
         return container
     }()
     
@@ -48,43 +50,75 @@ class CoreDataManager {
             print("ERROR reloadFolders: \(error)")
         }
     }
-    func addNewItem(author: String, imagePath: String) {
-        
-        let item = FavoriteItem(context: persistentContainer.viewContext)
-        item.date = Date()
-        item.image = imagePath
-        item.author = author
-        saveContext()
-        reloadFolders()
+    
+    func reloadSearchFolders() {
+        do {
+            let items = try persistentContainer.viewContext.fetch(FavoriteItem.fetchRequest()) as! [FavoriteItem]
+            self.searchPosts = items
+        } catch {
+            print("ERROR reloadFolders: \(error)")
+        }
+    }
+    
+    func addNewItem(author: String, imagePath: String, desc: String, likes: String, views: String) {
+        persistentContainer.performBackgroundTask { (contex) in
+            let item = FavoriteItem(context: contex)
+            item.date = Date()
+            item.image = imagePath
+            item.author = author
+            item.desc = desc
+            item.likes = likes
+            item.views = views
+            do {
+                try contex.save()
+                self.reloadFolders()
+            } catch {
+                print("ERROR addNewItem: \(error)")
+            }
+        }
     }
     func deleteFolder(folder: FavoriteItem) {
         persistentContainer.viewContext.delete(folder)
         saveContext()
         reloadFolders()
     }
-    
+        
     func checkDuplicate(imagePath: String) -> Bool {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteItem")
         fetchRequest.predicate = NSPredicate(format: "image == %@", argumentArray: [imagePath])
         let count = try! persistentContainer.viewContext.count(for: fetchRequest)
+        fetchRequest.fetchLimit = count
         guard count == 0 else {
             print("POST DUBLICATE")
-            return false
+                return false
         }
         return true
     }
     
    
-    func searchPost(name: String) {
+    func searchPost(authorName: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteItem")
-        fetchRequest.predicate = NSPredicate(format: "image == %@", argumentArray: [name])
-        do {
-            let posts = try persistentContainer.viewContext.fetch(fetchRequest) as! [FavoriteItem]
-            self.searchPost = posts
-            saveContext()
-        } catch {
-            print("ERROR SEARCHPOST \(error)")
+        fetchRequest.predicate = NSPredicate(format: "author contains[c] %@", argumentArray: [authorName])
+        persistentContainer.performBackgroundTask { (contex) in
+            do {
+                let posts = try contex.fetch(fetchRequest) as! [FavoriteItem]
+                self.searchPosts = posts
+                try contex.save()
+            } catch {
+                print("ERROR SEARCHPOST \(error)")
+            }
         }
+        
+        
+//        do {
+//            let posts = try persistentContainer.viewContext.fetch(fetchRequest) as! [FavoriteItem]
+//            print(posts)
+//            print(searchPost)
+//            self.searchPost = posts
+//            saveContext()
+//        } catch {
+//            print("ERROR SEARCHPOST \(error)")
+//        }
     }
     
     private func printStats() {

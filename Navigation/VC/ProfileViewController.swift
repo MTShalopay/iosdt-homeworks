@@ -190,6 +190,9 @@ class ProfileViewController: UIViewController {
             self.indexSelectedRow = indexPath.row
         let favoritePostAuth = self.post[self.indexSelectedRow!].author
         let favoritePostImage = self.post[self.indexSelectedRow!].image
+        let favoritePostDesc = self.post[self.indexSelectedRow!].desc
+        let favoritePostLikes = self.post[self.indexSelectedRow!].likes
+        let favoritePostViews = self.post[self.indexSelectedRow!].views
         if self.coreDataManager.checkDuplicate(imagePath: favoritePostImage) {
             UIView.animate(withDuration: 0.5,
                            delay: 0.0,
@@ -197,7 +200,7 @@ class ProfileViewController: UIViewController {
                 self.tappingImage.alpha = 0.8
             } completion: { _ in
                 UIView.animate(withDuration: 0.3) {
-                    self.coreDataManager.addNewItem(author: favoritePostAuth, imagePath: favoritePostImage)
+                    self.coreDataManager.addNewItem(author: favoritePostAuth, imagePath: favoritePostImage, desc: favoritePostDesc, likes: String(favoritePostLikes), views: String(favoritePostViews))
                     self.tappingImage.alpha = 0
                 }
             }

@@ -124,6 +124,16 @@ class PostTableViewCell: UITableViewCell {
         ])
     }
     
+    func setupCoreDataItems(with post: FavoriteItem) {
+        authorLb.text = post.author
+        if let tempimage = post.image {
+            myImageView.image = UIImage(named: tempimage)
+        }
+        descriptionLb.text = post.desc
+        likesCount.text = post.likes
+        viewsCount.text = post.views
+    }
+    
     func setup(with post: Post) {
         authorLb.text = post.author
         /*
@@ -143,7 +153,7 @@ class PostTableViewCell: UITableViewCell {
                 self.myImageView.image = image
             }
         }
-        descriptionLb.text = post.description
+        descriptionLb.text = post.desc
         likesCount.text = String(post.likes)
         viewsCount.text = String(post.views)
     }

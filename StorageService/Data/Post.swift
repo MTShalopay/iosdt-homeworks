@@ -10,21 +10,21 @@ import UIKit
 
 public struct Post {
     public var author: String
-    public var description: String
+    public var desc: String
     public var image: String
     public var likes: Int
     public var views: Int
     
     public static func setupPost() -> [Post] {
             var tempPost = [Post]()
-            tempPost.append(Post(author: "Табак Dark Side Core - SUPERNOVA (Холодок, 100 грамм)", description: "Отнесись с осторожностью! Взрывает мозг, как взрывается суперновая звезда. Концентрированный аромат ментолового льда, который невозможно курить соло. Применяется только в миксах в очень скромных пропорциях. Если переборщить, можно почувствовать себя Саб-Зиро.", image: "SUPERNOVA", likes: 112312, views: 13435345))
-            tempPost.append(Post(author: "Табак Dark Side Core - DARKSIDE COLA (Кола, 100 грамм)", description: "Столь насыщенной и яркой колы мы давненько уже не пробовали. По сути, сам вкус прост: сладость и кислинка. В том-то и дело, что эти два компонента должны объединяться в реально крутое сочетание, которое не оставляет никого равнодушным. И в данном случае у создателей это получилось. Убедись сам!", image: "COLA", likes: 112311, views: 13311))
-            tempPost.append(Post(author: "Табак Dark Side Core - BERGAMONSTR (100 грамм)", description: "Один из топовых ароматов, который идеально миксуется с кислыми цитрусовыми табаками. Прекрасный бергамот, который, совсем не Эрл Грей, а только лишь отдаленно на него похож. Слегка терпковатый аромат с ярким послевкусием. Отлично сочетается с хорошим черным чаем!", image: "BERGAMONSTR ", likes: 222, views: 222))
-            tempPost.append(Post(author: "Табак Dark Side Core - MANGO LASSI (100 грамм)", description: "Насыщенный аромат тропического манго - спелого и сочного, освежающего и сладкого. Вкус, реально, прикольный, может показаться слегка приторным, но это лишь на первый взгляд. В целом, же удачный тропический вкус, которому, однако не хватает легкой кислинки.", image: "MANGOLASSI", likes: 333, views: 333))
+            tempPost.append(Post(author: "Табак Dark Side Core - SUPERNOVA (Холодок, 100 грамм)", desc: "Отнесись с осторожностью! Взрывает мозг, как взрывается суперновая звезда. Концентрированный аромат ментолового льда, который невозможно курить соло. Применяется только в миксах в очень скромных пропорциях. Если переборщить, можно почувствовать себя Саб-Зиро.", image: "SUPERNOVA", likes: 112312, views: 13435345))
+            tempPost.append(Post(author: "Табак Dark Side Core - DARKSIDE COLA (Кола, 100 грамм)", desc: "Столь насыщенной и яркой колы мы давненько уже не пробовали. По сути, сам вкус прост: сладость и кислинка. В том-то и дело, что эти два компонента должны объединяться в реально крутое сочетание, которое не оставляет никого равнодушным. И в данном случае у создателей это получилось. Убедись сам!", image: "COLA", likes: 112311, views: 13311))
+            tempPost.append(Post(author: "Табак Dark Side Core - BERGAMONSTR (100 грамм)", desc: "Один из топовых ароматов, который идеально миксуется с кислыми цитрусовыми табаками. Прекрасный бергамот, который, совсем не Эрл Грей, а только лишь отдаленно на него похож. Слегка терпковатый аромат с ярким послевкусием. Отлично сочетается с хорошим черным чаем!", image: "BERGAMONSTR ", likes: 222, views: 222))
+            tempPost.append(Post(author: "Табак Dark Side Core - MANGO LASSI (100 грамм)", desc: "Насыщенный аромат тропического манго - спелого и сочного, освежающего и сладкого. Вкус, реально, прикольный, может показаться слегка приторным, но это лишь на первый взгляд. В целом, же удачный тропический вкус, которому, однако не хватает легкой кислинки.", image: "MANGOLASSI", likes: 333, views: 333))
             
-            tempPost.append(Post(author: "add", description: "popopopopopopopopopop", image: "addFavorite", likes: 111, views: 111))
+            tempPost.append(Post(author: "add", desc: "popopopopopopopopopop", image: "addFavorite", likes: 111, views: 111))
             
-            tempPost.append(Post(author: "shalopay", description: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", image: "cat", likes: 000, views: 000))
+            tempPost.append(Post(author: "shalopay", desc: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", image: "cat", likes: 000, views: 000))
 
         
                 return tempPost
