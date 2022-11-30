@@ -12,6 +12,12 @@ class FavoriteViewController: UIViewController {
     enum TableViewState {
         case normal, searchPost
     }
+    private var nsfetchedResultsController: NSFetchedResultsController<FavoriteItem> = {
+        
+    }()
+
+    
+    
     
     let coreDataManager = CoreDataManager.shared
     var tableViewState: TableViewState = .normal
@@ -33,6 +39,7 @@ class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         tableViewState = .normal
         setupView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
