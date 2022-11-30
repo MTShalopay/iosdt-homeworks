@@ -3,9 +3,12 @@
     <entity name="FavoriteItem" representedClassName="FavoriteItem" syncable="YES" codeGenerationType="class">
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="likes" optional="YES" attributeType="String"/>
+        <attribute name="views" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="FavoriteItem" positionX="-54" positionY="9" width="128" height="74"/>
+        <element name="FavoriteItem" positionX="-54" positionY="9" width="128" height="119"/>
     </elements>
 </model>
