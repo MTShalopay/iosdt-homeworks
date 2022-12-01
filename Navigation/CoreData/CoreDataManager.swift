@@ -7,13 +7,17 @@
 
 import CoreData
 
+enum TableViewState {
+    case normal, nsfetchedResultsController, searchPost
+}
+
 class CoreDataManager {
     var items: [FavoriteItem] = []
     var searchPosts: [FavoriteItem] = []
     static let shared = CoreDataManager()
     
     private init() {
-        reloadFolders()
+        //reloadFolders()
     }
     
     // MARK: - Core Data stack
@@ -24,10 +28,18 @@ class CoreDataManager {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        
-        
         return container
     }()
+    
+    lazy var nsfetchedResultsController: NSFetchedResultsController<FavoriteItem> = {
+        let fetchRequest: NSFetchRequest<FavoriteItem> = FavoriteItem.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        let nsfrc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                              managedObjectContext: persistentContainer.viewContext,
+                                              sectionNameKeyPath: nil,
+                                              cacheName: nil)
+       return nsfrc
+   }()
     
     // MARK: - Core Data Saving support
     func saveContext () {
@@ -43,18 +55,10 @@ class CoreDataManager {
     }
     
     func reloadFolders() {
+        let fetchRequest: NSFetchRequest<FavoriteItem> = FavoriteItem.fetchRequest()
         do {
-            let items = try persistentContainer.viewContext.fetch(FavoriteItem.fetchRequest()) as! [FavoriteItem]
+            let items = try persistentContainer.viewContext.fetch(fetchRequest) 
             self.items = items
-        } catch {
-            print("ERROR reloadFolders: \(error)")
-        }
-    }
-    
-    func reloadSearchFolders() {
-        do {
-            let items = try persistentContainer.viewContext.fetch(FavoriteItem.fetchRequest()) as! [FavoriteItem]
-            self.searchPosts = items
         } catch {
             print("ERROR reloadFolders: \(error)")
         }
@@ -96,32 +100,35 @@ class CoreDataManager {
     }
     
    
-    func searchPost(authorName: String) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteItem")
-        fetchRequest.predicate = NSPredicate(format: "author contains[c] %@", argumentArray: [authorName])
-        persistentContainer.performBackgroundTask { (contex) in
+    func searchPost(authorName: String) -> [FavoriteItem]{
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteItem")
+            fetchRequest.predicate = NSPredicate(format: "author contains[c] %@", argumentArray: [authorName])
             do {
-                let posts = try contex.fetch(fetchRequest) as! [FavoriteItem]
-                self.searchPosts = posts
-                try contex.save()
+                let posts = try persistentContainer.viewContext.fetch(fetchRequest) as! [FavoriteItem]
+                return posts
             } catch {
                 print("ERROR SEARCHPOST \(error)")
+                return []
             }
-        }
-        
-        
-//        do {
-//            let posts = try persistentContainer.viewContext.fetch(fetchRequest) as! [FavoriteItem]
-//            print(posts)
-//            print(searchPost)
-//            self.searchPost = posts
-//            saveContext()
-//        } catch {
-//            print("ERROR SEARCHPOST \(error)")
-//        }
     }
     
-    private func printStats() {
+    func deletePost(author: FavoriteItem) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteItem")
+        do {
+            let posts = try persistentContainer.viewContext.fetch(fetchRequest) as! [FavoriteItem]
+            for post in posts {
+                if post.author == author.author {
+                    print("post delete :\(String(describing: post.author))")
+                    persistentContainer.viewContext.delete(post)
+                    saveContext()
+                }
+            }
+        } catch {
+            print("ERROR for deletePost")
+        }
+    }
+    
+    private func isMainThreadPrint() {
         let context = persistentContainer.viewContext
         context.perform {
             

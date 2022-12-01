@@ -12,6 +12,7 @@ import SnapKit
 class ProfileViewController: UIViewController {
     let coreDataManager = CoreDataManager.shared
     var indexSelectedRow: Int?
+    var tableViewState: TableViewState = .nsfetchedResultsController
     
     private lazy var tappingImage: UIImageView = {
         let imageView = UIImageView(frame: .zero)
@@ -81,7 +82,14 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        switch tableViewState {
+        case .normal:
+            print("viewWillAppear SWITCH tableViewState: \(tableViewState)")
+        case .nsfetchedResultsController:
+            print("viewWillAppear SWITCH tableViewState: \(tableViewState)")
+        case .searchPost:
+            print("viewWillAppear SWITCH tableViewState: \(tableViewState)")
+        }
         /*
          Задача 2
 
@@ -184,7 +192,6 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func doubleTap(sender: UITapGestureRecognizer) {
-        print(#function)
         let touchPoint = sender.location(in: sender.view)
         guard let indexPath = tableView.indexPathForRow(at: touchPoint) else { return }
             self.indexSelectedRow = indexPath.row
@@ -193,22 +200,45 @@ class ProfileViewController: UIViewController {
         let favoritePostDesc = self.post[self.indexSelectedRow!].desc
         let favoritePostLikes = self.post[self.indexSelectedRow!].likes
         let favoritePostViews = self.post[self.indexSelectedRow!].views
-        if self.coreDataManager.checkDuplicate(imagePath: favoritePostImage) {
-            UIView.animate(withDuration: 0.5,
-                           delay: 0.0,
-                           options: .allowUserInteraction) {
-                self.tappingImage.alpha = 0.8
-            } completion: { _ in
-                UIView.animate(withDuration: 0.3) {
-                    self.coreDataManager.addNewItem(author: favoritePostAuth, imagePath: favoritePostImage, desc: favoritePostDesc, likes: String(favoritePostLikes), views: String(favoritePostViews))
-                    self.tappingImage.alpha = 0
-                }
+        switch tableViewState {
+        case .normal:
+            print("profilevc switch :\(tableViewState)")
+            guard self.coreDataManager.checkDuplicate(imagePath: favoritePostImage) else {
+                alertContoller()
+                return
             }
-        } else {
-            let alertController = UIAlertController(title: "ВНИМАНИЕ", message: "Данный пост вы уже добавили к себе в избранные", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "ОК", style: .cancel)
-            alertController.addAction(cancelAction)
-            present(alertController, animated: true)
+            animationView(author: favoritePostAuth, imagePath: favoritePostImage, desc: favoritePostDesc, likes: String(favoritePostLikes), views: String(favoritePostViews))
+        case .nsfetchedResultsController:
+            print("profilevc switch: \(tableViewState)")
+            guard self.coreDataManager.checkDuplicate(imagePath: favoritePostImage) else {
+                let q = FavoriteViewController()
+                q.tableViewState = .nsfetchedResultsController
+                alertContoller()
+                return
+            }
+            animationView(author: favoritePostAuth, imagePath: favoritePostImage, desc: favoritePostDesc, likes: String(favoritePostLikes), views: String(favoritePostViews))
+        case .searchPost:
+            break
+        }
+    }
+    private func alertContoller() {
+        let alertController = UIAlertController(title: "ВНИМАНИЕ", message: "Данный пост вы уже добавили к себе в избранные", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "ОК", style: .cancel)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true)
+    }
+    private func animationView(author: String, imagePath: String, desc: String, likes: String, views: String) {
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       options: .allowUserInteraction) {
+            let vc = FavoriteViewController()
+            vc.tableViewState = self.tableViewState
+            self.tappingImage.alpha = 0.8
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3) {
+                self.coreDataManager.addNewItem(author: author, imagePath: imagePath, desc: desc, likes: String(likes), views: String(views))
+                self.tappingImage.alpha = 0
+            }
         }
     }
     
