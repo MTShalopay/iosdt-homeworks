@@ -13,7 +13,7 @@ class PostTableViewCell: UITableViewCell {
     let imageProcessor = ImageProcessor()
     static var identifier: String = "postTableViewCell"
     
-    private lazy var authorLb: UILabel = {
+    internal lazy var authorLb: UILabel = {
         let authorLb = UILabel()
         authorLb.font = .systemFont(ofSize: 20, weight: .bold)
         authorLb.textColor = .black
