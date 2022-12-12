@@ -26,19 +26,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //realmService.createCategory(name: "Users")
         
         let loginVC = LogInViewController()
-        loginVC.tabBarItem.title = "Вход"
+        loginVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleProfileEnter", comment: "")
         loginVC.tabBarItem.image = UIImage(systemName: "person.crop.square")
         loginVC.tabBarItem.tag = 1
         let feedVC = FeedViewController()
-        feedVC.tabBarItem.title = "Лента"
+        feedVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleProfileFeed", comment: "")
         feedVC.tabBarItem.image = UIImage(systemName: "book")
         feedVC.tabBarItem.tag = 0
         let profilVC = ProfileViewController()
-        profilVC.tabBarItem.title = "Профиль"
+        profilVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleProfile", comment: "")
         profilVC.tabBarItem.image = UIImage(systemName: "person.crop.square")
         profilVC.tabBarItem.tag = 3
         let favoriteVC = FavoriteViewController()
-        favoriteVC.tabBarItem.title = "Сохраненные"
+        favoriteVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleSaved", comment: "")
         favoriteVC.tabBarItem.image = UIImage(systemName: "star")
         favoriteVC.tabBarItem.tag = 4
         //Delegat

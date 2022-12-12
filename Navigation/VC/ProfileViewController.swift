@@ -108,7 +108,7 @@ class ProfileViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationController?.tabBarItem.title = "Профиль"
+        navigationController?.tabBarItem.title = NSLocalizedString("NavigationController.title", comment: "")
         navigationController?.tabBarItem.image = UIImage(systemName: "person.crop.square")
         navigationController?.tabBarItem.tag = 1
     }
@@ -222,8 +222,8 @@ class ProfileViewController: UIViewController {
         }
     }
     private func alertContoller() {
-        let alertController = UIAlertController(title: "ВНИМАНИЕ", message: "Данный пост вы уже добавили к себе в избранные", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "ОК", style: .cancel)
+        let alertController = UIAlertController(title: NSLocalizedString("alertContoller.title", comment: ""), message: NSLocalizedString("alertContoller.message", comment: ""), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("alertContoller.CancelAction", comment: ""), style: .cancel)
         alertController.addAction(cancelAction)
         present(alertController, animated: true)
     }
@@ -308,7 +308,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated:true)
             let vc = PhotosViewController()
         if indexPath.section == 0 {
-            vc.textTitle = "Photo Gallery"
+            vc.textTitle = NSLocalizedString("vc.textTitle", comment: "")
             indexPath.section == 0 ? navigationController?.pushViewController(vc, animated: true) : nil
         }
     }

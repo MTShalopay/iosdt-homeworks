@@ -11,7 +11,7 @@ class PostViewController: UIViewController {
     public var myTitle: String?
     public var myMessage: String?
     private lazy var titlePost: String = "Shalopay"
-    private lazy var barButtonItem = UIBarButtonItem(title: "Инфо", style: .plain, target: self, action: #selector(tapBarButton))
+    private lazy var barButtonItem = UIBarButtonItem(title: NSLocalizedString("barButtonItem", comment: ""), style: .plain, target: self, action: #selector(tapBarButton))
     
     override func viewDidLoad() {
         super.viewDidLoad()

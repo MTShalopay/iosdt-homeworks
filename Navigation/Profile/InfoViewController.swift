@@ -16,7 +16,7 @@ class InfoViewController: UIViewController {
        let button = UIButton()
         button.backgroundColor = UIColor.blue
         button.layer.cornerRadius = 12
-        button.setTitle("Нажми на меня", for: .normal)
+        button.setTitle(NSLocalizedString("button.SetTitle", comment: ""), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
@@ -58,7 +58,7 @@ class InfoViewController: UIViewController {
         //MARK: Решение задачи 2
         NetworkManager.getFetchPlanets(complited: { orbitalPeriod in
             DispatchQueue.main.async {
-                self.titleLabel.text = "Период обращения планеты Татуин вокруг своей звезды составляет \(orbitalPeriod ?? "0") км" 
+                self.titleLabel.text = NSLocalizedString("getFetchPlanets.titleLabel.text" + "\(orbitalPeriod ?? "0") km", comment: "")
             }
         })
     }

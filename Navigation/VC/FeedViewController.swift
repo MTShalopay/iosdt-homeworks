@@ -22,7 +22,7 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var buttonOne: CustomButton = {
-        let buttonOne = CustomButton(title: "ButtonOne", titleColor: .lightGray)
+        let buttonOne = CustomButton(title: NSLocalizedString("buttonOne.title", comment: ""), titleColor: .lightGray)
         buttonOne.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
         buttonOne.tag = 0
         buttonOne.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
@@ -30,14 +30,14 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var buttonTwo: CustomButton = {
-        let buttonOne = CustomButton(title: "ButtonTwo", titleColor: .lightGray)
+        let buttonOne = CustomButton(title: NSLocalizedString("buttonTwo.title", comment: ""), titleColor: .lightGray)
         buttonOne.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
         buttonOne.tag = 1
         buttonOne.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         return buttonOne
     }()
     private lazy var checkGuessButton: CustomButton = {
-        let checkGuessButton = CustomButton(title: "checkGuessButton", titleColor: .black)
+        let checkGuessButton = CustomButton(title: NSLocalizedString("checkGuessButton.title", comment: ""), titleColor: .black)
         checkGuessButton.backgroundColor = .white
         checkGuessButton.layer.cornerRadius = 10
         checkGuessButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -45,7 +45,7 @@ class FeedViewController: UIViewController {
     }()
      
     private lazy var wordTextField: CustomTextField = {
-        let wordTextField = CustomTextField(font: UIFont.systemFont(ofSize: 16), placeholder: "Введите секретное слово", borderColor: UIColor.lightGray.cgColor, borderWidth: 0.5)
+        let wordTextField = CustomTextField(font: UIFont.systemFont(ofSize: 16), placeholder: NSLocalizedString("wordTextField.placeholder", comment: ""), borderColor: UIColor.lightGray.cgColor, borderWidth: 0.5)
         wordTextField.backgroundColor = .systemGray6
         wordTextField.layer.cornerRadius = 5
         return wordTextField
@@ -118,15 +118,15 @@ class FeedViewController: UIViewController {
         buttonOne.action = {
             guard self.buttonOne.tag == 0 else { return }
             let postVC = PostViewController()
-            postVC.myTitle = "OPSSSSS"
-            postVC.myMessage = "кыс ыкс ыкс ыкс "
+            postVC.myTitle = NSLocalizedString("actionButton.buttonOne.myTitle", comment: "")
+            postVC.myMessage = NSLocalizedString("actionButton.buttonOne.Message", comment: "")
             self.navigationController?.pushViewController(postVC, animated: true)
         }
         buttonTwo.action = {
             guard self.buttonTwo.tag == 1 else { return }
             let postVC = PostViewController()
-            postVC.myTitle = "qwqeqweqweqweqwe"
-            postVC.myMessage = "ИууУУууу "
+            postVC.myTitle = NSLocalizedString("actionButton.buttonTwe.myTitle", comment: "")
+            postVC.myMessage = NSLocalizedString("actionButton.buttonTwe.Message", comment: "")
             self.navigationController?.pushViewController(postVC, animated: true)
         }
         checkGuessButton.action = {
@@ -134,7 +134,7 @@ class FeedViewController: UIViewController {
                 let feedModel = FeedModel()
                 let check = feedModel.check(word: word)
                 print(check)
-                check ? self.labelShow(text: "Верно", color: .green) : self.labelShow(text: "Не верно", color: .systemRed)
+                check ? self.labelShow(text: NSLocalizedString("checkGuessButton.labelShowTrue", comment: ""), color: .green) : self.labelShow(text: NSLocalizedString("checkGuessButton.labelShowFalse", comment: ""), color: .systemRed)
         }
     }
         

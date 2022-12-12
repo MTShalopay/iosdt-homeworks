@@ -41,7 +41,7 @@ class PostTableViewCell: UITableViewCell {
     private lazy var likesLb: UILabel = {
        let likesLb = UILabel()
         likesLb.font = .systemFont(ofSize: 16)
-        likesLb.text = "Likes:"
+        likesLb.text = NSLocalizedString("likesLb.text", comment: "")
         likesLb.textColor = .black
         likesLb.translatesAutoresizingMaskIntoConstraints = false
         return likesLb
@@ -58,7 +58,7 @@ class PostTableViewCell: UITableViewCell {
     private lazy var viewsLb: UILabel = {
        let viewsLb = UILabel()
         viewsLb.font = .systemFont(ofSize: 16)
-        viewsLb.text = "Views:"
+        viewsLb.text = NSLocalizedString("viewsLb.text", comment: "")
         viewsLb.textColor = .black
         viewsLb.translatesAutoresizingMaskIntoConstraints = false
         return viewsLb

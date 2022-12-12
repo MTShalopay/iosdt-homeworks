@@ -1,0 +1,75 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Shalopay on 12.12.2022.
+ SceneDelegate
+ */
+"tabBarItem.titleProfileEnter" = "Enter";
+"tabBarItem.titleProfileFeed" = "Feed";
+"tabBarItem.titleProfile" = "Profile";
+"tabBarItem.titleSaved" = "Saved";
+/*
+ LoginViewController
+ */
+"emailTextFieldPlaceholder" = "Login";
+"passTextFieldPlaceholder" = "Password";
+"myButton.title" = "LOG IN";
+"getPassButton.title" = "Choose a password";
+"wakeUpAlertController.title" = "Forgot your password?";
+"wakeUpAlertController.message" = "The password can be selected, with your permission. Help?";
+"wakeUpAlertControllerOkAction" = "OK";
+"wakeUpAlertControllerNoAction" = "NO";
+/*
+ FeedViewController
+ */
+"buttonOne.title" = "ButtonOne";
+"buttonTwo.title" = "ButtonTwo";
+"checkGuessButton.title" = "CheckGuessButton";
+"wordTextField.placeholder" = "Enter the secret word";
+"actionButton.buttonOne.myTitle" = "ButtonOne";
+"actionButton.buttonOne.Message" = "XM XM XM XM XM";
+"actionButton.buttonTwe.myTitle" = "ButtonTwo";
+"actionButton.buttonTwe.Message" = "MX XM MX MX MX";
+"checkGuessButton.labelShowTrue" = "True";
+"checkGuessButton.labelShowFalse" = "False";
+/*
+ FavoriteViewController
+ */
+"NavigationController.title" = "Saved";
+"setupAlertController.title" = "Sorting by author";
+"setupAlertController.textfield.placeholder" = "Name author";
+"setupAlertController.OkAction" = "Apple";
+/*
+ ProfileViewController
+ */
+"NavigationController.title" = "Profile";
+"alertContoller.title" = "Attention";
+"alertContoller.message" = "You have already added this post to your favorites";
+"alertContoller.CancelAction" = "OK";
+"vc.textTitle" = "Photo Gallery";
+/*
+ ProfileHeaderView
+ */
+"statusTextField.Placeholder" = "Entered Status";
+"setStatusButton.SetTitle" = "Show Status";
+"buttonPressed.statusTextField.placeholderTRUE" = "Enter the status";
+"buttonPressed.statusTextField.placeholderFALSE" = "The field is not possible to be empty";
+/*
+ PostViewController
+ */
+"barButtonItem" = "Info";
+/*
+ InfoViewController
+ */
+"button.SetTitle" = "Click on me";
+"getFetchPlanets.titleLabel.text" = "The orbital period of the planet Tatooine around its star is";
+/*
+ PostTableViewCell
+ */
+"likesLb.text" = "Likes:";
+"viewsLb.text" = "Views:";
+/*
+ PhotosTableViewCell
+ */
+"nameLb.text" = "Photos";

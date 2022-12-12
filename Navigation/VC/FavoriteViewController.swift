@@ -67,7 +67,7 @@ class FavoriteViewController: UIViewController {
     
     private func setupView() {
         coreDataManager.reloadFolders()
-        title = "Сохраненные"
+        title = NSLocalizedString("NavigationController.title", comment: "")
         view.backgroundColor = UIColor.gray
         view.addSubview(favoriteTableView)
         NSLayoutConstraint.activate([
@@ -122,11 +122,11 @@ class FavoriteViewController: UIViewController {
     }
     
     private func setupAlertController() {
-        let alertController = UIAlertController(title: "Сортировка по автору", message: "", preferredStyle: .alert)
+        let alertController = UIAlertController(title: NSLocalizedString("setupAlertController.title", comment: ""), message: "", preferredStyle: .alert)
             alertController.addTextField { textfield in
-                textfield.placeholder = "имя автора"
+                textfield.placeholder = NSLocalizedString("setupAlertController.textfield.placeholder", comment: "")
             }
-        let okButton = UIAlertAction(title: "Применить", style: .default) { action in
+        let okButton = UIAlertAction(title: NSLocalizedString("setupAlertController.OkAction", comment: ""), style: .default) { action in
             let firstTexfield = alertController.textFields![0]
             guard firstTexfield.text != "" else {
                 print("EMPTY textfiled")

@@ -33,7 +33,7 @@ class LogInViewController: UIViewController {
     
     private lazy var emailTextField: UITextField = {
        let emailTextField = UITextField()
-        emailTextField.placeholder = "Login"
+        emailTextField.placeholder = NSLocalizedString("emailTextFieldPlaceholder", comment: "")
         emailTextField.tag = 0
         emailTextField.delegate = self
         emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: emailTextField.frame.height))
@@ -51,7 +51,7 @@ class LogInViewController: UIViewController {
     
     private lazy var passTextField: UITextField = {
        let passTextField = UITextField()
-        passTextField.placeholder = "Password"
+        passTextField.placeholder = NSLocalizedString("passTextFieldPlaceholder", comment: "")
         passTextField.tag = 1
         passTextField.delegate = self
         passTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: passTextField.frame.height))
@@ -78,7 +78,7 @@ class LogInViewController: UIViewController {
         return verticalStack
     }()
     private lazy var myButton: CustomButton = {
-        let myButton = CustomButton(title: "LOG IN", titleColor: .white)
+        let myButton = CustomButton(title: NSLocalizedString("myButton.title", comment: ""), titleColor: .white)
         myButton.clipsToBounds = true
         myButton.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
         myButton.layer.cornerRadius = 10
@@ -86,7 +86,7 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var getPassButton: CustomButton = {
-        let getPassButton = CustomButton(title: "Подобрать пароль", titleColor: .white)
+        let getPassButton = CustomButton(title: NSLocalizedString("getPassButton.title", comment: ""), titleColor: .white)
         getPassButton.clipsToBounds = true
         getPassButton.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
         getPassButton.layer.cornerRadius = 10
@@ -137,13 +137,13 @@ class LogInViewController: UIViewController {
     }
     
     @objc func wakeUpAlertController() {
-        let title = "Забыли пароль?"
+        let title = NSLocalizedString("wakeUpAlertController.title", comment: "")
         let titleRange = (title as NSString).range(of: title)
         let titleAttribute = NSMutableAttributedString.init(string: title)
         titleAttribute.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: titleRange)
         titleAttribute.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue-Bold", size: 25)!, range: titleRange)
         
-        let message = "Пароль можно подобрать, с вашего разрешения. Помочь?"
+        let message = NSLocalizedString("wakeUpAlertController.message", comment: "")
         let messageRange = (message as NSString).range(of: message)
         let messageAttribute = NSMutableAttributedString.init(string: message)
         messageAttribute.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: messageRange)
@@ -152,12 +152,12 @@ class LogInViewController: UIViewController {
         alert.setValue(titleAttribute, forKey: "attributedTitle")
         alert.setValue(messageAttribute, forKey: "attributedMessage")
 
-        let okAction = UIAlertAction(title: "Да", style: .destructive) {_ in
+        let okAction = UIAlertAction(title: NSLocalizedString("wakeUpAlertControllerOkAction", comment: ""), style: .destructive) {_ in
             self.timer?.invalidate()
             self.getPassword()
 
         }
-        let noAction = UIAlertAction(title: "Не надо", style: .cancel) { alertAction in
+        let noAction = UIAlertAction(title: NSLocalizedString("wakeUpAlertControllerNoAction", comment: ""), style: .cancel) { alertAction in
             self.timer?.invalidate()
         }
         alert.addAction(okAction)
