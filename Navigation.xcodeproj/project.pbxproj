@@ -32,6 +32,8 @@
 		494EAF3828BE900D00220F50 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF3728BE900D00220F50 /* CurrentUserService.swift */; };
 		494EAF3B28BEABA300220F50 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EAF3A28BEABA300220F50 /* TestUserService.swift */; };
 		494F1A1E28E4A44F00B95488 /* BrutForceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494F1A1D28E4A44F00B95488 /* BrutForceService.swift */; };
+		495177602948E7EE00BDEE07 /* LocalizableShortCut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951775F2948E7EE00BDEE07 /* LocalizableShortCut.swift */; };
+		495177652948EBB700BDEE07 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 495177672948EBB700BDEE07 /* Localizable.stringsdict */; };
 		499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F52840DF5B000ACA06 /* AppDelegate.swift */; };
 		499896F82840DF5B000ACA06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F72840DF5B000ACA06 /* SceneDelegate.swift */; };
 		499896FF2840DF5F000ACA06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499896FE2840DF5F000ACA06 /* Assets.xcassets */; };
@@ -141,6 +143,9 @@
 		494EAF3728BE900D00220F50 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
 		494EAF3A28BEABA300220F50 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		494F1A1D28E4A44F00B95488 /* BrutForceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrutForceService.swift; sourceTree = "<group>"; };
+		4951775F2948E7EE00BDEE07 /* LocalizableShortCut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableShortCut.swift; sourceTree = "<group>"; };
+		495177662948EBB700BDEE07 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		495177692948EBBA00BDEE07 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		499896F22840DF5B000ACA06 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499896F52840DF5B000ACA06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		499896F72840DF5B000ACA06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -234,6 +239,8 @@
 			isa = PBXGroup;
 			children = (
 				4942EF7D29479D9900085136 /* Localizable.strings */,
+				4951775F2948E7EE00BDEE07 /* LocalizableShortCut.swift */,
+				495177672948EBB700BDEE07 /* Localizable.stringsdict */,
 			);
 			path = Localizable;
 			sourceTree = "<group>";
@@ -667,6 +674,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4942EF622947795000085136 /* Launch Screen.storyboard in Resources */,
+				495177652948EBB700BDEE07 /* Localizable.stringsdict in Resources */,
 				4942EF7B29479D9900085136 /* Localizable.strings in Resources */,
 				499896FF2840DF5F000ACA06 /* Assets.xcassets in Resources */,
 			);
@@ -755,6 +763,7 @@
 				4998970F2840E059000ACA06 /* ProfileViewController.swift in Sources */,
 				494CD59128C21B2500D497F6 /* CustomButton.swift in Sources */,
 				49446FA22933B594006A4C3F /* Navigation.xcdatamodeld in Sources */,
+				495177602948E7EE00BDEE07 /* LocalizableShortCut.swift in Sources */,
 				49491863285D21A900EF004F /* PhotosViewController.swift in Sources */,
 				499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */,
 				4924E3CE28C7EBB4004AB046 /* FeedModel.swift in Sources */,
@@ -811,6 +820,15 @@
 				4942EF7E29479D9D00085136 /* ru */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		495177672948EBB700BDEE07 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				495177662948EBB700BDEE07 /* en */,
+				495177692948EBBA00BDEE07 /* ru */,
+			);
+			name = Localizable.stringsdict;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -154,8 +154,12 @@ class PostTableViewCell: UITableViewCell {
             }
         }
         descriptionLb.text = post.desc
-        likesCount.text = String(post.likes)
-        viewsCount.text = String(post.views)
+        let formatedStringLikes = NSLocalizedString("likes", comment: "")
+        let stringLike = String(format: formatedStringLikes, post.likes)
+        likesCount.text = stringLike
+        let formatedStringViews = NSLocalizedString("views", comment: "")
+        let stringView = String(format: formatedStringViews, post.views)
+        viewsCount.text = stringView
     }
     
 }
