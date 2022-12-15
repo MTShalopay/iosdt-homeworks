@@ -88,6 +88,7 @@ class FavoriteViewController: UIViewController {
     private func setupNavigatonBar() {
         let searchPostBarButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchPost))
         let clearFilterBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(clearFilter))
+        navigationController?.navigationBar.tintColor = Theme.appleNavigationBarTintColor
         navigationItem.rightBarButtonItems = [clearFilterBarButton, searchPostBarButton]
     }
     

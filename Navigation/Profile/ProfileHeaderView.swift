@@ -16,7 +16,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     public lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
-        //avatarImageView.image = UIImage(named: "cat")
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.borderWidth = 3
@@ -27,7 +26,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private lazy var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        //fullNameLabel.text = "Hipster Cat"
         fullNameLabel.textAlignment = .left
         fullNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         fullNameLabel.textColor = .black
@@ -37,19 +35,19 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
        let statusLabel = UILabel()
         //statusLabel.text = "Waiting for something..."
         statusLabel.font = UIFont(name: "regular", size: 14)
-        statusLabel.textColor = .gray
+        //statusLabel.textColor = .gray
         statusLabel.textAlignment = .left
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         return statusLabel
     }()
     private lazy var statusTextField: UITextField = {
         let statusTextField = UITextField()
-        statusTextField.placeholder = NSLocalizedString("statusTextField.Placeholder", comment: "")
+        statusTextField.placeholder = "statusTextField.Placeholder".localized
         statusTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: statusTextField.frame.height))
         statusTextField.leftViewMode = .always
         statusTextField.font = UIFont(name: "regular", size: 15)
         statusTextField.textColor = .black
-        statusTextField.backgroundColor = .white
+        statusTextField.backgroundColor = .systemGray
         statusTextField.layer.borderWidth = 1
         statusTextField.layer.cornerRadius = 12
         statusTextField.delegate = self
@@ -80,6 +78,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         addGestureRecognizer(tapDissmis)
         setupView()
         createUser()
+        setupThemeStyle(label: [fullNameLabel,statusLabel], button: setStatusButton)
     }
     
     
@@ -89,6 +88,13 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     override func layoutSubviews() {
         superview?.layoutSubviews()
         avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
+    }
+    private func setupThemeStyle(label: [UILabel], button: UIButton) {
+        label.forEach { (label) in
+            label.textColor = Theme.appleNavigationBarTintColor
+        }
+        button.setTitleColor(Theme.appleTintTextColor, for: .normal)
+        statusTextField.attributedPlaceholder = NSAttributedString(string: "statusTextField.Placeholder".localized, attributes: [NSAttributedString.Key.foregroundColor : Theme.appleTintTextColor])
     }
     
     private func createUser() {

@@ -38,7 +38,7 @@ class FeedViewController: UIViewController {
     }()
     private lazy var checkGuessButton: CustomButton = {
         let checkGuessButton = CustomButton(title: NSLocalizedString("checkGuessButton.title", comment: ""), titleColor: .black)
-        checkGuessButton.backgroundColor = .white
+        checkGuessButton.backgroundColor = .systemBlue
         checkGuessButton.layer.cornerRadius = 10
         checkGuessButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         return checkGuessButton
@@ -46,14 +46,14 @@ class FeedViewController: UIViewController {
      
     private lazy var wordTextField: CustomTextField = {
         let wordTextField = CustomTextField(font: UIFont.systemFont(ofSize: 16), placeholder: NSLocalizedString("wordTextField.placeholder", comment: ""), borderColor: UIColor.lightGray.cgColor, borderWidth: 0.5)
-        wordTextField.backgroundColor = .systemGray6
+        wordTextField.backgroundColor = .systemGray
         wordTextField.layer.cornerRadius = 5
         return wordTextField
     }()
         
     private lazy var labelCheck: UILabel = {
        let labelCheck = UILabel()
-        labelCheck.textColor = .black
+        //labelCheck.textColor = .black
         labelCheck.backgroundColor = .systemRed
         labelCheck.layer.cornerRadius = 10
         labelCheck.textAlignment = .center
@@ -71,8 +71,18 @@ class FeedViewController: UIViewController {
         actionButton()
         let tap = UITapGestureRecognizer(target: self, action: #selector(dissmisKeyboard))
         view.addGestureRecognizer(tap)
-
+        setupThemeStyle(button: [buttonOne,buttonTwo,checkGuessButton], textfiled: wordTextField)
     }
+    
+    private func setupThemeStyle(button: [UIButton], textfiled: UITextField) {
+        button.forEach { (button) in
+            button.setTitleColor(Theme.appleTintTextColor, for: .normal)
+        }
+        textfiled.textColor = Theme.appleTintTextColor
+        textfiled.attributedPlaceholder = NSAttributedString(string: "Введите секретное слово", attributes: [NSAttributedString.Key.foregroundColor : Theme.appleTintTextColor])
+        
+    }
+    
     @objc func dissmisKeyboard() {
         self.view.endEditing(true)
     }

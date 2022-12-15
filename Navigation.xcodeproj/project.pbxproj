@@ -35,6 +35,7 @@
 		495177602948E7EE00BDEE07 /* LocalizableShortCut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951775F2948E7EE00BDEE07 /* LocalizableShortCut.swift */; };
 		495177652948EBB700BDEE07 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 495177672948EBB700BDEE07 /* Localizable.stringsdict */; };
 		49517771294B990300BDEE07 /* Extension+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49517770294B990300BDEE07 /* Extension+Localizable.swift */; };
+		49517776294B9FAE00BDEE07 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49517775294B9FAE00BDEE07 /* Theme.swift */; };
 		499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F52840DF5B000ACA06 /* AppDelegate.swift */; };
 		499896F82840DF5B000ACA06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F72840DF5B000ACA06 /* SceneDelegate.swift */; };
 		499896FF2840DF5F000ACA06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499896FE2840DF5F000ACA06 /* Assets.xcassets */; };
@@ -148,6 +149,7 @@
 		495177662948EBB700BDEE07 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		495177692948EBBA00BDEE07 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		49517770294B990300BDEE07 /* Extension+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Localizable.swift"; sourceTree = "<group>"; };
+		49517775294B9FAE00BDEE07 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		499896F22840DF5B000ACA06 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		499896F52840DF5B000ACA06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		499896F72840DF5B000ACA06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				4942EF602947795000085136 /* Launch Screen.storyboard */,
 				499897032840DF5F000ACA06 /* Info.plist */,
 				49446FA02933B594006A4C3F /* Navigation.xcdatamodeld */,
+				49517775294B9FAE00BDEE07 /* Theme.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				499896F82840DF5B000ACA06 /* SceneDelegate.swift in Sources */,
 				4924E3C928C7E139004AB046 /* CustomTexfield.swift in Sources */,
 				49416CCB28593DE6005D9493 /* PostTableViewCell.swift in Sources */,
+				49517776294B9FAE00BDEE07 /* Theme.swift in Sources */,
 				494CFD7B28BFE68000502F5D /* Checker.swift in Sources */,
 				49446F9B2933A597006A4C3F /* FavoriteViewController.swift in Sources */,
 				49446FA62933B5C7006A4C3F /* CoreDataManager.swift in Sources */,

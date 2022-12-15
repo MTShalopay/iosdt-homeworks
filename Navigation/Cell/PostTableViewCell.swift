@@ -16,7 +16,6 @@ class PostTableViewCell: UITableViewCell {
     internal lazy var authorLb: UILabel = {
         let authorLb = UILabel()
         authorLb.font = .systemFont(ofSize: 20, weight: .bold)
-        authorLb.textColor = .black
         authorLb.numberOfLines = 2
         authorLb.translatesAutoresizingMaskIntoConstraints = false
         return authorLb
@@ -24,7 +23,6 @@ class PostTableViewCell: UITableViewCell {
     private lazy var myImageView: UIImageView = {
        let myImageView = UIImageView()
         myImageView.contentMode = .scaleToFill
-        myImageView.backgroundColor = .black
         myImageView.translatesAutoresizingMaskIntoConstraints = false
         return myImageView
     }()
@@ -32,7 +30,6 @@ class PostTableViewCell: UITableViewCell {
     private lazy var descriptionLb: UILabel = {
        let descriptionLb = UILabel()
         descriptionLb.font = .systemFont(ofSize: 14)
-        descriptionLb.textColor = .systemGray
         descriptionLb.numberOfLines = 0
         descriptionLb.translatesAutoresizingMaskIntoConstraints = false
         return descriptionLb
@@ -42,7 +39,6 @@ class PostTableViewCell: UITableViewCell {
        let likesLb = UILabel()
         likesLb.font = .systemFont(ofSize: 16)
         likesLb.text = NSLocalizedString("likesLb.text", comment: "")
-        likesLb.textColor = .black
         likesLb.translatesAutoresizingMaskIntoConstraints = false
         return likesLb
     }()
@@ -50,7 +46,6 @@ class PostTableViewCell: UITableViewCell {
     private lazy var likesCount: UILabel = {
        let likesCount = UILabel()
         likesCount.font = .systemFont(ofSize: 16)
-        likesCount.textColor = .black
         likesCount.translatesAutoresizingMaskIntoConstraints = false
         return likesCount
     }()
@@ -59,7 +54,6 @@ class PostTableViewCell: UITableViewCell {
        let viewsLb = UILabel()
         viewsLb.font = .systemFont(ofSize: 16)
         viewsLb.text = NSLocalizedString("viewsLb.text", comment: "")
-        viewsLb.textColor = .black
         viewsLb.translatesAutoresizingMaskIntoConstraints = false
         return viewsLb
     }()
@@ -67,7 +61,6 @@ class PostTableViewCell: UITableViewCell {
     private lazy var viewsCount: UILabel = {
        let viewsCount = UILabel()
         viewsCount.font = .systemFont(ofSize: 16)
-        viewsCount.textColor = .black
         viewsCount.translatesAutoresizingMaskIntoConstraints = false
         return viewsCount
     }()
@@ -76,10 +69,16 @@ class PostTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViewCell()
+        setupThemeStyle(label: [authorLb,descriptionLb,likesLb,likesCount,viewsLb,viewsCount])
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    private func setupThemeStyle(label: [UILabel]) {
+        label.forEach { (label) in
+            label.textColor = Theme.appleNavigationBarTintColor
+        }
     }
     
     func setupViewCell() {
