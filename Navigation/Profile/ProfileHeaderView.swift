@@ -44,7 +44,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }()
     private lazy var statusTextField: UITextField = {
         let statusTextField = UITextField()
-        statusTextField.placeholder = "Введите статус"
+        statusTextField.placeholder = NSLocalizedString("statusTextField.Placeholder", comment: "")
         statusTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: statusTextField.frame.height))
         statusTextField.leftViewMode = .always
         statusTextField.font = UIFont(name: "regular", size: 15)
@@ -66,7 +66,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         setStatusButton.layer.cornerRadius = 4
         setStatusButton.layer.shadowOpacity = 0.7
         setStatusButton.layer.cornerRadius = 15
-        setStatusButton.setTitle("Show Status", for: .normal)
+        setStatusButton.setTitle(NSLocalizedString("setStatusButton.SetTitle", comment: ""), for: .normal)
         setStatusButton.setTitleColor(.white, for: .normal)
         setStatusButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
@@ -134,9 +134,9 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         if statusText != nil {
             statusLabel.text = statusText
             statusTextField.text = ""
-            statusTextField.placeholder = "Введите статус"
+            statusTextField.placeholder = NSLocalizedString("buttonPressed.statusTextField.placeholderTRUE", comment: "")
         } else {
-            statusTextField.placeholder = "Поле пустым не возможно"
+            statusTextField.placeholder = NSLocalizedString("buttonPressed.statusTextField.placeholderFALSE", comment: "")
         }
     }
     @objc func statusTextChanged(textField: UITextField) {

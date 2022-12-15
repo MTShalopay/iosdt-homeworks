@@ -1,0 +1,79 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Shalopay on 12.12.2022.
+  
+*/
+/*
+ SceneDelegate
+ */
+
+"tabBarItem.titleProfileEnter" = "Вход";
+"tabBarItem.titleProfileFeed" = "Новости";
+"tabBarItem.titleProfile" = "Профиль";
+"tabBarItem.titleSaved" = "Сохраненные";
+/*
+ LoginViewController
+ */
+"emailTextFieldPlaceholder" = "Логин";
+"passTextFieldPlaceholder" = "Пароль";
+"myButton.title" = "ВХОД";
+"getPassButton.title" = "Изменить пароль";
+"wakeUpAlertController.title" = "Забыли пароль?";
+"wakeUpAlertController.message" = "Пароль можно подобрать, с вашего разрешения. Помочь?";
+"wakeUpAlertControllerOkAction" = "ДА";
+"wakeUpAlertControllerNoAction" = "НЕТ";
+/*
+ FeedViewController
+ */
+"buttonOne.title" = "Кнопка Один";
+"buttonTwo.title" = "Кнопка Два";
+"checkGuessButton.title" = "Кнопка проверки";
+"wordTextField.placeholder" = "Введите секретное слово";
+"actionButton.buttonOne.myTitle" = "Кнопка Один";
+"actionButton.buttonOne.Message" = "XM XM XM XM XM";
+"actionButton.buttonTwe.myTitle" = "Кнопка Два";
+"actionButton.buttonTwe.Message" = "MX XM MX MX MX";
+"checkGuessButton.labelShowTrue" = "Верно";
+"checkGuessButton.labelShowFalse" = "Не верно";
+/*
+ FavoriteViewController
+ */
+"NavigationController.title" = "Сохраненные";
+"setupAlertController.title" = "Сортировать по автору";
+"setupAlertController.textfield.placeholder" = "Имя автора";
+"setupAlertController.OkAction" = "Применить";
+/*
+ ProfileViewController
+ */
+"NavigationController.title" = "Профиль";
+"alertContoller.title" = "Внимание";
+"alertContoller.message" = "Данный пост вы уже добавили к себе в избранные";
+"alertContoller.CancelAction" = "ОК";
+"vc.textTitle" = "Фото галлерея";
+/*
+ ProfileHeaderView
+ */
+"statusTextField.Placeholder" = "Введите статус";
+"setStatusButton.SetTitle" = "Показать статус";
+"buttonPressed.statusTextField.placeholderTRUE" = "Введите статус";
+"buttonPressed.statusTextField.placeholderFALSE" = "Поле не может быть пустым";
+/*
+ PostViewController
+ */
+"barButtonItem" = "Инфо";
+/*
+ InfoViewController
+ */
+"button.SetTitle" = "Click on me";
+"getFetchPlanets.titleLabel.text" = "Период обращения планеты Татуин вокруг своей звезды составляет";
+/*
+ PostTableViewCell
+ */
+"likesLb.text" = "Лайки:";
+"viewsLb.text" = "Просмотры:";
+/*
+ PhotosTableViewCell
+ */
+"nameLb.text" = "Фотографии";
