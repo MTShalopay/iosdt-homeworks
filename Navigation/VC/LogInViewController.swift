@@ -111,6 +111,7 @@ class LogInViewController: UIViewController {
         /*
          /Users/shalopay/Library/Developer/CoreSimulator/Devices/F9D2C937-826A-4E28-9610-4FC9A215EE7F/data/Containers/Data/Application/7452F94E-8FDF-4225-8840-F8D8287D35C3/Documents/
          */
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
