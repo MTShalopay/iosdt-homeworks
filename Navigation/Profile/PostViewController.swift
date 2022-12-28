@@ -16,7 +16,8 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.navigationItem.title = titlePost
-        self.view.backgroundColor = .lightGray
+        self.navigationController?.navigationBar.tintColor = Theme.appleLableTextColor
+        self.view.backgroundColor = Theme.appleViewBackGroundColorController
         self.navigationItem.rightBarButtonItem = barButtonItem
     }
     @objc func tapBarButton(){

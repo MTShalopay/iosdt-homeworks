@@ -24,11 +24,13 @@ class FavoriteViewController: UIViewController {
         tableview.translatesAutoresizingMaskIntoConstraints = false
         tableview.dataSource = self
         tableview.delegate = self
+        tableview.backgroundColor = Theme.appleViewBackGroundColorController
         return tableview
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Theme.appleViewBackGroundColorController
         print("FavoriteViewController: \(tableViewState)")
         switch tableViewState {
         case .normal:
@@ -88,7 +90,7 @@ class FavoriteViewController: UIViewController {
     private func setupNavigatonBar() {
         let searchPostBarButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchPost))
         let clearFilterBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(clearFilter))
-        navigationController?.navigationBar.tintColor = Theme.appleNavigationBarTintColor
+        navigationController?.navigationBar.tintColor = Theme.appleLableTextColor
         navigationItem.rightBarButtonItems = [clearFilterBarButton, searchPostBarButton]
     }
     

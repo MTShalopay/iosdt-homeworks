@@ -22,23 +22,23 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var buttonOne: CustomButton = {
-        let buttonOne = CustomButton(title: "buttonOne.title".localized, titleColor: .lightGray)
-        buttonOne.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
+        let buttonOne = CustomButton(title: "buttonOne.title".localized, titleColor: Theme.appleButtonTextColor)
+        buttonOne.backgroundColor = Theme.appleButtonBackGroundColor
         buttonOne.tag = 0
         buttonOne.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         return buttonOne
     }()
     
     private lazy var buttonTwo: CustomButton = {
-        let buttonOne = CustomButton(title: NSLocalizedString("buttonTwo.title", comment: ""), titleColor: .lightGray)
-        buttonOne.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
-        buttonOne.tag = 1
-        buttonOne.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
-        return buttonOne
+        let buttonTwo = CustomButton(title: NSLocalizedString("buttonTwo.title", comment: ""), titleColor: Theme.appleButtonTextColor)
+        buttonTwo.backgroundColor = Theme.appleButtonBackGroundColor
+        buttonTwo.tag = 1
+        buttonTwo.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        return buttonTwo
     }()
     private lazy var checkGuessButton: CustomButton = {
-        let checkGuessButton = CustomButton(title: NSLocalizedString("checkGuessButton.title", comment: ""), titleColor: .black)
-        checkGuessButton.backgroundColor = .systemBlue
+        let checkGuessButton = CustomButton(title: NSLocalizedString("checkGuessButton.title", comment: ""), titleColor: Theme.appleButtonTextColor)
+        checkGuessButton.backgroundColor = Theme.appleButtonBackGroundColor
         checkGuessButton.layer.cornerRadius = 10
         checkGuessButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         return checkGuessButton
@@ -46,14 +46,14 @@ class FeedViewController: UIViewController {
      
     private lazy var wordTextField: CustomTextField = {
         let wordTextField = CustomTextField(font: UIFont.systemFont(ofSize: 16), placeholder: NSLocalizedString("wordTextField.placeholder", comment: ""), borderColor: UIColor.lightGray.cgColor, borderWidth: 0.5)
-        wordTextField.backgroundColor = .systemGray
+        wordTextField.textColor = Theme.appleTextFieldTextColor
+        wordTextField.backgroundColor = Theme.appleTextFieldBackGroundColor
         wordTextField.layer.cornerRadius = 5
         return wordTextField
     }()
         
     private lazy var labelCheck: UILabel = {
        let labelCheck = UILabel()
-        //labelCheck.textColor = .black
         labelCheck.backgroundColor = .systemRed
         labelCheck.layer.cornerRadius = 10
         labelCheck.textAlignment = .center
@@ -66,23 +66,12 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.gray
+        view.backgroundColor = Theme.appleViewBackGroundColorController
         setupVerticalStack()
         actionButton()
         let tap = UITapGestureRecognizer(target: self, action: #selector(dissmisKeyboard))
         view.addGestureRecognizer(tap)
-        setupThemeStyle(button: [buttonOne,buttonTwo,checkGuessButton], textfiled: wordTextField)
     }
-    
-    private func setupThemeStyle(button: [UIButton], textfiled: UITextField) {
-        button.forEach { (button) in
-            button.setTitleColor(Theme.appleTintTextColor, for: .normal)
-        }
-        textfiled.textColor = Theme.appleTintTextColor
-        textfiled.attributedPlaceholder = NSAttributedString(string: "Введите секретное слово", attributes: [NSAttributedString.Key.foregroundColor : Theme.appleTintTextColor])
-        
-    }
-    
     @objc func dissmisKeyboard() {
         self.view.endEditing(true)
     }
@@ -93,6 +82,7 @@ class FeedViewController: UIViewController {
             self.labelCheck.textColor = .black
             self.labelCheck.backgroundColor = color
             self.labelCheck.alpha = 1
+            self.labelCheck.isHidden = false
         }
     }
     
@@ -143,8 +133,10 @@ class FeedViewController: UIViewController {
             guard let word = self.wordTextField.text else { return }
                 let feedModel = FeedModel()
                 let check = feedModel.check(word: word)
-                print(check)
-                check ? self.labelShow(text: NSLocalizedString("checkGuessButton.labelShowTrue", comment: ""), color: .green) : self.labelShow(text: NSLocalizedString("checkGuessButton.labelShowFalse", comment: ""), color: .systemRed)
+            check ? self.labelShow(text: "checkGuessButton.labelShowTrue".localized, color: .green) : self.labelShow(text: "checkGuessButton.labelShowFalse".localized, color: .systemRed)
+            let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                self.labelCheck.isHidden = true
+            }
         }
     }
         

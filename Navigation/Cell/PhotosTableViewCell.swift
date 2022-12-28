@@ -29,7 +29,8 @@ class PhotosTableViewCell: UITableViewCell {
         collectionView.dataSource = self
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "defaultcell")
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = Theme.appleViewBackGroundColorController
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -37,7 +38,7 @@ class PhotosTableViewCell: UITableViewCell {
     
     private lazy var nameLb: UILabel = {
        let nameLb = UILabel()
-        nameLb.textColor = .black
+        nameLb.textColor = Theme.appleLableTextColor
         nameLb.font = .systemFont(ofSize: 24, weight: .bold)
         nameLb.text = NSLocalizedString("nameLb.text", comment: "")
         nameLb.translatesAutoresizingMaskIntoConstraints = false
@@ -46,8 +47,9 @@ class PhotosTableViewCell: UITableViewCell {
     
     private lazy var rightImage: UIImageView = {
        let rightImage = UIImageView()
-        rightImage.image = UIImage(systemName: "arrow.right")
-        rightImage.tintColor = .black
+        let myImage = UIImage(systemName: "arrow.right")
+        rightImage.image = myImage
+        rightImage.tintColor = Theme.appleRightColor
         rightImage.translatesAutoresizingMaskIntoConstraints = false
         return rightImage
     }()

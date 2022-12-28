@@ -75,13 +75,14 @@ class ProfileViewController: UIViewController {
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         tableView.showsVerticalScrollIndicator = false
         tableView.alwaysBounceVertical = false
-        
+        tableView.backgroundColor = Theme.appleViewBackGroundColorController
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Theme.appleViewBackGroundColorController
         switch tableViewState {
         case .normal:
             print("viewWillAppear SWITCH tableViewState: \(tableViewState)")

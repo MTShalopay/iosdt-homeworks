@@ -16,8 +16,9 @@ class InfoViewController: UIViewController {
        let button = UIButton()
         button.backgroundColor = UIColor.blue
         button.layer.cornerRadius = 12
-        button.setTitle(NSLocalizedString("button.SetTitle", comment: ""), for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitle("button.SetTitle".localized, for: .normal)
+        button.setTitleColor(Theme.appleButtonTextColor, for: .normal)
+        button.backgroundColor = Theme.appleButtonBackGroundColor
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +30,7 @@ class InfoViewController: UIViewController {
         titleLabel.text = ""
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         titleLabel.numberOfLines = 0
-        titleLabel.textColor = .black
+        titleLabel.textColor = Theme.appleLableTextColor
         titleLabel.textAlignment = .center
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel
@@ -42,13 +43,14 @@ class InfoViewController: UIViewController {
         residentsTable.separatorEffect = .none
         residentsTable.delegate = self
         residentsTable.dataSource = self
+        residentsTable.backgroundColor = Theme.appleViewBackGroundColorController
         return residentsTable
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createButton()
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = Theme.appleViewBackGroundColorController
         //MARK: Решение задачи 1
 //        NetworkManager.requestBookingConfigure(for: 9, completion: { title in
 //            DispatchQueue.main.async {
@@ -58,7 +60,7 @@ class InfoViewController: UIViewController {
         //MARK: Решение задачи 2
         NetworkManager.getFetchPlanets(complited: { orbitalPeriod in
             DispatchQueue.main.async {
-                self.titleLabel.text = NSLocalizedString("getFetchPlanets.titleLabel.text" + "\(orbitalPeriod ?? "0") km", comment: "")
+                self.titleLabel.text = "getFetchPlanets.titleLabel.text".localized + " \(orbitalPeriod ?? "0") km"
             }
         })
     }
@@ -105,7 +107,7 @@ class InfoViewController: UIViewController {
         let buttonDefault = UIAlertAction(title: "Кабан", style: .default) { _ in
             print("Нажали на кабана")
         }
-        let buttonCancel = UIAlertAction(title: "Свинья", style: .cancel) {_ in
+        let buttonCancel = UIAlertAction(title: "Свинья", style: .cancel) { _ in
             print("Нажали на свинью")
         }
         alert.addAction(buttonCancel)

@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
-        
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         //realmService.createCategory(name: "Users")
         
         let loginVC = LogInViewController()
@@ -53,13 +53,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarVC.setViewControllers([feedNC,loginNC], animated: true)
         
         let allCategory = realm.objects(Category.self)
-        guard let usersCategory = realm.object(ofType: Category.self, forPrimaryKey: allCategory.first?.id) else { return }
-        let loginIn = userDefault.string(forKey: "login")
-        let passwordIn = userDefault.string(forKey: "password")
-        for user in usersCategory.users {
-            if loginIn == user.login && passwordIn == user.password {
-                print("Welcome to PROFILEVC")
-                tabBarVC.setViewControllers([feedNC, profilNC, favoriteNC], animated: true)
+        allCategory.forEach { (category) in
+            guard category.categoryName == "Users" else { return }
+            guard let usersCategory = realm.object(ofType: Category.self, forPrimaryKey: category.id) else { return }
+            let loginIn = userDefault.string(forKey: "login")
+            let passwordIn = userDefault.string(forKey: "password")
+            for user in usersCategory.users {
+                guard loginIn == user.login && passwordIn == user.password else { return }
+                    tabBarVC.setViewControllers([feedNC, profilNC, favoriteNC], animated: true)
             }
         }
         window?.rootViewController = tabBarVC
