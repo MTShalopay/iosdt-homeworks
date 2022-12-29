@@ -42,7 +42,7 @@ class LocalAuthorizationService {
             }
         }
     }
-    var currenttype: BiometricType = .none
+    var currenttype: BiometricType?
     private let context = LAContext()
     private let policy: LAPolicy
     private let localizedReason: String
@@ -57,7 +57,7 @@ class LocalAuthorizationService {
     func canEvaluate(completion: (Bool, BiometricType, BiometricError?) -> Void) {
         guard context.canEvaluatePolicy(policy, error: &error) else {
             let type = biometricType(for: context.biometryType)
-            currenttype = type
+            
             guard error != nil else {
                 completion(false, type, biometricError(from: error! as NSError))
                 return
@@ -65,7 +65,8 @@ class LocalAuthorizationService {
             completion(false, type, biometricError(from: error! as NSError))
             return
         }
-        completion(true, currenttype, nil)
+        currenttype = biometricType(for: context.biometryType)
+        completion(true, biometricType(for: context.biometryType), nil)
     }
     
     func authorizeIfPossible(_ authorizationFinished: @escaping (Bool) -> Void) {
