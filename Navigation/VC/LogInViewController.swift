@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 
 class LogInViewController: UIViewController {
+    let localAuthorizationService = LocalAuthorizationService()
     var users: Results<Category>?
     let realmService = RealmService()
     let realm = try! Realm()
@@ -94,6 +95,15 @@ class LogInViewController: UIViewController {
         getPassButton.layer.cornerRadius = 10
         return getPassButton
     }()
+    private lazy var enterFaceIDorTouchID: CustomButton = {
+        let button = CustomButton(title: "enterFaceIDorTouchIDtext".localized, titleColor: .white)
+        button.clipsToBounds = true
+        button.setTitleColor(Theme.appleButtonTextColor, for: .normal)
+        button.backgroundColor = Theme.appleButtonBackGroundColor
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(goToTabBarVC), for: .touchUpInside)
+        return button
+    }()
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -113,7 +123,6 @@ class LogInViewController: UIViewController {
         /*
          /Users/shalopay/Library/Developer/CoreSimulator/Devices/F9D2C937-826A-4E28-9610-4FC9A215EE7F/data/Containers/Data/Application/7452F94E-8FDF-4225-8840-F8D8287D35C3/Documents/
          */
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -128,6 +137,28 @@ class LogInViewController: UIViewController {
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
         //setupTimer(10, repeats: false)
+        localAuthorizationService.canEvaluate { (success, type, _) in
+            guard success else {
+                enterFaceIDorTouchID.isHidden = true
+                return
+            }
+            switch type {
+            case .faceID:
+                enterFaceIDorTouchID.isHidden = false
+                let image = UIImage(systemName: "faceid")
+                enterFaceIDorTouchID.tintColor = Theme.appleImageFaceId
+                enterFaceIDorTouchID.setImage(image, for: .normal)
+            case .touchID:
+                enterFaceIDorTouchID.isHidden = false
+                let image = UIImage(systemName: "touchid")
+                enterFaceIDorTouchID.tintColor = Theme.appleImageFaceId
+                enterFaceIDorTouchID.setImage(image, for: .normal)
+            case .none:
+                enterFaceIDorTouchID.isHidden = true
+            case .unknown:
+                enterFaceIDorTouchID.isHidden = true
+            }
+        }
     }
     
     
@@ -137,6 +168,17 @@ class LogInViewController: UIViewController {
                              selector: #selector(wakeUpAlertController),
                              userInfo: nil,
                              repeats: repeats)
+    }
+    
+    @objc private func goToTabBarVC(sender: CustomButton) {
+        localAuthorizationService.authorizeIfPossible { (success) in
+            if success {
+                print("OKEY")
+                self.showTabBarController()
+            } else {
+                print("NOY")
+            }
+        }
     }
     
     @objc func wakeUpAlertController() {
@@ -177,12 +219,13 @@ class LogInViewController: UIViewController {
         scrollView.addSubview(verticalStack)
         scrollView.addSubview(myButton)
         scrollView.addSubview(getPassButton)
+        scrollView.addSubview(enterFaceIDorTouchID)
         passTextField.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             logoImageView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 120),
@@ -202,6 +245,12 @@ class LogInViewController: UIViewController {
             getPassButton.heightAnchor.constraint(equalToConstant: 50),
             getPassButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             getPassButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            enterFaceIDorTouchID.topAnchor.constraint(equalTo: getPassButton.bottomAnchor, constant: 20),
+            enterFaceIDorTouchID.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            enterFaceIDorTouchID.heightAnchor.constraint(equalToConstant: 50),
+            enterFaceIDorTouchID.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            enterFaceIDorTouchID.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
             activityIndicator.centerYAnchor.constraint(equalTo: passTextField.centerYAnchor),
             activityIndicator.centerXAnchor.constraint(equalTo: passTextField.centerXAnchor)
                                      
@@ -244,27 +293,7 @@ class LogInViewController: UIViewController {
                     }
                     self.realmService.addUser(categoryId: category.id, user: newUser)
                 }
-                let tabBarVC = UITabBarController()
-                tabBarVC.modalPresentationStyle = .fullScreen
-                tabBarVC.modalTransitionStyle = .flipHorizontal
-                let feedVC = FeedViewController()
-                feedVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleProfileFeed", comment: "")
-                feedVC.tabBarItem.image = UIImage(systemName: "book")
-                feedVC.tabBarItem.tag = 0
-                let profilVC = ProfileViewController()
-                profilVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleProfile", comment: "")
-                profilVC.tabBarItem.image = UIImage(systemName: "person.crop.square")
-                profilVC.tabBarItem.tag = 3
-                let favoriteVC = FavoriteViewController()
-                favoriteVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleSaved", comment: "")
-                favoriteVC.tabBarItem.image = UIImage(systemName: "star")
-                favoriteVC.tabBarItem.tag = 4
-                let feedNC = UINavigationController(rootViewController: feedVC)
-                let profilNC = UINavigationController(rootViewController: profilVC)
-                let favoriteNC = UINavigationController(rootViewController: favoriteVC)
-                tabBarVC.setViewControllers([feedNC, profilNC, favoriteNC], animated: true)
-                tabBarVC.selectedViewController = profilNC
-                self.present(tabBarVC, animated: true)
+                self.showTabBarController()
             } else {
                 print("Что то пошло не так")
             }
@@ -272,6 +301,29 @@ class LogInViewController: UIViewController {
         getPassButton.action = {
             self.getPassword()
         }
+    }
+    private func showTabBarController() {
+        let tabBarVC = UITabBarController()
+        tabBarVC.modalPresentationStyle = .fullScreen
+        tabBarVC.modalTransitionStyle = .flipHorizontal
+        let feedVC = FeedViewController()
+        feedVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleProfileFeed", comment: "")
+        feedVC.tabBarItem.image = UIImage(systemName: "book")
+        feedVC.tabBarItem.tag = 0
+        let profilVC = ProfileViewController()
+        profilVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleProfile", comment: "")
+        profilVC.tabBarItem.image = UIImage(systemName: "person.crop.square")
+        profilVC.tabBarItem.tag = 3
+        let favoriteVC = FavoriteViewController()
+        favoriteVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleSaved", comment: "")
+        favoriteVC.tabBarItem.image = UIImage(systemName: "star")
+        favoriteVC.tabBarItem.tag = 4
+        let feedNC = UINavigationController(rootViewController: feedVC)
+        let profilNC = UINavigationController(rootViewController: profilVC)
+        let favoriteNC = UINavigationController(rootViewController: favoriteVC)
+        tabBarVC.setViewControllers([feedNC, profilNC, favoriteNC], animated: true)
+        tabBarVC.selectedViewController = profilNC
+        self.present(tabBarVC, animated: true)
     }
     
     @objc private func didShowKeyboard(_ notification: Notification) {

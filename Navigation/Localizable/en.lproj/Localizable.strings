@@ -20,6 +20,7 @@
 "wakeUpAlertController.message" = "The password can be selected, with your permission. Help?";
 "wakeUpAlertControllerOkAction" = "OK";
 "wakeUpAlertControllerNoAction" = "NO";
+"enterFaceIDorTouchIDtext" = "Entered";
 /*
  FeedViewController
  */

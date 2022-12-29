@@ -24,6 +24,7 @@
 "wakeUpAlertController.message" = "Пароль можно подобрать, с вашего разрешения. Помочь?";
 "wakeUpAlertControllerOkAction" = "ДА";
 "wakeUpAlertControllerNoAction" = "НЕТ";
+"enterFaceIDorTouchIDtext" = "Вход";
 /*
  FeedViewController
  */
