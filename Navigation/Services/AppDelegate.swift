@@ -9,8 +9,9 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    let localNotificationsService = LocalNotificationsService()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        localNotificationsService.registeForLatestUpdatesIfPossible()
        return true
     }
 
