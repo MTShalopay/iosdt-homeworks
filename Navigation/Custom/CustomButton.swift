@@ -9,7 +9,6 @@ import UIKit
 
 class CustomButton: UIButton {
     var action: (() -> Void)?
-    
     init(title: String? = nil, titleColor: UIColor? = nil) {
             super.init(frame: .zero)
             self.setTitle(title, for: .normal)

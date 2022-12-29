@@ -20,6 +20,15 @@ class Theme {
         return traitCollection.userInterfaceStyle == .light ? UIColor.black : UIColor.white
     }
     
+    //MARK: Theme color for ImageFaceId
+    static var appleImageFaceId = UIColor { (traitCollection) -> UIColor in
+        return traitCollection.userInterfaceStyle == .light ? UIColor.white : UIColor.black
+    }
+    //MARK: Theme color for ImageTouchId
+    static var appleImageTouchId = UIColor { (traitCollection) -> UIColor in
+        return traitCollection.userInterfaceStyle == .light ? UIColor.white : UIColor.black
+    }
+    
     //MARK: Theme color for button
     static var appleButtonBackGroundColor = UIColor { (traitCollection) -> UIColor in
         return traitCollection.userInterfaceStyle == .light ? #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1) : UIColor.white
