@@ -12,12 +12,13 @@ class CustomTextField: UITextField {
     init(font: UIFont, placeholder: String, borderColor: CGColor, borderWidth: CGFloat) {
         super.init(frame: .zero)
         self.font = font
-        self.placeholder = placeholder
+        //self.placeholder = placeholder
         self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
         self.leftViewMode = .always
         self.layer.borderWidth = borderWidth
         self.layer.borderColor = borderColor
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : Theme.appleTextFieldTextPlaceHolderColor])
         }
     
     required init?(coder: NSCoder) {

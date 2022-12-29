@@ -33,7 +33,7 @@ class LogInViewController: UIViewController {
     
     private lazy var emailTextField: UITextField = {
        let emailTextField = UITextField()
-        emailTextField.placeholder = NSLocalizedString("emailTextFieldPlaceholder", comment: "")
+        emailTextField.placeholder = "emailTextFieldPlaceholder".localized
         emailTextField.tag = 0
         emailTextField.delegate = self
         emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: emailTextField.frame.height))
@@ -42,7 +42,7 @@ class LogInViewController: UIViewController {
         emailTextField.layer.borderWidth = 0.5
         emailTextField.layer.borderColor = UIColor.lightGray.cgColor
         emailTextField.font = .systemFont(ofSize: 16)
-        emailTextField.textColor = .black
+        emailTextField.textColor = Theme.appleTextFieldTextColor
         emailTextField.tintColor = UIColor.lightText
         emailTextField.autocapitalizationType = .none
         emailTextField.backgroundColor = .systemGray6
@@ -51,7 +51,7 @@ class LogInViewController: UIViewController {
     
     private lazy var passTextField: UITextField = {
        let passTextField = UITextField()
-        passTextField.placeholder = NSLocalizedString("passTextFieldPlaceholder", comment: "")
+        passTextField.placeholder = "passTextFieldPlaceholder".localized
         passTextField.tag = 1
         passTextField.delegate = self
         passTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: passTextField.frame.height))
@@ -59,7 +59,7 @@ class LogInViewController: UIViewController {
         passTextField.layer.borderWidth = 0.5
         passTextField.layer.borderColor = UIColor.lightGray.cgColor
         passTextField.font = .systemFont(ofSize: 16)
-        passTextField.textColor = .black
+        passTextField.textColor = Theme.appleTextFieldTextColor
         passTextField.tintColor = UIColor.lightText
         passTextField.autocapitalizationType = .none
         passTextField.isSecureTextEntry = true
@@ -78,17 +78,19 @@ class LogInViewController: UIViewController {
         return verticalStack
     }()
     private lazy var myButton: CustomButton = {
-        let myButton = CustomButton(title: NSLocalizedString("myButton.title", comment: ""), titleColor: .white)
+        let myButton = CustomButton(title: "myButton.title".localized, titleColor: .white)
         myButton.clipsToBounds = true
-        myButton.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
+        myButton.setTitleColor(Theme.appleButtonTextColor, for: .normal)
+        myButton.backgroundColor = Theme.appleButtonBackGroundColor
         myButton.layer.cornerRadius = 10
         return myButton
     }()
     
     private lazy var getPassButton: CustomButton = {
-        let getPassButton = CustomButton(title: NSLocalizedString("getPassButton.title", comment: ""), titleColor: .white)
+        let getPassButton = CustomButton(title: "getPassButton.title".localized, titleColor: .white)
         getPassButton.clipsToBounds = true
-        getPassButton.setBackgroundImage(#imageLiteral(resourceName: "blue_pixel"), for: .normal)
+        getPassButton.setTitleColor(Theme.appleButtonTextColor, for: .normal)
+        getPassButton.backgroundColor = Theme.appleButtonBackGroundColor
         getPassButton.layer.cornerRadius = 10
         return getPassButton
     }()
@@ -103,7 +105,7 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Theme.appleViewBackGroundColorController
         setupGestures()
         setupViews()
         stateMyButton(sender: myButton)
@@ -111,6 +113,7 @@ class LogInViewController: UIViewController {
         /*
          /Users/shalopay/Library/Developer/CoreSimulator/Devices/F9D2C937-826A-4E28-9610-4FC9A215EE7F/data/Containers/Data/Application/7452F94E-8FDF-4225-8840-F8D8287D35C3/Documents/
          */
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -137,13 +140,13 @@ class LogInViewController: UIViewController {
     }
     
     @objc func wakeUpAlertController() {
-        let title = NSLocalizedString("wakeUpAlertController.title", comment: "")
+        let title = "wakeUpAlertController.title".localized
         let titleRange = (title as NSString).range(of: title)
         let titleAttribute = NSMutableAttributedString.init(string: title)
         titleAttribute.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: titleRange)
         titleAttribute.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue-Bold", size: 25)!, range: titleRange)
         
-        let message = NSLocalizedString("wakeUpAlertController.message", comment: "")
+        let message = "wakeUpAlertController.message".localized
         let messageRange = (message as NSString).range(of: message)
         let messageAttribute = NSMutableAttributedString.init(string: message)
         messageAttribute.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: messageRange)
@@ -152,12 +155,12 @@ class LogInViewController: UIViewController {
         alert.setValue(titleAttribute, forKey: "attributedTitle")
         alert.setValue(messageAttribute, forKey: "attributedMessage")
 
-        let okAction = UIAlertAction(title: NSLocalizedString("wakeUpAlertControllerOkAction", comment: ""), style: .destructive) {_ in
+        let okAction = UIAlertAction(title: "wakeUpAlertControllerOkAction".localized, style: .destructive) {_ in
             self.timer?.invalidate()
             self.getPassword()
 
         }
-        let noAction = UIAlertAction(title: NSLocalizedString("wakeUpAlertControllerNoAction", comment: ""), style: .cancel) { alertAction in
+        let noAction = UIAlertAction(title: "wakeUpAlertControllerNoAction".localized, style: .cancel) { alertAction in
             self.timer?.invalidate()
         }
         alert.addAction(okAction)
@@ -227,29 +230,44 @@ class LogInViewController: UIViewController {
         myButton.action = {
             guard let login = self.emailTextField.text, let password = self.passTextField.text else { return }
             if !login.isEmpty, !password.isEmpty {
-                let allCategory = self.realm.objects(Category.self)
                 self.userDefault.setValue(login, forKey: "login")
                 self.userDefault.setValue(password, forKey: "password")
+                self.realmService.createCategory(name: "Users")
                 let newUser = NewUsers()
                 newUser.login = login
                 newUser.password = password
-                self.realmService.addUser(categoryId: allCategory[0].id, user: newUser)
-                print(allCategory)
-                let profileVC = ProfileViewController()
-                self.navigationController?.pushViewController(profileVC, animated: true)
+                let allCategory = self.realm.objects(Category.self)
+                allCategory.forEach { (category) in
+                    guard category.categoryName == "Users" else {
+                        self.realmService.createCategory(name: "Users")
+                        return
+                    }
+                    self.realmService.addUser(categoryId: category.id, user: newUser)
+                }
+                let tabBarVC = UITabBarController()
+                tabBarVC.modalPresentationStyle = .fullScreen
+                tabBarVC.modalTransitionStyle = .flipHorizontal
+                let feedVC = FeedViewController()
+                feedVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleProfileFeed", comment: "")
+                feedVC.tabBarItem.image = UIImage(systemName: "book")
+                feedVC.tabBarItem.tag = 0
+                let profilVC = ProfileViewController()
+                profilVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleProfile", comment: "")
+                profilVC.tabBarItem.image = UIImage(systemName: "person.crop.square")
+                profilVC.tabBarItem.tag = 3
+                let favoriteVC = FavoriteViewController()
+                favoriteVC.tabBarItem.title = NSLocalizedString("tabBarItem.titleSaved", comment: "")
+                favoriteVC.tabBarItem.image = UIImage(systemName: "star")
+                favoriteVC.tabBarItem.tag = 4
+                let feedNC = UINavigationController(rootViewController: feedVC)
+                let profilNC = UINavigationController(rootViewController: profilVC)
+                let favoriteNC = UINavigationController(rootViewController: favoriteVC)
+                tabBarVC.setViewControllers([feedNC, profilNC, favoriteNC], animated: true)
+                tabBarVC.selectedViewController = profilNC
+                self.present(tabBarVC, animated: true)
             } else {
                 print("Что то пошло не так")
             }
-//            guard let loginDelegate = self.loginDelegate, let login = self.emailTextField.text, let password = self.passTextField.text else { return }
-//
-//            if loginDelegate.check(login: login, password: password) {
-//                let profileVC = ProfileViewController()
-//                self.navigationController?.pushViewController(profileVC, animated: true)
-//            } else {
-//                let alert = UIAlertController(title: "Ошибка", message: "Что то подсказывает что логина: \(self.emailTextField.text!) с паролем: \(self.passTextField.text!) нет в БД", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Понял принял", style: .default, handler: nil))
-//                self.present(alert, animated: true)
-//            }
         }
         getPassButton.action = {
             self.getPassword()

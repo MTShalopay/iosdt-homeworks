@@ -16,10 +16,9 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     public lazy var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
-        //avatarImageView.image = UIImage(named: "cat")
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.clipsToBounds = true
-        avatarImageView.layer.borderWidth = 3
+        avatarImageView.layer.borderWidth = 1
         avatarImageView.layer.borderColor = UIColor.white.cgColor
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         return avatarImageView
@@ -27,29 +26,28 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private lazy var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        //fullNameLabel.text = "Hipster Cat"
         fullNameLabel.textAlignment = .left
         fullNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        fullNameLabel.textColor = .black
+        fullNameLabel.textColor = Theme.appleLableTextColor
         return fullNameLabel
     }()
     private lazy var statusLabel: UILabel = {
        let statusLabel = UILabel()
-        //statusLabel.text = "Waiting for something..."
         statusLabel.font = UIFont(name: "regular", size: 14)
-        statusLabel.textColor = .gray
+        statusLabel.textColor = Theme.appleLableTextColor
         statusLabel.textAlignment = .left
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         return statusLabel
     }()
     private lazy var statusTextField: UITextField = {
         let statusTextField = UITextField()
-        statusTextField.placeholder = NSLocalizedString("statusTextField.Placeholder", comment: "")
+        //statusTextField.placeholder = "statusTextField.Placeholder".localized
         statusTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: statusTextField.frame.height))
         statusTextField.leftViewMode = .always
         statusTextField.font = UIFont(name: "regular", size: 15)
-        statusTextField.textColor = .black
-        statusTextField.backgroundColor = .white
+        statusTextField.textColor = Theme.appleTextFieldTextColor
+        statusTextField.backgroundColor = Theme.appleTextFieldBackGroundColor
+        statusTextField.attributedPlaceholder = NSAttributedString(string: "statusTextField.Placeholder".localized, attributes: [NSAttributedString.Key.foregroundColor : Theme.appleTextFieldTextPlaceHolderColor])
         statusTextField.layer.borderWidth = 1
         statusTextField.layer.cornerRadius = 12
         statusTextField.delegate = self
@@ -60,15 +58,14 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }()
     private lazy var setStatusButton: UIButton = {
         let setStatusButton = UIButton(type: .system)
-        
-        setStatusButton.backgroundColor = UIColor.blue
         setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
         setStatusButton.layer.cornerRadius = 4
         setStatusButton.layer.shadowOpacity = 0.7
         setStatusButton.layer.cornerRadius = 15
-        setStatusButton.setTitle(NSLocalizedString("setStatusButton.SetTitle", comment: ""), for: .normal)
-        setStatusButton.setTitleColor(.white, for: .normal)
+        setStatusButton.setTitle("setStatusButton.SetTitle".localized, for: .normal)
         setStatusButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        setStatusButton.setTitleColor(Theme.appleButtonTextColor, for: .normal)
+        setStatusButton.backgroundColor = Theme.appleButtonBackGroundColor
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
         setStatusButton.addTarget(self, action: #selector(buttonPressed(sender:)), for: .touchUpInside)
         return setStatusButton
@@ -80,6 +77,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         addGestureRecognizer(tapDissmis)
         setupView()
         createUser()
+        contentView.backgroundColor = Theme.appleViewBackGroundColorController
     }
     
     

@@ -16,6 +16,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         avaImage.contentMode = .scaleAspectFill
         avaImage.clipsToBounds = true
         avaImage.layer.cornerRadius = 6
+        avaImage.layer.borderWidth = 1
+        avaImage.layer.borderColor = UIColor.white.cgColor
         avaImage.translatesAutoresizingMaskIntoConstraints = false
         return avaImage
     }()
@@ -23,7 +25,6 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
-        
     }
     
     required init?(coder: NSCoder) {
