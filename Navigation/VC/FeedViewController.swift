@@ -129,6 +129,7 @@ class FeedViewController: UIViewController {
             postVC.myMessage = NSLocalizedString("actionButton.buttonTwe.Message", comment: "")
             self.navigationController?.pushViewController(postVC, animated: true)
         }
+        
         checkGuessButton.action = {
             guard let word = self.wordTextField.text else { return }
                 let feedModel = FeedModel()
@@ -141,4 +142,5 @@ class FeedViewController: UIViewController {
     }
         
 }
+
 
