@@ -126,7 +126,7 @@ class PostTableViewCell: UITableViewCell {
     func setupCoreDataItems(with post: FavoriteItem) {
         authorLb.text = post.author
         if let tempimage = post.image {
-            myImageView.image = UIImage(named: tempimage)
+            myImageView.image = UIImage(data: tempimage)
         }
         descriptionLb.text = post.desc
         likesCount.text = post.likes
@@ -146,7 +146,7 @@ class PostTableViewCell: UITableViewCell {
          */
         //MARK: Решение задачи 3*
         
-        guard let sourceImage = UIImage(named: post.image) else { return }
+        guard let sourceImage = post.image else { return }
         DispatchQueue.main.async {
             self.imageProcessor.processImage(sourceImage: sourceImage, filter: .fade) { image in
                 self.myImageView.image = image

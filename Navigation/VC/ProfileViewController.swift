@@ -8,10 +8,11 @@
 import UIKit
 import StorageService
 import SnapKit
+import UniformTypeIdentifiers
 
 class ProfileViewController: UIViewController {
     let coreDataManager = CoreDataManager.shared
-    var indexSelectedRow: Int?
+    var indexSelectedRow: IndexPath?
     var tableViewState: TableViewState = .nsfetchedResultsController
     
     private lazy var tappingImage: UIImageView = {
@@ -24,7 +25,7 @@ class ProfileViewController: UIViewController {
         return imageView
     }()
     
-    private let post = Post.setupPost()
+    private var post = Post.setupPost()
     let headerView = ProfileHeaderView()
     var startPointAvatar: CGPoint?
     var cornerRadiusAvatar: CGFloat?
@@ -60,8 +61,11 @@ class ProfileViewController: UIViewController {
         return fullscreenBackView
     }()
     
-    private lazy var tableView: UITableView = {
+    private lazy var postTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -123,8 +127,8 @@ class ProfileViewController: UIViewController {
     }
     
     private func setupView() {
-        view.addSubview(tableView)
-        tableView.addSubview(tappingImage)
+        view.addSubview(postTableView)
+        postTableView.addSubview(tappingImage)
         view.addSubview(fullscreenBackView)
         view.addSubview(avatarImageView)
         fullscreenBackView.addSubview(cancelButton)
@@ -141,7 +145,7 @@ class ProfileViewController: UIViewController {
          Если статический анализатор сначала выдаст ошибку после импорта, воспользуйтесь Cmd-B (build).
          */
         //MARK: Решение задачи 1
-        tableView.snp.makeConstraints { (make) in
+        postTableView.snp.makeConstraints { (make) in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
         avatarImageView.snp.makeConstraints { (make) in
@@ -194,24 +198,24 @@ class ProfileViewController: UIViewController {
     
     @objc func doubleTap(sender: UITapGestureRecognizer) {
         let touchPoint = sender.location(in: sender.view)
-        guard let indexPath = tableView.indexPathForRow(at: touchPoint) else { return }
-            self.indexSelectedRow = indexPath.row
-        let favoritePostAuth = self.post[self.indexSelectedRow!].author
-        let favoritePostImage = self.post[self.indexSelectedRow!].image
-        let favoritePostDesc = self.post[self.indexSelectedRow!].desc
-        let favoritePostLikes = self.post[self.indexSelectedRow!].likes
-        let favoritePostViews = self.post[self.indexSelectedRow!].views
+        guard let indexPath = postTableView.indexPathForRow(at: touchPoint) else { return }
+            self.indexSelectedRow = indexPath
+        let favoritePostAuth = self.post[self.indexSelectedRow!.row].author
+        guard let favoritePostImage = self.post[self.indexSelectedRow!.row].image else {return}
+        let favoritePostDesc = self.post[self.indexSelectedRow!.row].desc
+        let favoritePostLikes = self.post[self.indexSelectedRow!.row].likes
+        let favoritePostViews = self.post[self.indexSelectedRow!.row].views
         switch tableViewState {
         case .normal:
             print("profilevc switch :\(tableViewState)")
-            guard self.coreDataManager.checkDuplicate(imagePath: favoritePostImage) else {
+            guard self.coreDataManager.checkDuplicate(authorName: favoritePostAuth) else {
                 alertContoller()
                 return
             }
             animationView(author: favoritePostAuth, imagePath: favoritePostImage, desc: favoritePostDesc, likes: String(favoritePostLikes), views: String(favoritePostViews))
         case .nsfetchedResultsController:
             print("profilevc switch: \(tableViewState)")
-            guard self.coreDataManager.checkDuplicate(imagePath: favoritePostImage) else {
+            guard self.coreDataManager.checkDuplicate(authorName: favoritePostAuth) else {
                 let q = FavoriteViewController()
                 q.tableViewState = .nsfetchedResultsController
                 alertContoller()
@@ -228,7 +232,7 @@ class ProfileViewController: UIViewController {
         alertController.addAction(cancelAction)
         present(alertController, animated: true)
     }
-    private func animationView(author: String, imagePath: String, desc: String, likes: String, views: String) {
+    private func animationView(author: String, imagePath: UIImage, desc: String, likes: String, views: String) {
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
                        options: .allowUserInteraction) {
@@ -237,7 +241,8 @@ class ProfileViewController: UIViewController {
             self.tappingImage.alpha = 0.8
         } completion: { _ in
             UIView.animate(withDuration: 0.3) {
-                self.coreDataManager.addNewItem(author: author, imagePath: imagePath, desc: desc, likes: String(likes), views: String(views))
+                guard let dataImage = imagePath.pngData() else { return }
+                self.coreDataManager.addNewItem(author: author, imagePath: dataImage, desc: desc, likes: String(likes), views: String(views))
                 self.tappingImage.alpha = 0
             }
         }
@@ -300,7 +305,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.addGestureRecognizer(doubleTapping)
             doubleTapping.delaysTouchesBegan = true
         
-            cellTwo.isUserInteractionEnabled = false
+            //cellTwo.isUserInteractionEnabled = false
         return indexPath.section == 0 ? cellOne : cellTwo
     }
     
@@ -326,4 +331,34 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return nil
     }
    }
+}
+
+extension ProfileViewController: UITableViewDragDelegate, UITableViewDropDelegate {
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+            let dragPostImage = post[indexPath.row].image
+            let dragPostDesc = post[indexPath.row].desc
+            let itemProviderImage = NSItemProvider(item: dragPostImage, typeIdentifier: UTType.image.identifier)
+        NSItemProvider(object: dragPostImage! as UIImage)
+            let itemProviderDesc = NSItemProvider(item: dragPostDesc.data(using: .utf8) as? NSData, typeIdentifier: UTType.plainText.identifier)
+        return [UIDragItem(itemProvider: itemProviderDesc),
+                UIDragItem(itemProvider: itemProviderImage)
+        ]
+    }
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        guard let destinationIndexPath = coordinator.destinationIndexPath else { return }
+        _ = coordinator.session.loadObjects(ofClass: String.self, completion: { (items) in
+            if items.count > 0 {
+                DispatchQueue.main.async {
+                    print("ITEMS :\(items) :\(items.count)")
+                    guard let postDesc = items.first else { return }
+                    guard let imageURL: URL = URL(string: items[0]) else { return }
+                    print("postDesc :\(postDesc)")
+                    print("imageURL: \(imageURL)")
+                    self.post.insert(Post(author: "Drag&Drop", desc: ":\(postDesc)", image: UIImage(contentsOfFile: imageURL.path), likes: 0, views: 0), at: destinationIndexPath.row)
+                    tableView.reloadData()
+                }
+            }
+        })
+    }
 }

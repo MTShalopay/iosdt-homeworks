@@ -38,6 +38,8 @@
 		49517771294B990300BDEE07 /* Extension+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49517770294B990300BDEE07 /* Extension+Localizable.swift */; };
 		49517776294B9FAE00BDEE07 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49517775294B9FAE00BDEE07 /* Theme.swift */; };
 		496FF6E4295DE803006D8EE9 /* LocalNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496FF6E3295DE803006D8EE9 /* LocalNotificationsService.swift */; };
+		496FF762295F3A7D006D8EE9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494B779628B52F7400B52949 /* Post.swift */; };
+		4990DE6C2967396400AE7227 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0590C2EA63BB965848DFD8F2 /* Pods_Navigation.framework */; };
 		499896F62840DF5B000ACA06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F52840DF5B000ACA06 /* AppDelegate.swift */; };
 		499896F82840DF5B000ACA06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499896F72840DF5B000ACA06 /* SceneDelegate.swift */; };
 		499896FF2840DF5F000ACA06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 499896FE2840DF5F000ACA06 /* Assets.xcassets */; };
@@ -52,7 +54,6 @@
 		49FD4E8729316CE900862859 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 49FD4E8629316CE900862859 /* RealmSwift */; };
 		49FD4E902931721D00862859 /* UsersRealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FD4E8F2931721D00862859 /* UsersRealmData.swift */; };
 		49FD4E9429317D9C00862859 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FD4E9329317D9C00862859 /* RealmService.swift */; };
-		84B3DBAF6058FD453C832CA4 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0590C2EA63BB965848DFD8F2 /* Pods_Navigation.framework */; };
 		F885C366FB66CB4CF298AA14 /* Pods_StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF8184ABE9131C583B455E0 /* Pods_StorageService.framework */; };
 /* End PBXBuildFile section */
 
@@ -202,7 +203,7 @@
 				494B778B28B52D0300B52949 /* StorageService.framework in Frameworks */,
 				49FD4E8529316CE900862859 /* Realm in Frameworks */,
 				49FD4E8729316CE900862859 /* RealmSwift in Frameworks */,
-				84B3DBAF6058FD453C832CA4 /* Pods_Navigation.framework in Frameworks */,
+				4990DE6C2967396400AE7227 /* Pods_Navigation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,6 +814,7 @@
 				494CFD7E28BFE96E00502F5D /* LoginInspector.swift in Sources */,
 				49FD4E902931721D00862859 /* UsersRealmData.swift in Sources */,
 				49446F9E2933A977006A4C3F /* FavoriteTableViewCell.swift in Sources */,
+				496FF762295F3A7D006D8EE9 /* Post.swift in Sources */,
 				4998971F2840EC73000ACA06 /* PostViewController.swift in Sources */,
 				493F603C285B4C0C00AF42DC /* PhotosCollectionViewCell.swift in Sources */,
 				494EAF3B28BEABA300220F50 /* TestUserService.swift in Sources */,
