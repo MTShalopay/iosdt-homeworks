@@ -4,7 +4,7 @@
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
-        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="likes" optional="YES" attributeType="String"/>
         <attribute name="views" optional="YES" attributeType="String"/>
     </entity>

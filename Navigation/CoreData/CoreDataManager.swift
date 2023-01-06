@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import UIKit
 
 enum TableViewState {
     case normal, nsfetchedResultsController, searchPost
@@ -64,7 +65,7 @@ class CoreDataManager {
         }
     }
     
-    func addNewItem(author: String, imagePath: String, desc: String, likes: String, views: String) {
+    func addNewItem(author: String, imagePath: Data, desc: String, likes: String, views: String) {
         persistentContainer.performBackgroundTask { (contex) in
             let item = FavoriteItem(context: contex)
             item.date = Date()
@@ -87,9 +88,9 @@ class CoreDataManager {
         reloadFolders()
     }
         
-    func checkDuplicate(imagePath: String) -> Bool {
+    func checkDuplicate(authorName: String) -> Bool {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteItem")
-        fetchRequest.predicate = NSPredicate(format: "image == %@", argumentArray: [imagePath])
+        fetchRequest.predicate = NSPredicate(format: "author == %@", argumentArray: [authorName])
         let count = try! persistentContainer.viewContext.count(for: fetchRequest)
         fetchRequest.fetchLimit = count
         guard count == 0 else {
